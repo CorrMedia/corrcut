@@ -1036,9 +1036,9 @@ class PreviewPanel(QWidget):
                 fallback_aspect=fallback,
                 device_pixel_ratio=dpr,
             )
-            if rect is not None:
+            if isinstance(rect, (tuple, list)) and len(rect) == 4:
                 x, y, w, h = rect
-                return QRectF(x, y, w, h)
+                return QRectF(float(x), float(y), float(w), float(h))
         from corrcut.preview.mpv_backend import aspect_letterbox_rect
 
         fallback_rect = aspect_letterbox_rect(float(host.width()), float(host.height()), fallback)

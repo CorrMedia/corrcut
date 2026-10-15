@@ -17,6 +17,12 @@ from corrcut.ui.preview_panel import PreviewPanel, _mpv_embed_widget
 _app = QApplication.instance() or QApplication([])
 
 
+def _mock_preview_backend() -> MagicMock:
+    backend = MagicMock()
+    backend.video_letterbox_rect.return_value = None
+    return backend
+
+
 def _sample_project(media_path: Path) -> Project:
     return Project(
         source=SourceFileRecord(
@@ -56,7 +62,7 @@ def test_restore_after_modal_remounts_mpv_on_windows(monkeypatch: pytest.MonkeyP
 
     def fake_mount() -> None:
         mount_calls.append(True)
-        panel._backend = MagicMock()
+        panel._backend = _mock_preview_backend()
         panel._mpv_widget = MagicMock()
 
     panel._mount_video_widget = fake_mount  # type: ignore[method-assign]
@@ -69,6 +75,7 @@ def test_restore_after_modal_remounts_mpv_on_windows(monkeypatch: pytest.MonkeyP
 
     assert mount_calls == [True]
     assert reload_calls == [True]
+    panel.close()
 
 
 def test_reload_media_with_filters_wires_duration_handler() -> None:
@@ -77,7 +84,7 @@ def test_reload_media_with_filters_wires_duration_handler() -> None:
     panel._project = _sample_project(media_path)
     panel._media_path = media_path
 
-    fake_backend = MagicMock()
+    fake_backend = _mock_preview_backend()
     panel._backend = fake_backend
     panel._reload_media_with_filters()
 
@@ -87,3 +94,4 @@ def test_reload_media_with_filters_wires_duration_handler() -> None:
 
     fake_backend.duration_changed.connect.assert_called_once()
     fake_backend.load.assert_called_once_with(media_path)
+    panel.close()

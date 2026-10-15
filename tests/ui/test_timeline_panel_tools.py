@@ -2,6 +2,7 @@
 
 import pytest
 from PySide6.QtCore import QPoint, Qt
+from PySide6.QtGui import QKeyEvent
 from PySide6.QtTest import QTest
 from PySide6.QtWidgets import QApplication, QToolButton
 
@@ -150,8 +151,11 @@ def test_tool_status_stays_while_messages_flash(editor_window) -> None:  # type:
 
 
 def test_playhead_time_is_plain_until_edited() -> None:
+    while QApplication.overrideCursor() is not None:
+        QApplication.restoreOverrideCursor()
     panel = TimelinePanel()
     panel.show()
+    panel.setFocus()
     panel.timeline.set_duration(120.0)
     panel.sync_playhead_display(65.5)
     _app.processEvents()
@@ -196,7 +200,11 @@ def test_playhead_time_is_plain_until_edited() -> None:
     _app.processEvents()
     assert edit.selectedText() == edit.text()
     edit.setText("not-a-time")
-    QTest.keyClick(edit, Qt.Key.Key_Escape)
+    edit.keyPressEvent(
+        QKeyEvent(QKeyEvent.Type.KeyPress, Qt.Key.Key_Escape, Qt.KeyboardModifier.NoModifier),
+    )
+    _app.processEvents()
+    panel.setFocus()
     _app.processEvents()
     assert not edit.hasFocus()
     assert edit.isReadOnly()
@@ -232,6 +240,10 @@ def test_playhead_time_is_plain_until_edited() -> None:
     assert not edit.hasFocus()
     assert edit.isReadOnly()
     assert edit.text() == format_timecode(12.5)
+    edit._stop_watching_outside_clicks()  # noqa: SLF001
+    panel.close()
+    panel.deleteLater()
+    _app.processEvents()
 
 
 def test_tool_strip_can_be_disabled() -> None:

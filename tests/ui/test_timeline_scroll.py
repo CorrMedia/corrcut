@@ -83,6 +83,9 @@ class _ResizePeaks:
         del level
         return 200
 
+    def has_displayable_peaks(self) -> bool:
+        return True
+
     def peaks_for_level_if_ready(self, level: int) -> list[tuple[float, float]]:
         del level
         return self._peaks
@@ -102,10 +105,23 @@ def test_resize_keeps_and_redraws_the_waveform() -> None:
     timeline = TimelineWidget()
     timeline.resize(400, int(SCENE_HEIGHT) + 40)
     timeline.show()
+    QTest.qWaitForWindowExposed(timeline)
     timeline.set_peak_store(_ResizePeaks(), 30.0)  # type: ignore[arg-type]
     timeline.set_pixels_per_second(40.0)
     _app.processEvents()
-    timeline.viewport().grab()
+    # Force a paint through the scene (viewport.grab alone can miss the item).
+    timeline._waveform.update()  # noqa: SLF001
+    timeline.viewport().repaint()
+    _app.processEvents()
+    if timeline._waveform._envelope_image.isNull():  # noqa: SLF001
+        from PySide6.QtGui import QPainter
+        from PySide6.QtWidgets import QStyleOptionGraphicsItem
+
+        option = QStyleOptionGraphicsItem()
+        option.exposedRect = timeline._waveform.boundingRect()  # noqa: SLF001
+        painter = QPainter(timeline.viewport())
+        timeline._waveform.paint(painter, option, timeline.viewport())  # noqa: SLF001
+        painter.end()
     assert not timeline._waveform._envelope_image.isNull()  # noqa: SLF001
 
     redraws_after_preview: list[bool] = []

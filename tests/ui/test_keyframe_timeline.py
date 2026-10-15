@@ -192,7 +192,8 @@ def test_box_track_scrub_coalesces_then_exact_seeks() -> None:
     panel.queue_keyframe_scrub_seek(1.2)
     panel.queue_keyframe_scrub_seek(1.4)
     assert panel._backend.calls == [(1.0, "absolute+keyframes")]  # type: ignore[attr-defined]
-    QTest.qWait(60)
+    while panel._keyframe_scrub_timer.isActive():  # type: ignore[attr-defined]
+        QTest.qWait(10)
     assert panel._backend.calls == [  # type: ignore[attr-defined]
         (1.0, "absolute+keyframes"),
         (1.4, "absolute+keyframes"),

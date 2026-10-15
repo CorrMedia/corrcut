@@ -13,6 +13,12 @@ from corrcut.ui.preview_panel import PreviewPanel, _PreviewFullscreenWindow, _Vi
 _app = QApplication.instance() or QApplication([])
 
 
+def _mock_preview_backend() -> MagicMock:
+    backend = MagicMock()
+    backend.video_letterbox_rect.return_value = None
+    return backend
+
+
 def test_overlay_host_lowers_content_before_raising_button() -> None:
     host = _VideoOverlayHost()
     host.resize(640, 360)
@@ -29,7 +35,7 @@ def test_overlay_host_lowers_content_before_raising_button() -> None:
 
 def test_fullscreen_reparents_subtitle_overlay() -> None:
     panel = PreviewPanel()
-    panel._backend = MagicMock()
+    panel._backend = _mock_preview_backend()
     old_widget = panel._mpv_widget
     panel._video_layout_slot.removeWidget(old_widget)
     old_widget.setParent(None)
@@ -51,11 +57,12 @@ def test_fullscreen_reparents_subtitle_overlay() -> None:
 
     assert not panel.is_fullscreen
     assert panel._subtitle_overlay.parent() is panel._video_host
+    panel.close()
 
 
 def test_fullscreen_reparents_video_widget() -> None:
     panel = PreviewPanel()
-    panel._backend = MagicMock()
+    panel._backend = _mock_preview_backend()
     old_widget = panel._mpv_widget
     panel._video_layout_slot.removeWidget(old_widget)
     old_widget.setParent(None)
@@ -75,6 +82,7 @@ def test_fullscreen_reparents_video_widget() -> None:
     assert not panel.is_fullscreen
     assert panel._fullscreen_btn.icon().cacheKey() == panel._fullscreen_enter_icon.cacheKey()
     assert panel._video_layout_slot.indexOf(panel._mpv_widget) >= 0
+    panel.close()
 
 
 def test_enter_fullscreen_requires_mpv() -> None:
@@ -82,11 +90,18 @@ def test_enter_fullscreen_requires_mpv() -> None:
     panel._backend = None
     panel.enter_fullscreen()
     assert not panel.is_fullscreen
+    panel.close()
 
 
 def test_fullscreen_emits_state_signal() -> None:
     panel = PreviewPanel()
-    panel._backend = MagicMock()
+    panel._backend = _mock_preview_backend()
+    old_widget = panel._mpv_widget
+    panel._video_layout_slot.removeWidget(old_widget)
+    old_widget.setParent(None)
+    old_widget.deleteLater()
+    panel._mpv_widget = QWidget(panel._video_host)
+    panel._video_layout_slot.addWidget(panel._mpv_widget)
     states: list[bool] = []
     panel.fullscreen_changed.connect(states.append)
 
@@ -94,6 +109,7 @@ def test_fullscreen_emits_state_signal() -> None:
     panel.exit_fullscreen()
 
     assert states == [True, False]
+    panel.close()
 
 
 def test_fullscreen_cursor_hides_after_inactivity() -> None:
@@ -149,7 +165,7 @@ def test_fullscreen_exit_button_hides_with_cursor() -> None:
 
 def test_alt_enter_in_fullscreen_toggles_out() -> None:
     panel = PreviewPanel()
-    panel._backend = MagicMock()
+    panel._backend = _mock_preview_backend()
     old_widget = panel._mpv_widget
     panel._video_layout_slot.removeWidget(old_widget)
     old_widget.setParent(None)
@@ -170,3 +186,4 @@ def test_alt_enter_in_fullscreen_toggles_out() -> None:
     )
 
     assert not panel.is_fullscreen
+    panel.close()
