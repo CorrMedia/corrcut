@@ -10,7 +10,9 @@ This repository does not ship movies, a shared filter catalog, or generated repl
 
 ## Install
 
-End users get one Windows installer: the app, FFmpeg, MKVToolNix, vobsubocr, the pinned LGPL libmpv build, and third-party license notices. Build it from this repo:
+**Download:** get `CorrCUT-Setup.exe` from the [latest GitHub Release](https://github.com/CorrMedia/corrcut/releases/latest). That installer bundles the app, FFmpeg, MKVToolNix, vobsubocr, the pinned LGPL libmpv build, and third-party license notices.
+
+To build the installer yourself:
 
 ```powershell
 .\scripts\build-windows-release.ps1
@@ -18,7 +20,7 @@ End users get one Windows installer: the app, FFmpeg, MKVToolNix, vobsubocr, the
 
 The script writes `dist\CorrCUT-Setup.exe`. It uses `vobsubocr.exe` under `src\corrcut\resources\vobsubocr\win-amd64\` (that executable is tracked; rebuild it with `scripts\bundle-vobsubocr.ps1` when the OCR tool changes). FFmpeg, MKVToolNix, and libmpv are copied from that resources tree when present, and downloaded when they are not. The downloaded FFmpeg is the pinned 8.1 GPL archive in the script, not the floating BtbN `latest` tag. The installer uses the CPU build of PaddlePaddle so bitmap OCR runs without an NVIDIA driver.
 
-`LIMITS.txt` is the page shown before install and is copied beside the app, along with `THIRD_PARTY_NOTICES.txt`, the `licenses\` folder of full GPL/LGPL/Apache/Python texts, and the public certificate `corrcut-codesign.cer`. The release script removes unused `language_tool_python` and Qt WebEngine/PDF wheels before packaging so they are not redistributed. The installer can add that certificate to the current user's Trusted Root and Trusted Publishers. A tag build signs the setup when the repository secrets `CORRCUT_SIGN_PFX_BASE64` and `CORRCUT_SIGN_PFX_PASSWORD` are set, and stops if they are missing. A manual run can set **allow unsigned** for a dry build.
+`LIMITS.txt` is the page shown before install and is copied beside the app, along with `THIRD_PARTY_NOTICES.txt`, the `licenses\` folder of full GPL/LGPL/Apache/Python texts, and the public certificate `corrcut-codesign.cer`. The release script removes unused `language_tool_python` and Qt WebEngine/PDF wheels before packaging so they are not redistributed. The installer can add that certificate to the current user's Trusted Root and Trusted Publishers. Pushing a `v*` tag builds the setup and publishes it on the GitHub Releases page; the build is Authenticode-signed when `CORRCUT_SIGN_PFX_BASE64` and `CORRCUT_SIGN_PFX_PASSWORD` are set, otherwise unsigned. A manual workflow run can set **allow unsigned** for a dry build.
 
 See [MOVIE_EDITOR_MASTER_BLUEPRINT.md](MOVIE_EDITOR_MASTER_BLUEPRINT.md) for architecture and phased roadmap.
 

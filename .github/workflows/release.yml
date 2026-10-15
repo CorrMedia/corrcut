@@ -1,5 +1,6 @@
-# vobsubocr.exe is tracked (see .gitignore). A tag build signs the setup when
-# CORRCUT_SIGN_PFX_BASE64 and CORRCUT_SIGN_PFX_PASSWORD are set, and stops otherwise.
+# vobsubocr.exe is tracked (see .gitignore). Tag builds produce a GitHub Release
+# with CorrCUT-Setup.exe. Signing runs when CORRCUT_SIGN_PFX_BASE64 and
+# CORRCUT_SIGN_PFX_PASSWORD are set; otherwise the installer is unsigned.
 name: Windows installer
 
 on:
@@ -13,6 +14,9 @@ on:
     tags:
       - "v*"
 
+permissions:
+  contents: write
+
 jobs:
   installer:
     runs-on: windows-latest
@@ -20,6 +24,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Build CorrCUT setup
+        id: build
         shell: pwsh
         env:
           CORRCUT_SIGN_PFX_BASE64: ${{ secrets.CORRCUT_SIGN_PFX_BASE64 }}
@@ -27,6 +32,7 @@ jobs:
           ALLOW_UNSIGNED: ${{ github.event_name == 'workflow_dispatch' && inputs.allow_unsigned }}
         run: |
           $ErrorActionPreference = "Stop"
+          $signed = $false
           if ($env:CORRCUT_SIGN_PFX_BASE64) {
             $pfx = Join-Path $env:RUNNER_TEMP "corrcut.pfx"
             [IO.File]::WriteAllBytes(
@@ -34,15 +40,38 @@ jobs:
               [Convert]::FromBase64String($env:CORRCUT_SIGN_PFX_BASE64.Trim())
             )
             $env:CORRCUT_SIGN_PFX = $pfx
+            $signed = $true
           }
           $buildArgs = @()
-          if ($env:ALLOW_UNSIGNED -ne "true") {
+          if ($signed) {
             $buildArgs += "-RequireSignature"
+          } elseif ($env:GITHUB_REF -like "refs/tags/*") {
+            Write-Host "No signing certificate in repo secrets; building an unsigned installer for this tag."
+          } elseif ($env:ALLOW_UNSIGNED -ne "true") {
+            throw "No signing certificate. Re-run with allow_unsigned, or add CORRCUT_SIGN_PFX_BASE64 and CORRCUT_SIGN_PFX_PASSWORD."
           }
           & .\scripts\build-windows-release.ps1 @buildArgs
+          if ($signed) {
+            "signed=true" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          } else {
+            "signed=false" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          }
 
       - uses: actions/upload-artifact@v4
         with:
           name: CorrCUT-Setup
           path: dist/CorrCUT-Setup.exe
           if-no-files-found: error
+
+      - name: Publish GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/CorrCUT-Setup.exe
+          generate_release_notes: true
+          body: |
+            Windows installer for CorrCUT.
+
+            Download **CorrCUT-Setup.exe**, then run it. See `LIMITS.txt` and `THIRD_PARTY_NOTICES.txt` beside the installed app for use limits and third-party licenses.
+
+            ${{ steps.build.outputs.signed == 'true' && 'This build is Authenticode-signed.' || 'This build is **unsigned** (no signing certificate was configured for this workflow run). Windows SmartScreen may warn on first launch; the public `corrcut-codesign.cer` can be installed as described in LIMITS.txt when using a signed build.' }}
