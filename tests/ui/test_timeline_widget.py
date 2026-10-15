@@ -692,7 +692,10 @@ def test_timeline_lanes_are_flush_with_the_view_edges() -> None:
         if abs(timeline.sceneRect().width() - float(timeline.viewport().width())) < 0.5:
             break
         QTest.qWait(20)
-    assert timeline.sceneRect().width() == pytest.approx(float(timeline.viewport().width()), abs=0.5)
+    assert timeline.sceneRect().width() == pytest.approx(
+        float(timeline.viewport().width()),
+        abs=0.5,
+    )
 
 
 def test_edits_disabled_drag_seeks_without_creating() -> None:
