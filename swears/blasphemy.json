@@ -1,0 +1,125 @@
+[
+	{
+		"key": "allah",
+		"filter_constituents": false,
+		"plural": false
+	},
+	{
+		"key": "christ",
+		"filter_constituents": false,
+		"plural": false,
+		"phrases": [
+			{
+				"text": "for christ sake",
+				"mute_span": "trigger"
+			},
+			{
+				"text": "for christ's sake",
+				"mute_span": "trigger"
+			}
+		]
+	},
+	{
+		"key": "god",
+		"filter_constituents": false,
+		"plural": false,
+		"forms": [
+			"goddamn",
+			"godamn",
+			"godamnit",
+			"goddammit",
+			"goddamned",
+			"godforsaken"
+		],
+		"phrases": [
+			{
+				"text": "my god",
+				"mute_span": "trigger"
+			},
+			{
+				"text": "oh my god",
+				"mute_span": "trigger"
+			},
+			{
+				"text": "good god",
+				"mute_span": "trigger"
+			},
+			{
+				"text": "holy god",
+				"mute_span": "trigger"
+			},
+			{
+				"text": "god damn",
+				"mute_span": "trigger"
+			}
+		],
+		"exceptions": [
+			"sight of god",
+			"may god have mercy",
+			"spoken to god",
+			"pray to god",
+			"god help us"
+		]
+	},
+	{
+		"key": "jesus",
+		"filter_constituents": false,
+		"plural": false,
+		"phrases": [
+			{
+				"text": "jesus christ",
+				"mute_span": "trigger"
+			},
+			{
+				"text": "jesus h christ",
+				"mute_span": "trigger"
+			},
+			{
+				"text": "sweet jesus",
+				"mute_span": "trigger"
+			},
+			{
+				"text": "oh jesus",
+				"mute_span": "trigger"
+			}
+		]
+	},
+	{
+		"key": "satan",
+		"filter_constituents": false,
+		"plural": false,
+		"forms": [
+			"satanic"
+		],
+		"exceptions": [
+			"satanic panic",
+			"satanic verses"
+		]
+	},
+	{
+		"key": "devil",
+		"filter_constituents": false,
+		"plural": true,
+		"forms": [
+			"devilish"
+		],
+		"phrases": [
+			{
+				"text": "speak of the devil",
+				"mute_span": "trigger"
+			}
+		],
+		"exceptions": [
+			"devil's food",
+			"devil's advocate",
+			"blue devil",
+			"dust devil",
+			"heat devil"
+		]
+	},
+	{
+		"key": "lord",
+		"filter_constituents": false,
+		"plural": false
+	}
+]

@@ -1,0 +1,1 @@
+For private home viewing of a copy you are allowed to play. Work is saved in a .corrcut project. Export writes a corr.json sidecar that CorrMedia applies during playback. This app does not create a new movie file.

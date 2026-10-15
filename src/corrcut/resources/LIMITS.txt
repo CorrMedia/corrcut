@@ -1,0 +1,13 @@
+CorrCUT 0.1.0 runs on 64-bit Windows.
+
+Work is saved in a project file (.corrcut) next to the movie. Export writes a corr.json file that CorrMedia applies while the movie plays. This app does not create a new movie file.
+
+The project file does not contain the movie's picture or sound. If you load captions or run speech detection, it keeps those words.
+
+For private home viewing of a copy you are allowed to play.
+
+Bitmap subtitle OCR in this installer uses the CPU build of PaddlePaddle. It does not need an NVIDIA driver.
+
+This version does not queue several movies, and it does not update itself.
+
+The setup is signed by CorrMedia. Windows does not trust that signature until corrcut-codesign.cer is installed for this user under Trusted Root and Trusted Publishers. The installer can do that. A downloaded setup can still show SmartScreen the first time.

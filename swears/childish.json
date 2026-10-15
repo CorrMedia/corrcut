@@ -1,0 +1,224 @@
+[
+	{
+		"key": "bum",
+		"filter_constituents": false,
+		"plural": false
+	},
+	{
+		"key": "butt",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "dumb",
+		"filter_constituents": false,
+		"plural": false,
+		"forms": [
+			"dummy",
+			"dummies"
+		]
+	},
+	{
+		"key": "fart",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "jerk",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "peepee",
+		"filter_constituents": false,
+		"plural": false
+	},
+	{
+		"key": "piss",
+		"filter_constituents": false,
+		"plural": true,
+		"forms": [
+			"pissed",
+			"pissing",
+			"pisser",
+			"pissy"
+		],
+		"phrases": [
+			{
+				"text": "piss off",
+				"mute_span": "trigger"
+			},
+			{
+				"text": "piss on",
+				"mute_span": "trigger"
+			},
+			{
+				"text": "piss out",
+				"mute_span": "trigger"
+			},
+			{
+				"text": "piss in",
+				"mute_span": "trigger"
+			},
+			{
+				"text": "piss away",
+				"mute_span": "trigger"
+			},
+			{
+				"text": "piss down",
+				"mute_span": "trigger"
+			},
+			{
+				"text": "piss up",
+				"mute_span": "trigger"
+			},
+			{
+				"text": "piss around",
+				"mute_span": "trigger"
+			},
+			{
+				"text": "piss about",
+				"mute_span": "trigger"
+			},
+			{
+				"text": "pissed off",
+				"mute_span": "trigger"
+			},
+			{
+				"text": "pissed on",
+				"mute_span": "trigger"
+			},
+			{
+				"text": "take a piss",
+				"mute_span": "trigger"
+			}
+		]
+	},
+	{
+		"key": "poop",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "stupid",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "weewee",
+		"filter_constituents": false,
+		"plural": false
+	},
+	{
+		"key": "turd",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "doody",
+		"filter_constituents": false,
+		"plural": false,
+		"forms": [
+			"doodoo"
+		],
+		"phrases": [
+			{
+				"text": "doo-doo",
+				"mute_span": "trigger"
+			}
+		]
+	},
+	{
+		"key": "heck",
+		"filter_constituents": false,
+		"plural": false,
+		"phrases": [
+			{
+				"text": "what the heck",
+				"mute_span": "trigger"
+			}
+		]
+	},
+	{
+		"key": "darn",
+		"filter_constituents": false,
+		"plural": false
+	},
+	{
+		"key": "booger",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "wiener",
+		"filter_constituents": false,
+		"plural": true,
+		"forms": [
+			"weiner"
+		],
+		"exceptions": [
+			"wiener dog",
+			"vienna wiener"
+		]
+	},
+	{
+		"key": "butthead",
+		"filter_constituents": false,
+		"plural": true,
+		"forms": [
+			"buttface"
+		],
+		"phrases": [
+			{
+				"text": "butt head",
+				"mute_span": "trigger"
+			},
+			{
+				"text": "butt-face",
+				"mute_span": "trigger"
+			}
+		]
+	},
+	{
+		"key": "suck",
+		"filter_constituents": true,
+		"plural": true,
+		"forms": [
+			"sucks",
+			"sucked",
+			"sucking"
+		],
+		"phrases": [
+			{
+				"text": "suck my",
+				"mute_span": "phrase"
+			},
+			{
+				"text": "suck it",
+				"mute_span": "phrase"
+			}
+		],
+		"exceptions": [
+			"suck at",
+			"suck on the",
+			"vacuum suck",
+			"suction",
+			"luck"
+		]
+	},
+	{
+		"key": "idiot",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "moron",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "loser",
+		"filter_constituents": false,
+		"plural": true
+	}
+]

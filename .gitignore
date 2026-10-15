@@ -1,0 +1,47 @@
+*.wav
+*.mkv
+*.corrcut
+*.exe
+!src/corrcut/resources/vobsubocr/win-amd64/vobsubocr.exe
+*.corr.json
+
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+dist/
+build/
+.venv/
+venv/
+.env
+
+# Tools
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# App runtime
+*.log
+.cache/
+temp/
+tmp/
+
+# Media fixtures (large files — add your own locally)
+fixtures/*.mkv
+fixtures/*.mp4
+fixtures/*.wav
+!fixtures/README.md
+
+# OS
+Thumbs.db
+Desktop.ini

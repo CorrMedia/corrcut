@@ -1,0 +1,48 @@
+# vobsubocr.exe is tracked (see .gitignore). A tag build signs the setup when
+# CORRCUT_SIGN_PFX_BASE64 and CORRCUT_SIGN_PFX_PASSWORD are set, and stops otherwise.
+name: Windows installer
+
+on:
+  workflow_dispatch:
+    inputs:
+      allow_unsigned:
+        description: Build without a code-signing certificate
+        type: boolean
+        default: false
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  installer:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build CorrCUT setup
+        shell: pwsh
+        env:
+          CORRCUT_SIGN_PFX_BASE64: ${{ secrets.CORRCUT_SIGN_PFX_BASE64 }}
+          CORRCUT_SIGN_PFX_PASSWORD: ${{ secrets.CORRCUT_SIGN_PFX_PASSWORD }}
+          ALLOW_UNSIGNED: ${{ github.event_name == 'workflow_dispatch' && inputs.allow_unsigned }}
+        run: |
+          $ErrorActionPreference = "Stop"
+          if ($env:CORRCUT_SIGN_PFX_BASE64) {
+            $pfx = Join-Path $env:RUNNER_TEMP "corrcut.pfx"
+            [IO.File]::WriteAllBytes(
+              $pfx,
+              [Convert]::FromBase64String($env:CORRCUT_SIGN_PFX_BASE64.Trim())
+            )
+            $env:CORRCUT_SIGN_PFX = $pfx
+          }
+          $buildArgs = @()
+          if ($env:ALLOW_UNSIGNED -ne "true") {
+            $buildArgs += "-RequireSignature"
+          }
+          & .\scripts\build-windows-release.ps1 @buildArgs
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: CorrCUT-Setup
+          path: dist/CorrCUT-Setup.exe
+          if-no-files-found: error

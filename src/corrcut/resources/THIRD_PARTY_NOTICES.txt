@@ -1,0 +1,197 @@
+Third-party notices for CorrCUT
+==============================
+
+CorrCUT's own code is under the MIT license (see LICENSE next to the
+application). The Windows build also includes separate programs and libraries.
+Those stay under their own licenses. They are run as separate tools or loaded
+as dynamically linked libraries; CorrCUT does not statically link the GPL
+tools into its own binary.
+
+Full license texts for the main copyleft and common open-source licenses ship
+in the licenses\ folder next to this file (and under
+src\corrcut\resources\licenses\ in the source tree).
+
+A BUILD.txt file next to the installed application records the exact download
+used for FFmpeg, MKVToolNix, and libmpv when the installer fetched them.
+
+Written offer for corresponding source
+--------------------------------------
+For any GPL-licensed binary CorrMedia redistributes with CorrCUT (currently
+the pinned FFmpeg GPL build, MKVToolNix, and subtile-ocr / vobsubocr), CorrMedia
+offers to provide the corresponding source code on a durable physical medium
+at cost of distribution, or by download, for three years after you receive
+this copy. Request source through the CorrCUT repository that published this
+build (the Issues or Discussions page for that release), or use the upstream
+URLs listed below and in BUILD.txt. Upstream projects already publish their
+source at those URLs; this offer covers redistributed binaries when you prefer
+to request them through CorrMedia.
+
+LGPL libraries redistributed with CorrCUT (libmpv, Qt / PySide6, python-mpv
+under LGPL, and crc32c) may be replaced in the install tree with a compatible
+LGPL build. Source is available at the URLs below; you may also request it
+through the same repository Issues or Discussions page.
+
+Not redistributed in the Windows release
+----------------------------------------
+After pip install, the release script removes packages CorrCUT does not use:
+
+  - language_tool_python (GPL-3.0-only; pulled by sup2srt for optional
+    LanguageTool spell-check that this app never calls)
+  - PySide6-WebEngine and PySide6-Pdf (and their Qt DLLs), which the editor
+    does not import
+
+Those packages are therefore not part of the redistributed application.
+
+Bundled tools (separate processes)
+----------------------------------
+
+FFmpeg (ffmpeg.exe, ffprobe.exe)
+  License: GPL-2.0-or-later for the pinned win64-gpl build (see licenses\GPL-2.0.txt).
+  Source: https://ffmpeg.org/download.html
+  Windows builds used by the release script are a pinned FFmpeg 8.1 GPL
+  archive, not the floating "latest" tag:
+  https://github.com/BtbN/FFmpeg-Builds/releases/download/autobuild-2026-09-30-13-08/ffmpeg-n8.1.3-9-g29e619e767-win64-gpl-8.1.zip
+  That autobuild is the last build of September 2026, which BtbN keeps for two years.
+  https://github.com/BtbN/FFmpeg-Builds
+
+MKVToolNix (mkvmerge.exe, mkvextract.exe)
+  License: GPL-2.0-or-later (see licenses\GPL-2.0.txt)
+  Source: https://mkvtoolnix.download/source.html
+  Builds: https://mkvtoolnix.download/downloads.html
+
+subtile-ocr (shipped as vobsubocr.exe)
+  License: GPL-3.0-only (see licenses\GPL-3.0.txt)
+  Source: https://github.com/gwen-lg/subtile-ocr
+
+Tesseract OCR (tesseract DLL and tessdata used by vobsubocr)
+  License: Apache-2.0 (see licenses\Apache-2.0.txt)
+  Source: https://github.com/tesseract-ocr/tesseract
+
+Leptonica
+  License: BSD-2-Clause
+  Source: http://www.leptonica.org/
+
+Other DLLs copied beside vobsubocr by scripts/bundle-vobsubocr.ps1 come from
+vcpkg (libpng, zlib, libjpeg-turbo, libtiff, OpenJPEG, libwebp, giflib, xz,
+lz4, zstd, libarchive, curl, OpenSSL, and related ports). Each keeps the
+license of its upstream project. Source is the vcpkg port set used to build
+that folder.
+
+Dynamically loaded libraries
+----------------------------
+
+libmpv (libmpv-2.dll and DLLs extracted beside it)
+  License: LGPL-2.1-or-later (see licenses\LGPL-2.1.txt). The release script
+  keeps the pinned mpv-winbuild archive whose name contains "lgpl". Do not
+  swap in a GPL-only mpv build.
+  Source: https://github.com/mpv-player/mpv
+  Windows archive: https://github.com/zhongfly/mpv-winbuild/releases
+
+Qt / PySide6 / shiboken6
+  License: LGPL-3.0 (or GPL-2.0 / GPL-3.0 at your option for the Qt libraries;
+  CorrCUT uses them under LGPL-3.0). See licenses\LGPL-3.0.txt.
+  You may replace the Qt / PySide6 libraries in the install tree with a
+  compatible LGPL build.
+  Source: https://download.qt.io/official_releases/qt/
+  Additional Qt third-party notices ship with the PySide6 wheel under:
+    python\Lib\site-packages\PySide6-*.dist-info\licenses\
+
+Embeddable CPython
+  License: Python Software Foundation License (see licenses\Python-PSF.txt)
+  Source: https://www.python.org/downloads/source/
+
+Python packages used by the editor
+----------------------------------
+Exact versions are those installed into the staged embeddable Python
+(python\Lib\site-packages). Each package also keeps its own LICENSE /
+METADATA under its *.dist-info folder.
+
+sup2srt
+  License: MIT
+  Source: https://pypi.org/project/sup2srt/
+  Used for PGS bitmap decode helpers and OCR text postprocess. The Windows
+  release does not ship its optional LanguageTool dependency (see above).
+
+PaddleOCR / PaddlePaddle / PaddleX
+  License: Apache-2.0
+  Source: https://github.com/PaddlePaddle/PaddleOCR
+  and https://github.com/PaddlePaddle/Paddle
+
+crc32c
+  License: LGPL-2.1-or-later (see licenses\LGPL-2.1.txt)
+  Source: https://github.com/ICRAR/crc32c
+  Pulled in by the Baidu BCE SDK used with the Paddle stack. You may replace
+  the crc32c package in the install tree with a compatible LGPL build.
+
+OpenCV (opencv-contrib-python)
+  License: Apache-2.0
+  Source: https://github.com/opencv/opencv
+
+ONNX Runtime
+  License: MIT
+  Source: https://github.com/microsoft/onnxruntime
+
+faster-whisper
+  License: MIT
+  Source: https://github.com/SYSTRAN/faster-whisper
+
+ctranslate2
+  License: MIT
+  Source: https://github.com/OpenNMT/CTranslate2
+
+PyAV (av)
+  License: BSD-3-Clause
+  Source: https://github.com/PyAV-Org/PyAV
+
+NumPy
+  License: BSD-3-Clause (and other permissive notices in the wheel)
+  Source: https://numpy.org/
+
+Pandas
+  License: BSD-3-Clause
+  Source: https://pandas.pydata.org/
+
+ModelScope
+  License: Apache-2.0
+  Source: https://github.com/modelscope/modelscope
+
+Hugging Face Hub / tokenizers / hf-xet
+  License: Apache-2.0
+  Source: https://github.com/huggingface
+
+cryptography
+  License: Apache-2.0 OR BSD-3-Clause
+  Source: https://github.com/pyca/cryptography
+
+Pillow
+  License: MIT-CMU / HPND
+  Source: https://python-pillow.org/
+
+python-mpv (PyPI package name: mpv)
+  License: GPL-2.0-or-later OR LGPL-2.1-or-later. CorrCUT uses it under
+  LGPL-2.1-or-later (see licenses\LGPL-2.1.txt). libmpv itself is LGPL as above.
+  Source: https://github.com/jaseg/python-mpv
+
+qtawesome
+  License: MIT for the Python package
+  Source: https://github.com/spyder-ide/qtawesome
+  Icon fonts bundled by qtawesome (used for toolbar icons) keep their own
+  licenses, including:
+    - Font Awesome Free: icons CC BY 4.0, fonts SIL OFL 1.1 (licenses\OFL-1.1.txt)
+    - Material Design Icons: Apache-2.0 (licenses\Apache-2.0.txt)
+    - Codicons, Phosphor, Remix Icon, and others: see the qtawesome package
+      documentation and font vendor licenses for the versions installed
+
+certifi
+  License: MPL-2.0
+  Source: https://github.com/certifi/python-certifi
+  The MPL-covered CA bundle file ships under
+  python\Lib\site-packages\certifi\; source for that file is the same project.
+
+Other small dependencies pulled in by the packages above (requests, urllib3,
+protobuf, PyYAML, tqdm, shapely, pypdfium2, and similar) keep the licenses
+recorded in their PyPI METADATA and dist-info LICENSE files inside the
+install tree.
+
+The published application does not include movies, a shared filter catalog, or
+generated replacement audio or video.

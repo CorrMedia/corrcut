@@ -1,0 +1,429 @@
+[
+	{
+		"key": "arse",
+		"language": "en-GB",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "ass",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true,
+		"forms": [
+			"jackass"
+		],
+		"phrases": [
+			{
+				"text": "your heavy ass",
+				"mute_span": "trigger"
+			},
+			{
+				"text": "your ass",
+				"mute_span": "trigger"
+			},
+			{
+				"text": "your asses",
+				"mute_span": "trigger"
+			}
+		]
+	},
+	{
+		"key": "asshole",
+		"language": "en-US",
+		"filter_constituents": true,
+		"plural": true
+	},
+	{
+		"key": "bastard",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true,
+		"exceptions": [
+			"bastardly"
+		]
+	},
+	{
+		"key": "bitch",
+		"language": "en-US",
+		"filter_constituents": true,
+		"plural": true,
+		"forms": [
+			"sonofabitch",
+			"bitchy",
+			"bitches",
+			"bitching",
+			"bitchin"
+		],
+		"phrases": [
+			{
+				"text": "sons of bitches",
+				"mute_span": "phrase"
+			},
+			{
+				"text": "son of a bitch",
+				"mute_span": "phrase"
+			}
+		]
+	},
+	{
+		"key": "bloody",
+		"language": "en-GB",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "bollocks",
+		"language": "en-GB",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "bugger",
+		"language": "en-GB",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "crap",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": false
+	},
+	{
+		"key": "cunt",
+		"language": "en-GB",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "damn",
+		"language": "en-US",
+		"filter_constituents": true,
+		"plural": true,
+		"phrases": [
+			{
+				"text": "damn it",
+				"mute_span": "phrase"
+			}
+		]
+	},
+	{
+		"key": "feck",
+		"language": "en-IE",
+		"filter_constituents": true,
+		"plural": true
+	},
+	{
+		"key": "fuck",
+		"language": "en-US",
+		"filter_constituents": true,
+		"plural": true,
+		"phrases": [
+			{
+				"text": "fuck it",
+				"mute_span": "phrase"
+			},
+			{
+				"text": "fuck you",
+				"mute_span": "phrase"
+			},
+			{
+				"text": "fuck off",
+				"mute_span": "phrase"
+			},
+			{
+				"text": "fuck this",
+				"mute_span": "phrase"
+			},
+			{
+				"text": "fuck that",
+				"mute_span": "phrase"
+			},
+			{
+				"text": "fuck me",
+				"mute_span": "phrase"
+			},
+			{
+				"text": "fuck him",
+				"mute_span": "phrase"
+			},
+			{
+				"text": "fuck her",
+				"mute_span": "phrase"
+			},
+			{
+				"text": "fuck them",
+				"mute_span": "phrase"
+			},
+			{
+				"text": "fuck yourself",
+				"mute_span": "phrase"
+			}
+		]
+	},
+	{
+		"key": "hell",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true,
+		"phrases": [
+			{
+				"text": "in hell",
+				"mute_span": "trigger"
+			},
+			{
+				"text": "the hell",
+				"mute_span": "trigger"
+			},
+			{
+				"text": "the hell's",
+				"mute_span": "trigger"
+			},
+			{
+				"text": "in the hell",
+				"mute_span": "trigger"
+			},
+			{
+				"text": "go to hell",
+				"mute_span": "trigger"
+			},
+			{
+				"text": "raise hell",
+				"mute_span": "trigger"
+			},
+			{
+				"text": "a hell of",
+				"mute_span": "trigger"
+			}
+		]
+	},
+	{
+		"key": "shit",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true,
+		"forms": [
+			"shitty",
+			"shitting",
+			"shithead",
+			"dipshit",
+			"horseshit",
+			"batshit",
+			"apeshit"
+		]
+	},
+	{
+		"key": "bullshit",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": false,
+		"forms": [
+			"bullshitting",
+			"bullshitin"
+		]
+	},
+	{
+		"key": "motherfucker",
+		"language": "en-US",
+		"filter_constituents": true,
+		"plural": true,
+		"forms": [
+			"motherfucking",
+			"motherfuckin",
+			"mofo"
+		]
+	},
+	{
+		"key": "fucker",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true,
+		"forms": [
+			"fuckers",
+			"fuckface",
+			"fuckwad",
+			"fuckwit",
+			"fuckhead",
+			"clusterfuck"
+		]
+	},
+	{
+		"key": "fucking",
+		"language": "en-US",
+		"filter_constituents": true,
+		"plural": false,
+		"forms": [
+			"fuckin",
+			"fucked",
+			"unfucking"
+		]
+	},
+	{
+		"key": "dumbass",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true,
+		"forms": [
+			"dumbasses",
+			"smartass",
+			"smartasses",
+			"badass",
+			"hardass",
+			"fatass",
+			"lazyass",
+			"kickass"
+		],
+		"phrases": [
+			{
+				"text": "bad-ass",
+				"mute_span": "trigger"
+			}
+		]
+	},
+	{
+		"key": "asshat",
+		"language": "en-US",
+		"filter_constituents": true,
+		"plural": true
+	},
+	{
+		"key": "asswipe",
+		"language": "en-US",
+		"filter_constituents": true,
+		"plural": true
+	},
+	{
+		"key": "scumbag",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "skank",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "sleazebag",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true,
+		"forms": [
+			"sleazeball"
+		]
+	},
+	{
+		"key": "frick",
+		"language": "en-US",
+		"filter_constituents": true,
+		"plural": false,
+		"forms": [
+			"frig",
+			"friggin",
+			"frigging",
+			"fricking",
+			"freaking",
+			"freakin"
+		]
+	},
+	{
+		"key": "screw",
+		"language": "en-US",
+		"filter_constituents": true,
+		"plural": true,
+		"exceptions": [
+			"screwdriver",
+			"screw driver",
+			"screws and",
+			"machine screw",
+			"wood screw",
+			"screw loose",
+			"screw up the"
+		]
+	},
+	{
+		"key": "shite",
+		"language": "en-GB",
+		"filter_constituents": false,
+		"plural": false
+	},
+	{
+		"key": "tosser",
+		"language": "en-GB",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "knob",
+		"language": "en-GB",
+		"filter_constituents": false,
+		"plural": true,
+		"exceptions": [
+			"door knob",
+			"doorknob",
+			"volume knob",
+			"tuning knob"
+		]
+	},
+	{
+		"key": "bellend",
+		"language": "en-GB",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "pillock",
+		"language": "en-GB",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "prat",
+		"language": "en-GB",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "minge",
+		"language": "en-GB",
+		"filter_constituents": false,
+		"plural": false
+	},
+	{
+		"key": "retard",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true,
+		"forms": [
+			"retarded",
+			"tard"
+		],
+		"exceptions": [
+			"flame retardant",
+			"fire retardant"
+		]
+	},
+	{
+		"key": "hoe",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true,
+		"exceptions": [
+			"garden hoe",
+			"hoe the field",
+			"hoe row"
+		]
+	},
+	{
+		"key": "biatch",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true,
+		"forms": [
+			"beeotch",
+			"beeyotch"
+		]
+	}
+]

@@ -1,0 +1,866 @@
+[
+	{
+		"key": "anal",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": false
+	},
+	{
+		"key": "anus",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "areole",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true,
+		"forms": [
+			"areola",
+			"areolas"
+		]
+	},
+	{
+		"key": "balls",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": false,
+		"phrases": [
+			{
+				"text": "set of balls",
+				"mute_span": "trigger"
+			},
+			{
+				"text": "balls deep",
+				"mute_span": "trigger"
+			},
+			{
+				"text": "balls to the wall",
+				"mute_span": "trigger"
+			},
+			{
+				"text": "balls out",
+				"mute_span": "trigger"
+			},
+			{
+				"text": "balls to the walls",
+				"mute_span": "trigger"
+			}
+		],
+		"exceptions": [
+			"golf balls",
+			"basket balls",
+			"soccer balls"
+		]
+	},
+	{
+		"key": "ballsack",
+		"language": "en-US",
+		"filter_constituents": true,
+		"plural": true
+	},
+	{
+		"key": "beastial",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true,
+		"forms": [
+			"bestiality",
+			"beastiality"
+		]
+	},
+	{
+		"key": "blowjob",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "boob",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true,
+		"forms": [
+			"boobs",
+			"boobies",
+			"boobie"
+		]
+	},
+	{
+		"key": "breast",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "bukkake",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": false
+	},
+	{
+		"key": "clit",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true,
+		"forms": [
+			"clitoris"
+		]
+	},
+	{
+		"key": "cock",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true,
+		"exceptions": [
+			"cocks gun"
+		]
+	},
+	{
+		"key": "condom",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "cum",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": false,
+		"forms": [
+			"cumming",
+			"cumshot"
+		],
+		"phrases": [
+			{
+				"text": "cum shot",
+				"mute_span": "trigger"
+			}
+		]
+	},
+	{
+		"key": "cunillingus",
+		"language": "en-US",
+		"filter_constituents": true,
+		"plural": true
+	},
+	{
+		"key": "cunnilingus",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": false
+	},
+	{
+		"key": "dick",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "dildo",
+		"language": "en-US",
+		"filter_constituents": true,
+		"plural": true
+	},
+	{
+		"key": "dink",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "douche",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true,
+		"forms": [
+			"douchebag"
+		]
+	},
+	{
+		"key": "ejaculat",
+		"language": "en-US",
+		"filter_constituents": true,
+		"plural": true,
+		"forms": [
+			"ejaculation"
+		]
+	},
+	{
+		"key": "erection",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "erotic",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": false,
+		"forms": [
+			"erotica"
+		]
+	},
+	{
+		"key": "felatio",
+		"language": "en-US",
+		"filter_constituents": true,
+		"plural": true,
+		"forms": [
+			"fellatio",
+			"fellating"
+		]
+	},
+	{
+		"key": "fingering",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "foreskin",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "gangbang",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "genitalia",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "hardon",
+		"language": "en-US",
+		"filter_constituents": true,
+		"plural": true,
+		"forms": [
+			"boner",
+			"boners"
+		],
+		"phrases": [
+			{
+				"text": "hard-on",
+				"mute_span": "phrase"
+			},
+			{
+				"text": "hard on",
+				"mute_span": "phrase"
+			}
+		]
+	},
+	{
+		"key": "hentai",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "horny",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "hump",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "jerk-off",
+		"language": "en-US",
+		"filter_constituents": true,
+		"plural": true
+	},
+	{
+		"key": "jiz",
+		"language": "en-US",
+		"filter_constituents": true,
+		"plural": true,
+		"forms": [
+			"jizz",
+			"jizzed",
+			"jizzing"
+		]
+	},
+	{
+		"key": "kooch",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "masturbate",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true,
+		"forms": [
+			"masturbation",
+			"jaggoff"
+		],
+		"phrases": [
+			{
+				"text": "jerk off",
+				"mute_span": "trigger"
+			},
+			{
+				"text": "jack off",
+				"mute_span": "trigger"
+			},
+			{
+				"text": "beat off",
+				"mute_span": "trigger"
+			}
+		]
+	},
+	{
+		"key": "nipple",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "nuts-mild",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": false
+	},
+	{
+		"key": "orgasm",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true,
+		"forms": [
+			"orgasmic"
+		]
+	},
+	{
+		"key": "pecker",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true,
+		"exceptions": [
+			"pecker wood",
+			"peckerwood"
+		]
+	},
+	{
+		"key": "penis",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "porn",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": false,
+		"forms": [
+			"porno",
+			"pornography"
+		]
+	},
+	{
+		"key": "prick",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "puss",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true,
+		"exceptions": [
+			"puss in boots"
+		]
+	},
+	{
+		"key": "pussy",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "panty",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "queer",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true,
+		"exceptions": [
+			"queer theory",
+			"queer eye",
+			"queer studies",
+			"queer community"
+		]
+	},
+	{
+		"key": "rectum",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "rimjob",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "scrotum",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "sex",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": false,
+		"forms": [
+			"sexual",
+			"sexting"
+		],
+		"exceptions": [
+			"what sex is it",
+			"sexed",
+			"sexing"
+		]
+	},
+	{
+		"key": "skeet",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "slut",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "testicle",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "threesome",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "tit",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true,
+		"forms": [
+			"tits",
+			"titties",
+			"titty"
+		]
+	},
+	{
+		"key": "twat",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "vagina",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "vulva",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "wang",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "wank",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "wanker",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "whore",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "willy",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "handjob",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true,
+		"phrases": [
+			{
+				"text": "hand job",
+				"mute_span": "trigger"
+			},
+			{
+				"text": "hand-job",
+				"mute_span": "trigger"
+			}
+		]
+	},
+	{
+		"key": "footjob",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true,
+		"phrases": [
+			{
+				"text": "foot job",
+				"mute_span": "trigger"
+			}
+		]
+	},
+	{
+		"key": "deepthroat",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true,
+		"phrases": [
+			{
+				"text": "deep throat",
+				"mute_span": "trigger"
+			},
+			{
+				"text": "deep-throat",
+				"mute_span": "trigger"
+			}
+		]
+	},
+	{
+		"key": "semen",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": false
+	},
+	{
+		"key": "sperm",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": false,
+		"exceptions": [
+			"sperm whale",
+			"sperm count",
+			"sperm donor"
+		]
+	},
+	{
+		"key": "hooker",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true,
+		"forms": [
+			"prostitute",
+			"prostitution",
+			"streetwalker"
+		]
+	},
+	{
+		"key": "nude",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": false,
+		"forms": [
+			"nudes",
+			"nudity",
+			"naked",
+			"streaking",
+			"streaker"
+		]
+	},
+	{
+		"key": "orgy",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true,
+		"forms": [
+			"orgies",
+			"orgiastic"
+		]
+	},
+	{
+		"key": "smut",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": false,
+		"forms": [
+			"smutty"
+		]
+	},
+	{
+		"key": "creampie",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true,
+		"phrases": [
+			{
+				"text": "cream pie",
+				"mute_span": "trigger"
+			}
+		],
+		"exceptions": [
+			"cream pie dessert",
+			"coconut cream pie",
+			"banana cream pie"
+		]
+	},
+	{
+		"key": "cameltoe",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true,
+		"phrases": [
+			{
+				"text": "camel toe",
+				"mute_span": "trigger"
+			}
+		]
+	},
+	{
+		"key": "snatch",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true,
+		"exceptions": [
+			"snatch victory",
+			"snatch the ball",
+			"snatch and grab",
+			"power snatch",
+			"snatch block"
+		]
+	},
+	{
+		"key": "muff",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true,
+		"exceptions": [
+			"ear muff",
+			"earmuff",
+			"muffin",
+			"english muff"
+		]
+	},
+	{
+		"key": "beaver",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true,
+		"exceptions": [
+			"beaver dam",
+			"beaver tail",
+			"busy beaver",
+			"eager beaver"
+		]
+	},
+	{
+		"key": "rape",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true,
+		"forms": [
+			"rapist",
+			"raping",
+			"raped"
+		],
+		"exceptions": [
+			"rape seed",
+			"rapeseed",
+			"grape",
+			"drape",
+			"scrape",
+			"landscape"
+		]
+	},
+	{
+		"key": "molest",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true,
+		"forms": [
+			"molester",
+			"molesting",
+			"molested",
+			"molestation"
+		]
+	},
+	{
+		"key": "pedophile",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true,
+		"forms": [
+			"pedo",
+			"paedophile",
+			"paedophilia",
+			"pedophilia"
+		]
+	},
+	{
+		"key": "incest",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": false,
+		"forms": [
+			"incestuous"
+		]
+	},
+	{
+		"key": "bondage",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": false,
+		"exceptions": [
+			"bondage tape",
+			"in bondage to",
+			"debt bondage"
+		]
+	},
+	{
+		"key": "bdsm",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": false
+	},
+	{
+		"key": "dominatrix",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "lapdance",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true,
+		"phrases": [
+			{
+				"text": "lap dance",
+				"mute_span": "trigger"
+			},
+			{
+				"text": "lap-dance",
+				"mute_span": "trigger"
+			}
+		]
+	},
+	{
+		"key": "stripper",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": true,
+		"forms": [
+			"stripclub",
+			"striptease"
+		],
+		"phrases": [
+			{
+				"text": "strip club",
+				"mute_span": "trigger"
+			}
+		]
+	},
+	{
+		"key": "goldenshower",
+		"language": "en-US",
+		"filter_constituents": true,
+		"plural": true,
+		"phrases": [
+			{
+				"text": "golden shower",
+				"mute_span": "phrase"
+			}
+		]
+	},
+	{
+		"key": "scissoring",
+		"language": "en-US",
+		"filter_constituents": false,
+		"plural": false,
+		"exceptions": [
+			"scissor kick",
+			"scissor lift",
+			"scissor hands"
+		]
+	},
+	{
+		"key": "nut",
+		"language": "en-US",
+		"filter_constituents": true,
+		"plural": true,
+		"forms": [
+			"nutted",
+			"nutting"
+		],
+		"phrases": [
+			{
+				"text": "bust a nut",
+				"mute_span": "phrase"
+			}
+		],
+		"exceptions": [
+			"peanut",
+			"walnut",
+			"chestnut",
+			"hazelnut",
+			"macadamia nut",
+			"nut and bolt",
+			"nut driver",
+			"wing nut",
+			"lock nut"
+		]
+	},
+	{
+		"key": "shaft",
+		"language": "en-US",
+		"filter_constituents": true,
+		"plural": true,
+		"exceptions": [
+			"elevator shaft",
+			"mine shaft",
+			"drive shaft",
+			"shaft of light",
+			"light shaft"
+		]
+	}
+]

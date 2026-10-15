@@ -1,0 +1,257 @@
+[
+	{
+		"key": "chink",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "cracker",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "gook",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "heeb",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "jap",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "kike",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "kraut",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "nigger",
+		"filter_constituents": false,
+		"plural": true,
+		"forms": [
+			"niggers",
+			"nigguh",
+			"niggar"
+		]
+	},
+	{
+		"key": "nigga",
+		"filter_constituents": false,
+		"plural": true,
+		"forms": [
+			"niggas",
+			"niggaz"
+		]
+	},
+	{
+		"key": "pollock",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "wetback",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "wop",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "spic",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "beaner",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "coon",
+		"filter_constituents": false,
+		"plural": true,
+		"exceptions": [
+			"raccoon",
+			"coon skin",
+			"coonskin cap"
+		]
+	},
+	{
+		"key": "paki",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "honky",
+		"filter_constituents": false,
+		"plural": true,
+		"forms": [
+			"honkey",
+			"honkie"
+		]
+	},
+	{
+		"key": "gringo",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "mick",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "dago",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "guinea",
+		"filter_constituents": false,
+		"plural": true,
+		"exceptions": [
+			"guinea pig",
+			"guinea fowl",
+			"equatorial guinea",
+			"papua new guinea"
+		]
+	},
+	{
+		"key": "slope",
+		"filter_constituents": false,
+		"plural": true,
+		"exceptions": [
+			"ski slope",
+			"downhill slope",
+			"steep slope"
+		]
+	},
+	{
+		"key": "raghead",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "towelhead",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "redskin",
+		"filter_constituents": false,
+		"plural": true,
+		"exceptions": [
+			"redskin potato"
+		]
+	},
+	{
+		"key": "injun",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "halfbreed",
+		"filter_constituents": false,
+		"plural": true,
+		"phrases": [
+			{
+				"text": "half-breed",
+				"mute_span": "trigger"
+			}
+		]
+	},
+	{
+		"key": "spook",
+		"filter_constituents": false,
+		"plural": true,
+		"exceptions": [
+			"spook show",
+			"intelligence spook",
+			"cia spook"
+		]
+	},
+	{
+		"key": "zipperhead",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "yid",
+		"filter_constituents": false,
+		"plural": true
+	},
+	{
+		"key": "abo",
+		"filter_constituents": false,
+		"plural": true,
+		"exceptions": [
+			"abo blood",
+			"abo group",
+			"abo system"
+		]
+	},
+	{
+		"key": "faggot",
+		"filter_constituents": false,
+		"plural": true,
+		"forms": [
+			"fag",
+			"fags",
+			"fagot",
+			"faggots"
+		]
+	},
+	{
+		"key": "dyke",
+		"filter_constituents": false,
+		"plural": true,
+		"exceptions": [
+			"dyke wall",
+			"levee dyke",
+			"sea dyke"
+		]
+	},
+	{
+		"key": "tranny",
+		"filter_constituents": false,
+		"plural": true,
+		"forms": [
+			"trannies"
+		],
+		"exceptions": [
+			"automatic tranny",
+			"manual tranny",
+			"transmission tranny"
+		]
+	},
+	{
+		"key": "gypsy",
+		"filter_constituents": false,
+		"plural": true,
+		"forms": [
+			"gypsies"
+		]
+	},
+	{
+		"key": "oriental",
+		"filter_constituents": false,
+		"plural": true,
+		"exceptions": [
+			"oriental rug",
+			"oriental carpet",
+			"oriental express"
+		]
+	}
+]
