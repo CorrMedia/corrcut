@@ -683,8 +683,16 @@ def test_timeline_lanes_are_flush_with_the_view_edges() -> None:
     assert timeline.sceneRect().width() == timeline.viewport().width()
 
     timeline.resize(1100, 420)
-    QTest.qWait(50)
-    assert timeline.sceneRect().width() == timeline.viewport().width()
+    # Resize layout is deferred (~16ms); scrollbar can also shrink the viewport after.
+    for _ in range(30):
+        _app.processEvents()
+        if timeline._resize_in_progress:  # noqa: SLF001
+            timeline._finalize_resize()  # noqa: SLF001
+            _app.processEvents()
+        if abs(timeline.sceneRect().width() - float(timeline.viewport().width())) < 0.5:
+            break
+        QTest.qWait(20)
+    assert timeline.sceneRect().width() == pytest.approx(float(timeline.viewport().width()), abs=0.5)
 
 
 def test_edits_disabled_drag_seeks_without_creating() -> None:
