@@ -626,6 +626,8 @@ def test_enabled_toggle_switches_and_emits(qtbot) -> None:
 
 
 def test_d_shortcut_toggles_enabled_when_list_focused(qtbot) -> None:
+    from PySide6.QtGui import QKeyEvent
+
     panel = OperationsPanel()
     qtbot.addWidget(panel)
     op = _mute_op(channels=["FC"])
@@ -635,9 +637,11 @@ def test_d_shortcut_toggles_enabled_when_list_focused(qtbot) -> None:
     qtbot.waitExposed(panel)
     panel.select_operation(op.id, emit_selection_changed=False)
     panel.update_operation_editor(op)
-    panel._list.setFocus()
+    # Headless CI often will not grant keyboard focus; drive the list handler directly.
     with qtbot.waitSignal(panel.enabled_changed, timeout=1000) as blocker:
-        qtbot.keyClick(panel._list, Qt.Key.Key_D)
+        panel._list.keyPressEvent(
+            QKeyEvent(QKeyEvent.Type.KeyPress, Qt.Key.Key_D, Qt.KeyboardModifier.NoModifier)
+        )
     assert blocker.args == [op.id, False]
     assert op.enabled is False
 
@@ -689,6 +693,8 @@ def test_severity_combo_keeps_unknown_number(qtbot) -> None:
 
 
 def test_delete_key_emits_delete_requested(qtbot) -> None:
+    from PySide6.QtGui import QKeyEvent
+
     panel = OperationsPanel()
     qtbot.addWidget(panel)
     op = _mute_op(channels=["FC"])
@@ -697,9 +703,10 @@ def test_delete_key_emits_delete_requested(qtbot) -> None:
     panel.show()
     qtbot.waitExposed(panel)
     panel.select_operation(op.id, emit_selection_changed=False)
-    panel._list.setFocus()
     with qtbot.waitSignal(panel.delete_requested, timeout=1000) as blocker:
-        qtbot.keyClick(panel._list, Qt.Key.Key_Delete)
+        panel._list.keyPressEvent(
+            QKeyEvent(QKeyEvent.Type.KeyPress, Qt.Key.Key_Delete, Qt.KeyboardModifier.NoModifier)
+        )
     assert blocker.args == [op.id]
 
 
