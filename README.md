@@ -1,8 +1,6 @@
 # CorrCUT
 
-![CorrCUT editor with Tears of Steel loaded](docs/images/corrcut-editor.png)
-
-*Editor screenshot. Picture: [Tears of Steel](https://mango.blender.org/) — (CC) Blender Foundation | mango.blender.org, [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/). Not a Blender Foundation endorsement.*
+![CorrCUT editor](docs/images/corrcut-editor.png)
 
 Windows app for private home viewing. It saves a project file (`{stem}.corrcut`) beside the movie and can export a CorrMedia sidecar (`{stem}.corr.json`). Preview, a waveform timeline, captions, OCR, and Whisper are in the editor. CorrMedia applies the sidecar while that file plays. The app does not create a new movie file.
 
