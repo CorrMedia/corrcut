@@ -33,11 +33,38 @@ def test_timeline_panel_zoom_methods() -> None:
 
 
 def test_ctrl_plus_minus_shortcuts_zoom_timeline(monkeypatch) -> None:  # type: ignore[no-untyped-def]
+    from pathlib import Path
+
+    from corrcut.domain.dialogue_target import DialogueTargetStrategy
+    from corrcut.domain.project import Project, SourceFileRecord, TrackRecord
+
     monkeypatch.setattr(
         "corrcut.preview.mpv_backend.is_mpv_available",
         lambda: False,
     )
     editor_window = EditorWindow(AppPaths.default())
+    # Zoom tools stay disabled until a project with media is loaded.
+    editor_window._set_project(
+        Project(
+            source=SourceFileRecord(
+                path=Path("missing_zoom_fixture.mkv"),
+                fingerprint={"test": True},
+                probe={"duration_seconds": 60.0, "subtitle_streams": []},
+            ),
+            tracks=[
+                TrackRecord(
+                    stream_index=1,
+                    codec="aac",
+                    channel_layout="stereo",
+                    channels=2,
+                    sample_rate=48000,
+                    language="eng",
+                    dialogue_target_strategy=DialogueTargetStrategy.FULL_MIX,
+                ),
+            ],
+            selected_audio_stream_index=1,
+        )
+    )
     panel = editor_window._timeline_panel
     initial = _initial_pps(panel)
 

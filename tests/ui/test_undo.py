@@ -143,10 +143,11 @@ def test_undo_restores_multi_event_drag_gesture(editor_window: EditorWindow) -> 
 
 def test_undo_channel_change(editor_window: EditorWindow) -> None:
     project = _loaded_project()
+    # Stereo layouts use FL/FR labels (not L/R) when replacing checked speakers.
     op = Operation.create(
         OperationType.MUTE,
         1,
-        ["L", "R"],
+        ["FL", "FR"],
         TimePoint.from_seconds_float(5.0, 48000),
         TimePoint.from_seconds_float(6.0, 48000),
         order=0,
@@ -154,11 +155,11 @@ def test_undo_channel_change(editor_window: EditorWindow) -> None:
     project.operations.append(op)
     editor_window._set_project(project)
 
-    editor_window._on_channels_changed(op.id, ["L"])
-    assert editor_window._project.operations[0].scope.channels == ["L"]
+    editor_window._on_channels_changed(op.id, ["FL"])
+    assert editor_window._project.operations[0].scope.channels == ["FL"]
 
     editor_window._undo()
-    assert editor_window._project.operations[0].scope.channels == ["L", "R"]
+    assert editor_window._project.operations[0].scope.channels == ["FL", "FR"]
 
 
 def test_region_trim_during_scrub_defers_lavfi_rebuild(

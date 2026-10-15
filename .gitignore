@@ -4,6 +4,7 @@
 *.exe
 !src/corrcut/resources/vobsubocr/win-amd64/vobsubocr.exe
 *.corr.json
+!tests/fixtures/corr/*.corr.json
 
 
 # Python
