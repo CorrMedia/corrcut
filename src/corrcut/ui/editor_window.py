@@ -56,10 +56,17 @@ _KEY_MAIN_STATE = "mainwindow/state_v3"
 def _local_drop_paths(mime: object) -> list[Path]:
     has_urls = getattr(mime, "hasUrls", None)
     urls = getattr(mime, "urls", None)
-    if not callable(has_urls) or not callable(urls) or not has_urls():
+    if not callable(has_urls) or not callable(urls):
+        return []
+    try:
+        if not has_urls():
+            return []
+        raw_urls = urls()
+    except RuntimeError:
+        # Synthetic/dropped QMimeData can already be deleted in tests or after the event.
         return []
     paths: list[Path] = []
-    for url in urls():
+    for url in raw_urls:
         if isinstance(url, QUrl) and url.isLocalFile():
             paths.append(Path(url.toLocalFile()))
     return paths

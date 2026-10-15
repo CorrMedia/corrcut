@@ -70,7 +70,8 @@ def test_loaded_media_ignores_file_drop(qtbot, editor_window, tmp_path: Path) ->
     opened: list[Path] = []
     editor_window._begin_media_open = opened.append  # type: ignore[method-assign]
 
-    drop = _drop(_file_mime(media))
+    mime = _file_mime(media)
+    drop = _drop(mime)
     assert not editor_window.eventFilter(editor_window, drop)
     assert opened == []
 
@@ -78,5 +79,7 @@ def test_loaded_media_ignores_file_drop(qtbot, editor_window, tmp_path: Path) ->
 def test_unknown_drop_is_ignored(qtbot, editor_window, tmp_path: Path) -> None:
     notes = tmp_path / "notes.txt"
     notes.write_text("hello", encoding="utf-8")
-    drop = _drop(_file_mime(notes))
+    # Keep mime alive: QDropEvent does not hold a Python reference to QMimeData.
+    mime = _file_mime(notes)
+    drop = _drop(mime)
     assert not editor_window.eventFilter(editor_window, drop)
