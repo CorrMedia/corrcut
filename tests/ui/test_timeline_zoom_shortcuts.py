@@ -42,8 +42,7 @@ def test_ctrl_plus_minus_shortcuts_zoom_timeline(monkeypatch) -> None:  # type: 
     initial = _initial_pps(panel)
 
     shortcuts = {
-        shortcut.key().toString(): shortcut
-        for shortcut in editor_window.findChildren(QShortcut)
+        shortcut.key().toString(): shortcut for shortcut in editor_window.findChildren(QShortcut)
     }
     zoom_in = shortcuts.get("Ctrl++") or shortcuts.get("Ctrl+=")
     assert zoom_in is not None

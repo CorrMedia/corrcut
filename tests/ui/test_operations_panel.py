@@ -460,9 +460,7 @@ def test_selected_audio_chip_survives_visual_type_change(qtbot) -> None:
     _load_51(panel, [op])
     panel.update_operation_editor(op)
     with qtbot.waitSignal(panel.censor_params_changed, timeout=1000):
-        panel._type_combo.setCurrentIndex(
-            panel._type_combo.findData(OperationType.BLUR.value)
-        )
+        panel._type_combo.setCurrentIndex(panel._type_combo.findData(OperationType.BLUR.value))
     assert panel._categories.selected_ids() == ["word_ass"]
     ids = _candidate_ids(panel)
     assert "word_ass" not in ids  # already selected
@@ -716,9 +714,7 @@ def test_inspector_fields_flow_from_top(qtbot) -> None:
     panel.update_operation_editor(op)
     qtbot.wait(10)
 
-    enabled_y = panel._enabled_check.mapTo(
-        panel._editor, panel._enabled_check.rect().topLeft()
-    ).y()
+    enabled_y = panel._enabled_check.mapTo(panel._editor, panel._enabled_check.rect().topLeft()).y()
     assert enabled_y <= 24
     type_y = panel._type_combo.mapTo(panel._editor, panel._type_combo.rect().topLeft()).y()
     assert type_y > enabled_y
@@ -726,9 +722,7 @@ def test_inspector_fields_flow_from_top(qtbot) -> None:
         panel._editor, panel._channels_block.rect().topLeft()
     ).y()
     assert channels_y > type_y
-    cat_y = panel._categories.mapTo(
-        panel._editor, panel._categories.rect().topLeft()
-    ).y()
+    cat_y = panel._categories.mapTo(panel._editor, panel._categories.rect().topLeft()).y()
     assert cat_y > channels_y
     desc_y = panel._description_edit.mapTo(
         panel._editor, panel._description_edit.rect().topLeft()

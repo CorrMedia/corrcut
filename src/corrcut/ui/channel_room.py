@@ -315,9 +315,7 @@ class ChannelRoomWidget(QWidget):
                 base=base,
             )
 
-    def _paint_tv(
-        self, painter: QPainter, rect: QRect, window: QColor, muted: QColor
-    ) -> None:
+    def _paint_tv(self, painter: QPainter, rect: QRect, window: QColor, muted: QColor) -> None:
         if rect.width() < 8 or rect.height() < 6:
             return
         bezel = QColor(muted)
@@ -372,11 +370,17 @@ class ChannelRoomWidget(QWidget):
         cab = self._cabinet_rect(name, cab_area)
         cab_color = QColor(base)
         if checked:
-            cab_color = cab_color.darker(130) if cab_color.lightness() > 128 else cab_color.lighter(130)
+            cab_color = (
+                cab_color.darker(130) if cab_color.lightness() > 128 else cab_color.lighter(130)
+            )
         elif hovered:
-            cab_color = cab_color.lighter(118) if cab_color.lightness() < 128 else cab_color.darker(108)
+            cab_color = (
+                cab_color.lighter(118) if cab_color.lightness() < 128 else cab_color.darker(108)
+            )
         else:
-            cab_color = cab_color.darker(112) if cab_color.lightness() > 128 else cab_color.lighter(124)
+            cab_color = (
+                cab_color.darker(112) if cab_color.lightness() > 128 else cab_color.lighter(124)
+            )
         ring = muted if checked else highlight
         painter.setPen(QPen(ring, 1))
         painter.setBrush(cab_color)
@@ -439,9 +443,7 @@ class ChannelRoomWidget(QWidget):
             h,
         )
 
-    def _paint_cones(
-        self, painter: QPainter, name: str, cab: QRect, color: QColor
-    ) -> None:
+    def _paint_cones(self, painter: QPainter, name: str, cab: QRect, color: QColor) -> None:
         painter.setPen(Qt.PenStyle.NoPen)
         painter.setBrush(color)
         if name == "FC":

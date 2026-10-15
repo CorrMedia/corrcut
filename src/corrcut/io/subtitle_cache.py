@@ -16,11 +16,7 @@ SUBTITLE_CACHE_VERSION = 1
 
 
 def _cache_path(cache_root: Path, fingerprint: dict[str, object], stream_index: int) -> Path:
-    return (
-        cache_root
-        / "subtitles"
-        / f"{fingerprint_cache_key(fingerprint)}_{stream_index}.json"
-    )
+    return cache_root / "subtitles" / f"{fingerprint_cache_key(fingerprint)}_{stream_index}.json"
 
 
 def load_embedded_subtitle_cache(

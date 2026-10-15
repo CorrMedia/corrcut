@@ -135,11 +135,7 @@ def merge_cues(project: Project, first_id: str, second_id: str) -> SubtitleCue |
         source=SubtitleSource.USER,
         user_edited=left.user_edited or right.user_edited,
     )
-    remaining = [
-        cue
-        for cue in project.subtitle_cues
-        if cue.id not in {left.id, right.id}
-    ]
+    remaining = [cue for cue in project.subtitle_cues if cue.id not in {left.id, right.id}]
     project.subtitle_cues = sort_subtitle_cues(remaining + [merged])
     return merged
 

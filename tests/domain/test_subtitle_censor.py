@@ -16,7 +16,6 @@ def test_subtitle_settings_round_trip() -> None:
     assert restored == settings
 
 
-
 def test_subtitle_settings_legacy_enabled_maps_to_append_edited() -> None:
     restored = SubtitleSettings.from_json({"enabled": True})
     assert restored.append_edited is True

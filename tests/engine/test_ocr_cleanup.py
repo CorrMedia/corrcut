@@ -3,12 +3,13 @@
 from fractions import Fraction
 
 from corrcut.ai.subtitles import SubtitleCue
-from corrcut.domain.subtitle_cue import SubtitleCue as ProjectSubtitleCue, SubtitleSource
 from corrcut.domain.project import Project
+from corrcut.domain.subtitle_cue import SubtitleCue as ProjectSubtitleCue
+from corrcut.domain.subtitle_cue import SubtitleSource
 from corrcut.domain.time_point import TimePoint
 from corrcut.engine.subtitles.cue_sets import install_cue_set_for_tests
 from corrcut.engine.subtitles.ocr_cleanup import clean_ocr_cues, clean_ocr_text
-from corrcut.engine.subtitles.ocr_refine import reapply_ocr_cleanup, refine_ocr_text
+from corrcut.engine.subtitles.ocr_refine import reapply_ocr_cleanup
 
 
 def test_clean_ocr_text_strips_leading_slash() -> None:

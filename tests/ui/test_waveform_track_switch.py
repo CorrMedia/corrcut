@@ -11,9 +11,7 @@ from corrcut.ui.editor_window import EditorWindow
 
 def _track(stream_index: int, *, language: str, layout: str, channels: int) -> TrackRecord:
     strategy = (
-        DialogueTargetStrategy.CENTER_CHANNEL
-        if channels > 2
-        else DialogueTargetStrategy.FULL_MIX
+        DialogueTargetStrategy.CENTER_CHANNEL if channels > 2 else DialogueTargetStrategy.FULL_MIX
     )
     return TrackRecord(
         stream_index=stream_index,

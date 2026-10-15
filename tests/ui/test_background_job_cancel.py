@@ -7,7 +7,9 @@ from PySide6.QtWidgets import QToolBar
 from corrcut.ui.editor_window import EditorWindow
 
 
-def test_background_cancel_is_hidden_until_a_prep_job_runs(editor_window: EditorWindow, qtbot) -> None:  # type: ignore[no-untyped-def]
+def test_background_cancel_is_hidden_until_a_prep_job_runs(
+    editor_window: EditorWindow, qtbot
+) -> None:  # type: ignore[no-untyped-def]
     assert editor_window.findChild(QToolBar) is None
     button = editor_window._background_cancel_btn
     action = editor_window._cancel_job_action

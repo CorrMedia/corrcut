@@ -50,9 +50,7 @@ def test_round_trip_test_movie_fixture() -> None:
     assert OperationType.BLANK in actions
     assert OperationType.BLUR in actions
     center_mute = next(
-        op
-        for op in ops
-        if op.type == OperationType.MUTE and op.scope.channels == ["FC"]
+        op for op in ops if op.type == OperationType.MUTE and op.scope.channels == ["FC"]
     )
     assert center_mute.categories == ["racial_slurs"]
     assert center_mute.severity == 1

@@ -237,4 +237,3 @@ def check_toolchain() -> ToolCheckResult:
         _check_tool("mkvmerge", "mkvmerge", ["--version"], MIN_MKVMERGE_VERSION, allow_path=False),
     )
     return ToolCheckResult(tools=tools)
-

@@ -3,14 +3,13 @@
 from fractions import Fraction
 
 from corrcut.ai.subtitles import (
+    SubtitleCue,
     parse_srt,
     select_subtitle_stream_index,
     tokenize_cue_text,
     words_from_cues,
-    SubtitleCue,
 )
 from corrcut.domain.time_point import TimePoint
-
 
 SAMPLE_SRT = """1
 00:00:01,000 --> 00:00:03,500

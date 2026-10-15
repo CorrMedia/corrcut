@@ -68,9 +68,7 @@ class StreamInspector(QWidget):
             for v in probe.video_streams:
                 res = f"{v.width}×{v.height}" if v.width and v.height else "?"
                 rate = f", {v.frame_rate}" if v.frame_rate else ""
-                self._video_list.addItem(
-                    QListWidgetItem(f"#{v.index} {v.codec} {res}{rate}")
-                )
+                self._video_list.addItem(QListWidgetItem(f"#{v.index} {v.codec} {res}{rate}"))
             if self._video_list.count() == 0:
                 self._video_list.addItem(QListWidgetItem("(none)"))
 
@@ -81,7 +79,7 @@ class StreamInspector(QWidget):
 
             for s in probe.subtitle_streams:
                 lang = f" ({s.language})" if s.language else ""
-                title = f' — {s.title}' if s.title else ""
+                title = f" — {s.title}" if s.title else ""
                 bitmap = "" if is_text_subtitle_codec(s.codec) else " [bitmap]"
                 self._subtitle_list.addItem(
                     QListWidgetItem(f"#{s.index} {s.codec}{lang}{title}{bitmap}")

@@ -10,10 +10,7 @@ from corrcut.engine.probe import MediaProbeResult
 
 def fingerprint_matches(stored: dict[str, object], new: dict[str, object]) -> bool:
     """True when cheap file fingerprints match (same bytes at head/tail and size)."""
-    for key in ("size", "head_sha256", "tail_sha256"):
-        if stored.get(key) != new.get(key):
-            return False
-    return True
+    return all(stored.get(key) == new.get(key) for key in ("size", "head_sha256", "tail_sha256"))
 
 
 def missing_track_stream_indices(project: Project, probe: MediaProbeResult) -> list[int]:

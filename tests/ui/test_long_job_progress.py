@@ -78,7 +78,10 @@ def _assert_editor_stays_interactive(editor_window: EditorWindow) -> None:
     assert editor_window._timeline.isEnabled()
     assert editor_window._preview_panel.isEnabled()
     assert QApplication.activeModalWidget() is None
-    assert not any(isinstance(widget, QDialog) and widget.isVisible() for widget in editor_window.findChildren(QDialog))
+    assert not any(
+        isinstance(widget, QDialog) and widget.isVisible()
+        for widget in editor_window.findChildren(QDialog)
+    )
 
 
 def test_ai_detection_runs_without_blocking_review(
@@ -163,9 +166,7 @@ def _ocr_project(media: Path) -> Project:
     assert project.source is not None
     project.source.probe = {
         "video_streams": [{"index": 0}],
-        "subtitle_streams": [
-            {"index": 2, "codec": "hdmv_pgs_subtitle", "language": "eng"}
-        ],
+        "subtitle_streams": [{"index": 2, "codec": "hdmv_pgs_subtitle", "language": "eng"}],
         "duration_seconds": 12.0,
     }
     return project
@@ -206,7 +207,9 @@ def test_bitmap_ocr_starts_while_subtitle_extract_runs(
 
     assert editor_window._subtitle_extract_job_runner.run_callable(
         "Extract subtitles",
-        lambda: _block_until_cancel(cancel_event=editor_window._subtitle_extract_job_runner.cancel_event),
+        lambda: _block_until_cancel(
+            cancel_event=editor_window._subtitle_extract_job_runner.cancel_event
+        ),
     )
     editor_window._start_bitmap_subtitle_conversion()
     qtbot.waitUntil(lambda: editor_window._subtitle_job_runner.is_busy, timeout=3000)
@@ -218,8 +221,10 @@ def test_bitmap_ocr_starts_while_subtitle_extract_runs(
     editor_window._subtitle_job_runner.cancel_active()
     editor_window._subtitle_extract_job_runner.cancel_active()
     qtbot.waitUntil(
-        lambda: not editor_window._subtitle_job_runner.is_busy
-        and not editor_window._subtitle_extract_job_runner.is_busy,
+        lambda: (
+            not editor_window._subtitle_job_runner.is_busy
+            and not editor_window._subtitle_extract_job_runner.is_busy
+        ),
         timeout=3000,
     )
 

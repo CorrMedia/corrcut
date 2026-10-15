@@ -181,8 +181,7 @@ class EditorMenusMixin:
         self._preserve_letterbox_action.setCheckable(True)
         self._preserve_letterbox_action.setChecked(True)
         self._preserve_letterbox_action.setToolTip(
-            "Keep top/bottom black bars under Zoom. "
-            "Turn off to reframe and fill the frame."
+            "Keep top/bottom black bars under Zoom. Turn off to reframe and fill the frame."
         )
         self._preserve_letterbox_action.toggled.connect(self._on_preserve_letterbox_toggled)
         view_menu.addAction(self._preserve_letterbox_action)
@@ -208,9 +207,12 @@ class EditorMenusMixin:
             self._schedule_deferred(0, lambda: self._force_video_matte_refresh())
 
     def _force_video_matte_refresh(self) -> None:
-        if self._ensure_video_matte(force=True):
-            if self._project is not None and self._project.selected_track() is not None:
-                self._preview_panel.sync_track_and_filters()
+        if (
+            self._ensure_video_matte(force=True)
+            and self._project is not None
+            and self._project.selected_track() is not None
+        ):
+            self._preview_panel.sync_track_and_filters()
 
     def _init_scene_cuts_toggle(self) -> None:
         settings = self._window_settings()

@@ -4,11 +4,11 @@ from __future__ import annotations
 
 from fractions import Fraction
 
+from corrcut.ai.transcript import TranscriptWord
 from corrcut.domain.project import Project
 from corrcut.domain.subtitle_cue import SubtitleCue, SubtitleSource
 from corrcut.domain.time_point import TimePoint
 from corrcut.domain.whisper_cache import WhisperCache
-from corrcut.ai.transcript import TranscriptWord
 from corrcut.engine.subtitles.cue_sets import (
     best_available_source,
     coerce_subtitle_source,

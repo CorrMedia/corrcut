@@ -2,7 +2,7 @@ import json
 import struct
 from pathlib import Path
 
-from corrcut.engine.waveform import PEAK_HEADER_SIZE, PEAK_MAGIC, PeakIndex, PeakStore
+from corrcut.engine.waveform import PEAK_MAGIC, PeakIndex, PeakStore
 
 
 def _make_store(tmp_path: Path, peak_count: int) -> PeakStore:

@@ -24,9 +24,7 @@ if TYPE_CHECKING:
 _PACK_START = b"\x00\x00\x01\xba"
 _PES_PRIVATE1 = 0xBD
 
-_TS_RE = re.compile(
-    r"timestamp:\s*(\d+):(\d+):(\d+):(\d+),\s*filepos:\s*([0-9A-Fa-f]+)"
-)
+_TS_RE = re.compile(r"timestamp:\s*(\d+):(\d+):(\d+):(\d+),\s*filepos:\s*([0-9A-Fa-f]+)")
 _SIZE_RE = re.compile(r"size:\s*(\d+)\s*x\s*(\d+)")
 _PALETTE_RE = re.compile(r"palette:\s*(.+)")
 
@@ -186,10 +184,7 @@ def _read_spu(data: bytes, start: int, limit: int, stream_id: int | None) -> byt
             continue
         substream = data[data_off]
         chunk = data[data_off + 1 : pes_end]
-        if stream_id is None:
-            accept = 0x20 <= substream <= 0x3F
-        else:
-            accept = substream == stream_id
+        accept = 32 <= substream <= 63 if stream_id is None else substream == stream_id
         if accept:
             spu.extend(chunk)
             if spu_size is None and len(spu) >= 2:
@@ -199,9 +194,8 @@ def _read_spu(data: bytes, start: int, limit: int, stream_id: int | None) -> byt
         pos = pes_end
 
         # Stop once we've consumed up to the next event's offset and have data.
-        if pos >= limit and spu:
-            if spu_size is None or len(spu) >= spu_size:
-                break
+        if pos >= limit and spu and (spu_size is None or len(spu) >= spu_size):
+            break
 
     if not spu:
         return None

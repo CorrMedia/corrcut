@@ -1,7 +1,5 @@
 """Load swear JSON lists from swears/."""
 
-from pathlib import Path
-
 from corrcut.ai.lexicon import ProfanityLexicon
 from corrcut.ai.normalize import normalize_token
 from corrcut.ai.swears_loader import (
@@ -67,14 +65,14 @@ def test_expansion_bullshitting_maps_to_bullshit() -> None:
 
 def test_exception_blocks_token_sequence() -> None:
     lex = ProfanityLexicon.from_swears_dir(repo_swears_dir())
-    norms = [normalize_token(w) for w in "he hit the golf balls".split()]
+    norms = [normalize_token(w) for w in ["he", "hit", "the", "golf", "balls"]]
     idx = norms.index("balls")
     assert lex.match("balls", word_norms=norms, word_index=idx) is None
 
 
 def test_exception_does_not_block_unrelated_phrase() -> None:
     lex = ProfanityLexicon.from_swears_dir(repo_swears_dir())
-    norms = [normalize_token(w) for w in "you have big balls".split()]
+    norms = [normalize_token(w) for w in ["you", "have", "big", "balls"]]
     idx = norms.index("balls")
     match = lex.match("balls", word_norms=norms, word_index=idx)
     assert match is not None

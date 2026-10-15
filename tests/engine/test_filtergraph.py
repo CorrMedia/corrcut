@@ -30,7 +30,9 @@ def test_beep_compiles_mute_plus_sine_overlay() -> None:
     )
     compiled = FiltergraphCompiler().compile([op], CompileContext(track=track))
     assert "volume=0.0:enable='between(t,1.0,2.0)" in compiled.filter_complex
-    assert "aeval=exprs='val(0)+0.3*sin(2*PI*1000.0*t)*between(t,1.0,2.0)'" in compiled.filter_complex
+    assert (
+        "aeval=exprs='val(0)+0.3*sin(2*PI*1000.0*t)*between(t,1.0,2.0)'" in compiled.filter_complex
+    )
 
 
 def test_mute_compiles_hard_gate() -> None:
@@ -49,7 +51,9 @@ def test_mute_compiles_hard_gate() -> None:
 
 def test_center_channel_uses_split() -> None:
     track = _track("5.1", DialogueTargetStrategy.CENTER_CHANNEL)
-    op = Operation.create(OperationType.MUTE, 1, ["FC"], TimePoint(Fraction(0)), TimePoint(Fraction(1)))
+    op = Operation.create(
+        OperationType.MUTE, 1, ["FC"], TimePoint(Fraction(0)), TimePoint(Fraction(1))
+    )
     compiled = FiltergraphCompiler().compile([op], CompileContext(track=track))
     assert "asplit=6" in compiled.filter_complex
     assert "pan=mono|c0=FC[fc_src]" in compiled.filter_complex
@@ -69,7 +73,9 @@ def test_center_channel_71_joins_eight_inputs() -> None:
         language="eng",
         dialogue_target_strategy=DialogueTargetStrategy.CENTER_CHANNEL,
     )
-    op = Operation.create(OperationType.MUTE, 1, ["FC"], TimePoint(Fraction(0)), TimePoint(Fraction(1)))
+    op = Operation.create(
+        OperationType.MUTE, 1, ["FC"], TimePoint(Fraction(0)), TimePoint(Fraction(1))
+    )
     compiled = FiltergraphCompiler().compile([op], CompileContext(track=track))
     assert "join=inputs=8" in compiled.filter_complex
     assert "[ms_SL]" in compiled.filter_complex
@@ -77,7 +83,9 @@ def test_center_channel_71_joins_eight_inputs() -> None:
 
 def test_center_channel_join_uses_explicit_channel_map() -> None:
     track = _track("5.1", DialogueTargetStrategy.CENTER_CHANNEL)
-    op = Operation.create(OperationType.MUTE, 1, ["FC"], TimePoint(Fraction(0)), TimePoint(Fraction(1)))
+    op = Operation.create(
+        OperationType.MUTE, 1, ["FC"], TimePoint(Fraction(0)), TimePoint(Fraction(1))
+    )
     compiled = FiltergraphCompiler().compile([op], CompileContext(track=track))
     assert (
         "join=inputs=6:channel_layout=5.1:map=0.0-FL|1.0-FR|2.0-FC|3.0-LFE|4.0-BL|5.0-BR"
@@ -95,13 +103,18 @@ def test_center_channel_51_side_extracts_side_channels() -> None:
         language="eng",
         dialogue_target_strategy=DialogueTargetStrategy.CENTER_CHANNEL,
     )
-    op = Operation.create(OperationType.MUTE, 1, ["FC"], TimePoint(Fraction(0)), TimePoint(Fraction(1)))
+    op = Operation.create(
+        OperationType.MUTE, 1, ["FC"], TimePoint(Fraction(0)), TimePoint(Fraction(1))
+    )
     compiled = FiltergraphCompiler().compile([op], CompileContext(track=track))
     # Source has SL/SR (not BL/BR); extracting BL/BR would silence the surrounds.
     assert "pan=mono|c0=SL[ms_SL]" in compiled.filter_complex
     assert "pan=mono|c0=SR[ms_SR]" in compiled.filter_complex
     assert "c0=BL" not in compiled.filter_complex
-    assert "channel_layout=5.1(side):map=0.0-FL|1.0-FR|2.0-FC|3.0-LFE|4.0-SL|5.0-SR" in compiled.filter_complex
+    assert (
+        "channel_layout=5.1(side):map=0.0-FL|1.0-FR|2.0-FC|3.0-LFE|4.0-SL|5.0-SR"
+        in compiled.filter_complex
+    )
 
 
 def test_center_channel_71_wide_extracts_front_corner_channels() -> None:
@@ -114,7 +127,9 @@ def test_center_channel_71_wide_extracts_front_corner_channels() -> None:
         language="eng",
         dialogue_target_strategy=DialogueTargetStrategy.CENTER_CHANNEL,
     )
-    op = Operation.create(OperationType.MUTE, 1, ["FC"], TimePoint(Fraction(0)), TimePoint(Fraction(1)))
+    op = Operation.create(
+        OperationType.MUTE, 1, ["FC"], TimePoint(Fraction(0)), TimePoint(Fraction(1))
+    )
     compiled = FiltergraphCompiler().compile([op], CompileContext(track=track))
     # 7.1(wide) source has FLC/FRC (not SL/SR).
     assert "pan=mono|c0=FLC[ms_FLC]" in compiled.filter_complex

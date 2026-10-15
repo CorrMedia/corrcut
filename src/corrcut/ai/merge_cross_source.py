@@ -32,7 +32,7 @@ def merge_cross_source(
     slop_ms: int,
 ) -> list[AiSuggestion]:
     """
-  Keep Whisper hits; fold subtitle hits into duplicates or append subs-only gaps.
+    Keep Whisper hits; fold subtitle hits into duplicates or append subs-only gaps.
     """
     merged: list[AiSuggestion] = list(whisper_suggestions)
     for sub_hit in subtitle_suggestions:

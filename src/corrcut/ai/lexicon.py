@@ -151,9 +151,12 @@ class ProfanityLexicon:
             strength = 0.92
 
         exceptions = self._exceptions.get(canonical, frozenset())
-        if word_norms is not None and word_index is not None:
-            if is_blocked_by_exceptions(word_norms, word_index, exceptions):
-                return None
+        if (
+            word_norms is not None
+            and word_index is not None
+            and is_blocked_by_exceptions(word_norms, word_index, exceptions)
+        ):
+            return None
 
         category = self._categories.get(norm, self._categories.get(canonical, "unknown"))
         return LexiconMatch(

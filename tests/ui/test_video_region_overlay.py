@@ -244,9 +244,7 @@ def test_auto_key_creates_pose_at_playhead(editor_window: EditorWindow) -> None:
     editor_window._timeline.select_operation(op.id)
     editor_window._on_timeline_region_selected(op.id)
     editor_window._timeline.set_playhead(4.0, notify=False)
-    editor_window._on_video_region_box_changed(
-        {"x": 0.7, "y": 0.2, "width": 0.2, "height": 0.2}
-    )
+    editor_window._on_video_region_box_changed({"x": 0.7, "y": 0.2, "width": 0.2, "height": 0.2})
     kfs = spatial_keyframes(op)
     assert has_spatial_animation(op)
     assert len(kfs) == 2
@@ -265,9 +263,7 @@ def test_auto_key_updates_existing_pose(editor_window: EditorWindow) -> None:
     editor_window._timeline.select_operation(op.id)
     editor_window._on_timeline_region_selected(op.id)
     editor_window._timeline.set_playhead(2.0, notify=False)
-    editor_window._on_video_region_box_changed(
-        {"x": 0.4, "y": 0.1, "width": 0.2, "height": 0.2}
-    )
+    editor_window._on_video_region_box_changed({"x": 0.4, "y": 0.1, "width": 0.2, "height": 0.2})
     kfs = spatial_keyframes(op)
     assert len(kfs) == 1
     assert kfs[0].box["x"] == 0.4

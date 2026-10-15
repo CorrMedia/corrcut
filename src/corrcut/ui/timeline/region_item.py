@@ -954,7 +954,10 @@ class RegionItem(QGraphicsRectItem):
             if self._drag_mode == "gain_level":
                 if self._params_at_press != self._params:
                     self._notify_params_changed(final=True)
-            elif self._times_at_press is not None and (self._start_s, self._end_s) != self._times_at_press:
+            elif (
+                self._times_at_press is not None
+                and (self._start_s, self._end_s) != self._times_at_press
+            ):
                 self._notify_geometry_changed(final=True)
         self._drag_mode = None
         self._snap_target_cache = None

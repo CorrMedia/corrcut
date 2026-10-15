@@ -127,7 +127,7 @@ class _FlowLayout(QLayout):
         y = effective.y()
         line_height = 0
         for item in self._items:
-            widget = item.widget()
+            item.widget()
             space_x = self._spacing
             space_y = self._spacing
             next_x = x + item.sizeHint().width() + space_x
@@ -185,9 +185,7 @@ class CategoryChipsPicker(QWidget):
         self._chips_host = QWidget()
         self._chips_layout = _FlowLayout(self._chips_host, spacing=4)
         self._chips_host.setLayout(self._chips_layout)
-        self._chips_host.setSizePolicy(
-            QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Maximum
-        )
+        self._chips_host.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Maximum)
 
         self._search = QLineEdit()
         self._search.setPlaceholderText("Add category…")
@@ -291,9 +289,7 @@ class CategoryChipsPicker(QWidget):
         for option in self._catalog:
             if option.id in selected:
                 continue
-            if not searching and not category_applies_to_media(
-                option, audio=self._audio_filter
-            ):
+            if not searching and not category_applies_to_media(option, audio=self._audio_filter):
                 continue
             if not category_matches_query(option.id, option.combo_label(), query):
                 continue

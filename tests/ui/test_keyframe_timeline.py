@@ -240,8 +240,8 @@ def test_diamond_click_selects_without_add() -> None:
     inner.resize(320, 36)
     x = inner._seconds_to_x(5.0)
     pos = QPoint(int(x), inner.height() // 2)
+    from PySide6.QtCore import QEvent, QPointF
     from PySide6.QtGui import QMouseEvent
-    from PySide6.QtCore import QPointF, QEvent
 
     press = QMouseEvent(
         QEvent.Type.MouseButtonPress,

@@ -357,12 +357,8 @@ class SubtitlesPanel(QWidget):
         probe = probe_result_from_dict(
             {**dict(project.source.probe), "path": str(project.source.path)}
         )
-        text_streams = [
-            s for s in probe.subtitle_streams if is_text_subtitle_codec(s.codec)
-        ]
-        bitmap_streams = [
-            s for s in probe.subtitle_streams if is_bitmap_subtitle_codec(s.codec)
-        ]
+        text_streams = [s for s in probe.subtitle_streams if is_text_subtitle_codec(s.codec)]
+        bitmap_streams = [s for s in probe.subtitle_streams if is_bitmap_subtitle_codec(s.codec)]
         self._has_text_streams = bool(text_streams)
         self._has_bitmap_streams = bool(bitmap_streams)
         self._sub_stream.setEnabled(self._has_text_streams)
@@ -455,9 +451,7 @@ class SubtitlesPanel(QWidget):
         if self._profanity_filter.isChecked() and not self._cue_has_profanity(cue):
             return False
         query = self._search_query()
-        return not query or any(
-            query in field.casefold() for field in (cue.edited_text, cue.text)
-        )
+        return not query or any(query in field.casefold() for field in (cue.edited_text, cue.text))
 
     def _filter_predicate(self) -> Callable[[SubtitleCue], bool] | None:
         if self._profanity_filter.isChecked() or self._search_query():

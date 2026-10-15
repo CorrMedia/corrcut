@@ -34,10 +34,7 @@ def list_recent_projects() -> list[RecentProjectEntry]:
     raw = _settings().value(_KEY_RECENT_PATHS, [])
     if raw is None:
         return []
-    if isinstance(raw, str):
-        paths = [raw] if raw else []
-    else:
-        paths = list(raw)
+    paths = ([raw] if raw else []) if isinstance(raw, str) else list(raw)
     entries: list[RecentProjectEntry] = []
     seen: set[str] = set()
     for item in paths:

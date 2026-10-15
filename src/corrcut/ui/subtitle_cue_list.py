@@ -59,9 +59,7 @@ def _display_html(display: str) -> str:
             None,
         )
         if marker is not None:
-            parts.append(
-                f'<span style="color:{_ESCAPE_COLOR}; font-weight:600;">{marker}</span>'
-            )
+            parts.append(f'<span style="color:{_ESCAPE_COLOR}; font-weight:600;">{marker}</span>')
             index += len(marker)
             continue
         next_escape = len(display)
@@ -142,11 +140,7 @@ class SubtitleCueListModel(QAbstractListModel):
     def flags(self, index: QModelIndex | QPersistentModelIndex) -> Qt.ItemFlag:  # noqa: N802
         if not index.isValid():
             return Qt.ItemFlag.NoItemFlags
-        return (
-            Qt.ItemFlag.ItemIsEnabled
-            | Qt.ItemFlag.ItemIsSelectable
-            | Qt.ItemFlag.ItemIsEditable
-        )
+        return Qt.ItemFlag.ItemIsEnabled | Qt.ItemFlag.ItemIsSelectable | Qt.ItemFlag.ItemIsEditable
 
     def data(  # noqa: N802
         self,
@@ -168,9 +162,7 @@ class SubtitleCueListModel(QAbstractListModel):
             self._visible = list(range(len(self._cues)))
         else:
             self._visible = [i for i, cue in enumerate(self._cues) if predicate(cue)]
-        self._row_by_id = {
-            self._cues[source].id: row for row, source in enumerate(self._visible)
-        }
+        self._row_by_id = {self._cues[source].id: row for row, source in enumerate(self._visible)}
 
 
 class SubtitleCueRowDelegate(QStyledItemDelegate):

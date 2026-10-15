@@ -156,9 +156,7 @@ def parse_skp_text(
             if parse_skp_time(stripped) is not None:
                 index = _skip_sync_block(lines, index)
                 continue
-            result.warnings.append(
-                SkpWarning(index + 1, "unrecognized line; skipped.", raw)
-            )
+            result.warnings.append(SkpWarning(index + 1, "unrecognized line; skipped.", raw))
             index += 1
             continue
 
@@ -213,9 +211,7 @@ def _parse_offsets(raw: str) -> dict[str, Any] | None:
     return parsed if isinstance(parsed, dict) else None
 
 
-def _warn_nonzero_offsets(
-    offsets: dict[str, Any] | None, result: SkpImportResult
-) -> None:
+def _warn_nonzero_offsets(offsets: dict[str, Any] | None, result: SkpImportResult) -> None:
     if not offsets:
         return
     parts: list[str] = []
@@ -241,9 +237,13 @@ def _warn_nonzero_offsets(
 
 def _skip_sync_block(lines: list[str], index: int) -> int:
     nxt = index + 1
-    if nxt < len(lines) and lines[nxt].strip() and _TIME_RANGE.match(lines[nxt].strip()) is None:
-        if parse_skp_time(lines[nxt].strip()) is None:
-            return nxt + 1
+    if (
+        nxt < len(lines)
+        and lines[nxt].strip()
+        and _TIME_RANGE.match(lines[nxt].strip()) is None
+        and parse_skp_time(lines[nxt].strip()) is None
+    ):
+        return nxt + 1
     return nxt
 
 
@@ -386,9 +386,7 @@ def _severity_from_label(label: str) -> int | None:
     return int(match.group(1))
 
 
-def _map_label(
-    label: str, action: str
-) -> tuple[list[str] | None, str | None, str | None]:
+def _map_label(label: str, action: str) -> tuple[list[str] | None, str | None, str | None]:
     description = _description_from_label(label)
     cleaned, _box = _strip_notes(label)
     tokens = _WORD.findall(cleaned.lower())

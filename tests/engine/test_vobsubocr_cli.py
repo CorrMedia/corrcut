@@ -36,9 +36,14 @@ def test_convert_vobsub_idx_to_cues_parses_srt(tmp_path: Path) -> None:
 
         return Result()
 
-    with patch("corrcut.engine.subtitles.vobsubocr_cli.resolve_vobsubocr", return_value="vobsubocr"):
-        with patch("subprocess.run", side_effect=fake_run):
-            cues = convert_vobsub_idx_to_cues(idx_path, lang="eng")
+    with (
+        patch(
+            "corrcut.engine.subtitles.vobsubocr_cli.resolve_vobsubocr",
+            return_value="vobsubocr",
+        ),
+        patch("subprocess.run", side_effect=fake_run),
+    ):
+        cues = convert_vobsub_idx_to_cues(idx_path, lang="eng")
 
     assert len(cues) == 2
     assert cues[0].text == "Hello world"
@@ -49,9 +54,14 @@ def test_convert_vobsub_idx_requires_sub_file(tmp_path: Path) -> None:
     idx_path = tmp_path / "sample.idx"
     idx_path.write_text("# placeholder idx\n", encoding="utf-8")
 
-    with patch("corrcut.engine.subtitles.vobsubocr_cli.resolve_vobsubocr", return_value="vobsubocr"):
-        with pytest.raises(RuntimeError, match="VobSub data file not found"):
-            convert_vobsub_idx_to_cues(idx_path, lang="eng")
+    with (
+        patch(
+            "corrcut.engine.subtitles.vobsubocr_cli.resolve_vobsubocr",
+            return_value="vobsubocr",
+        ),
+        pytest.raises(RuntimeError, match="VobSub data file not found"),
+    ):
+        convert_vobsub_idx_to_cues(idx_path, lang="eng")
 
 
 def test_looks_like_vobsubocr_requires_vobsub_in_help(tmp_path: Path) -> None:

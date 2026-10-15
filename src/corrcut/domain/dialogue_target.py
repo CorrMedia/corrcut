@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
-from enum import Enum
+from enum import StrEnum
 
 
-class DialogueTargetStrategy(str, Enum):
+class DialogueTargetStrategy(StrEnum):
     CENTER_CHANNEL = "center_channel"
     FULL_MIX = "full_mix"
 

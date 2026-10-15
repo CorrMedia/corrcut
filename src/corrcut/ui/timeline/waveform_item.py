@@ -181,7 +181,9 @@ class WaveformItem(QGraphicsItem):
 
         store = self._peak_store
         building = bool(getattr(store, "is_building", False))
-        arrays = store.base_peak_arrays() if building and hasattr(store, "base_peak_arrays") else None
+        arrays = (
+            store.base_peak_arrays() if building and hasattr(store, "base_peak_arrays") else None
+        )
         if arrays is not None:
             peaks_arr, ready_mask = arrays
             if not store.has_displayable_peaks():
@@ -584,11 +586,7 @@ def _envelope_segments(
     if span <= 0 or total <= 0:
         return []
     buckets = span if span <= max_points else max_points
-    if (
-        hasattr(peaks, "shape")
-        and ready_mask is not None
-        and hasattr(ready_mask, "shape")
-    ):
+    if hasattr(peaks, "shape") and ready_mask is not None and hasattr(ready_mask, "shape"):
         return _envelope_segments_numpy(
             peaks,  # type: ignore[arg-type]
             ready_mask,  # type: ignore[arg-type]
@@ -691,9 +689,10 @@ def _bucket_minmax(
     mx = -math.inf
     found = False
     for index in range(start, end):
-        if ready_mask is not None:
-            if index >= len(ready_mask) or not bool(ready_mask[index]):  # type: ignore[arg-type]
-                continue
+        if ready_mask is not None and (
+            index >= len(ready_mask) or not bool(ready_mask[index])  # type: ignore[arg-type]
+        ):
+            continue
         sample_mn, sample_mx = _peak_pair(peaks, index)
         if not (math.isfinite(sample_mn) and math.isfinite(sample_mx)):
             continue

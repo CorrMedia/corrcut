@@ -101,9 +101,7 @@ def _paint_recent_row(state: QStyle.StateFlag) -> QImage:
     return image
 
 
-def test_remove_from_list_is_a_context_action(
-    tmp_path: Path, _clear_recent_settings: None
-) -> None:
+def test_remove_from_list_is_a_context_action(tmp_path: Path, _clear_recent_settings: None) -> None:
     path = tmp_path / "demo.corrcut"
     path.touch()
     add_recent_project(path)

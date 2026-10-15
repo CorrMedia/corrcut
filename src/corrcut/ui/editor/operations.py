@@ -81,11 +81,7 @@ class EditorOperationsMixin:
         return isinstance(widget, (QLineEdit, QTextEdit, QPlainTextEdit, QAbstractSpinBox))
 
     def _sync_type_tool_strip(self, op_type: OperationType | None) -> None:
-        mode = (
-            TimelineMode.SELECT
-            if op_type is None
-            else TimelineMode.for_operation_type(op_type)
-        )
+        mode = TimelineMode.SELECT if op_type is None else TimelineMode.for_operation_type(op_type)
         self._timeline_panel.set_tool_mode(mode)
 
     def _apply_select_tool(self) -> None:

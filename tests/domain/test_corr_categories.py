@@ -7,8 +7,8 @@ from corrcut.domain.corr_categories import (
     censored_profanity_text,
     combo_entries,
     match_muted_word,
-    resolve_category,
     resolve_categories,
+    resolve_category,
 )
 
 # Distinct node ids from jellyfin-plugin-SkipMedia schema/categories.md.
@@ -214,21 +214,13 @@ def test_censored_profanity_text_uses_catalog_spelling() -> None:
 
 
 def test_categories_for_suggestion_prefers_word_leaf() -> None:
-    assert categories_for_suggestion(matched_term="fuck", category="profanity") == [
-        "word_fuck"
-    ]
-    assert categories_for_suggestion(matched_term="asshole", category="profanity") == [
-        "word_ass"
-    ]
-    assert categories_for_suggestion(matched_term="whore", category="sexual") == [
-        "word_whore"
-    ]
+    assert categories_for_suggestion(matched_term="fuck", category="profanity") == ["word_fuck"]
+    assert categories_for_suggestion(matched_term="asshole", category="profanity") == ["word_ass"]
+    assert categories_for_suggestion(matched_term="whore", category="sexual") == ["word_whore"]
     assert categories_for_suggestion(matched_term="anatomy", category="sexual") == [
         "sexual_reference"
     ]
-    assert categories_for_suggestion(matched_term="crap", category="childish") == [
-        "word_crap"
-    ]
+    assert categories_for_suggestion(matched_term="crap", category="childish") == ["word_crap"]
     assert categories_for_suggestion(matched_term="goof", category="childish") == [
         "childish_language"
     ]

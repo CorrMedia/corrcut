@@ -177,7 +177,8 @@ def test_d_toggles_once_when_edits_list_has_focus(qtbot, editor_window: EditorWi
 
 
 def test_typing_in_description_does_not_run_shortcuts(
-    qtbot, editor_window: EditorWindow  # type: ignore[no-untyped-def]
+    qtbot,
+    editor_window: EditorWindow,  # type: ignore[no-untyped-def]
 ) -> None:
     project = _mute_project()
     op = project.operations[0]

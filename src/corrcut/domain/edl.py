@@ -208,9 +208,7 @@ def _parse_edl_line(
 ) -> None:
     parts = _split_line(line)
     if len(parts) < 2:
-        result.warnings.append(
-            EdlWarning(line_number, "need at least start and end times.", line)
-        )
+        result.warnings.append(EdlWarning(line_number, "need at least start and end times.", line))
         return
     start = parse_edl_time(parts[0])
     end = parse_edl_time(parts[1])
@@ -224,9 +222,7 @@ def _parse_edl_line(
                 )
             )
             return
-        result.warnings.append(
-            EdlWarning(line_number, "could not parse start/end times.", line)
-        )
+        result.warnings.append(EdlWarning(line_number, "could not parse start/end times.", line))
         return
     if end <= start:
         result.warnings.append(

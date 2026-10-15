@@ -305,10 +305,11 @@ class EditorWaveformMixin:
         self._waveform_switch_pending = False
         store = self._peak_store
         incomplete = store is not None and bool(getattr(store, "is_building", False))
-        if pending or incomplete or not self._displayed_waveform_matches_track():
-            if not getattr(self, "_waveform_build_disabled", False):
-                self._ensure_waveform()
-                return
+        if (pending or incomplete or not self._displayed_waveform_matches_track()) and not getattr(
+            self, "_waveform_build_disabled", False
+        ):
+            self._ensure_waveform()
+            return
         if (
             self._project is not None
             and self._peak_store is not None

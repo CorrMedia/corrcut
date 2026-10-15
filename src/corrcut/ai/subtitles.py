@@ -118,10 +118,7 @@ def words_from_cues(
             spans = [(cue.start, cue.end)]
         else:
             step = duration / len(tokens)
-            spans = [
-                (cue.start + step * i, cue.start + step * (i + 1))
-                for i in range(len(tokens))
-            ]
+            spans = [(cue.start + step * i, cue.start + step * (i + 1)) for i in range(len(tokens))]
         for token, (start_s, end_s) in zip(tokens, spans, strict=True):
             words.append(
                 TranscriptWord(
@@ -168,9 +165,7 @@ def select_subtitle_stream_index(
     audio_language: str | None,
 ) -> int | None:
     """Pick a text subtitle stream index, or None if none are usable."""
-    text_streams = [
-        s for s in subtitle_streams if is_text_subtitle_codec(str(s.get("codec", "")))
-    ]
+    text_streams = [s for s in subtitle_streams if is_text_subtitle_codec(str(s.get("codec", "")))]
     if not text_streams:
         return None
 
@@ -219,9 +214,7 @@ def select_bitmap_subtitle_stream_index(
 ) -> int | None:
     """Pick a bitmap subtitle stream index suitable for OCR, or None."""
     predicate = is_ocr_subtitle_codec if ocr_only else is_bitmap_subtitle_codec
-    bitmap_streams = [
-        s for s in subtitle_streams if predicate(str(s.get("codec", "")))
-    ]
+    bitmap_streams = [s for s in subtitle_streams if predicate(str(s.get("codec", "")))]
     if not bitmap_streams:
         return None
 
@@ -331,9 +324,7 @@ def mkv_subtitle_track_ids(source_path: Path, *, mkvmerge: str | None = None) ->
 
     data = mkvmerge_identify(source_path, mkvmerge=mkvmerge)
     return [
-        int(track["id"])
-        for track in data.get("tracks", [])
-        if track.get("type") == "subtitles"
+        int(track["id"]) for track in data.get("tracks", []) if track.get("type") == "subtitles"
     ]
 
 
@@ -391,15 +382,17 @@ def extract_subtitle_vobsub(
             f"{track_id}:{output_base}",
         ]
         result = subprocess.run(
-        cmd,
-        capture_output=True,
-        text=True,
-        timeout=timeout,
-        check=False,
-        **no_window_kwargs(),
-    )
+            cmd,
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+            check=False,
+            **no_window_kwargs(),
+        )
         if result.returncode != 0:
-            detail = (result.stderr or result.stdout or "mkvextract subtitle extract failed").strip()
+            detail = (
+                result.stderr or result.stdout or "mkvextract subtitle extract failed"
+            ).strip()
             raise RuntimeError(detail)
 
         idx_path = output_base.with_suffix(".idx")
@@ -427,13 +420,13 @@ def extract_subtitle_vobsub(
             str(remuxed),
         ]
         result = subprocess.run(
-        cmd,
-        capture_output=True,
-        text=True,
-        timeout=timeout,
-        check=False,
-        **no_window_kwargs(),
-    )
+            cmd,
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+            check=False,
+            **no_window_kwargs(),
+        )
         if result.returncode != 0 or not remuxed.is_file():
             detail = (result.stderr or result.stdout or "ffmpeg subtitle remux failed").strip()
             raise RuntimeError(detail)

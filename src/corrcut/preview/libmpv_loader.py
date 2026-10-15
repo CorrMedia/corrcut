@@ -58,8 +58,8 @@ def _mpv_exe_directories() -> list[Path]:
     if mpv_exe:
         dirs.append(Path(mpv_exe).resolve().parent)
     for pattern in (
-        Path(os.environ.get("ProgramFiles", r"C:\Program Files")) / "mpv",
-        Path(os.environ.get("LocalAppData", "")) / "Programs" / "mpv",
+        Path(os.environ.get("PROGRAMFILES", r"C:\Program Files")) / "mpv",
+        Path(os.environ.get("LOCALAPPDATA", "")) / "Programs" / "mpv",
         Path.home() / "scoop" / "apps" / "mpv" / "current",
     ):
         if pattern.is_dir():
@@ -138,8 +138,8 @@ def _seven_zip_exe(paths: AppPaths) -> Path:
     if on_path:
         return Path(on_path)
     for candidate in (
-        Path(os.environ.get("ProgramFiles", r"C:\Program Files")) / "7-Zip" / "7z.exe",
-        Path(os.environ.get("ProgramFiles(x86)", r"C:\Program Files (x86)")) / "7-Zip" / "7z.exe",
+        Path(os.environ.get("PROGRAMFILES", r"C:\Program Files")) / "7-Zip" / "7z.exe",
+        Path(os.environ.get("PROGRAMFILES(X86)", r"C:\Program Files (x86)")) / "7-Zip" / "7z.exe",
     ):
         if candidate.is_file():
             return candidate
@@ -260,9 +260,8 @@ def libmpv_status_message(paths: AppPaths) -> str:
     if sys.platform == "win32":
         return (
             "Video preview needs libmpv. Automatic download failed "
-            "(check network). Install with: pip install -e \".[preview]\" and restart."
+            '(check network). Install with: pip install -e ".[preview]" and restart.'
         )
     return (
-        "Video preview needs libmpv. Install mpv on your system, then "
-        "pip install -e \".[preview]\"."
+        'Video preview needs libmpv. Install mpv on your system, then pip install -e ".[preview]".'
     )

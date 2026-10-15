@@ -5,11 +5,11 @@ from __future__ import annotations
 from fractions import Fraction
 from pathlib import Path
 
+from corrcut.domain.project import Project, SourceFileRecord
 from corrcut.domain.subtitle_cue import SubtitleCue, SubtitleSource
 from corrcut.domain.subtitle_settings import SubtitleSettings
 from corrcut.domain.time_point import TimePoint
 from corrcut.domain.whisper_cache import WhisperCache
-from corrcut.domain.project import Project, SourceFileRecord
 from corrcut.engine.subtitles.cue_sets import install_cue_set_for_tests
 from corrcut.io.project_store import load_project, save_project
 

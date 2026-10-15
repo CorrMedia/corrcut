@@ -285,6 +285,7 @@ def category_branches() -> tuple[tuple[str, tuple[CategoryBranch, ...]], ...]:
         groups.append((group, tuple(branches)))
     return tuple(groups)
 
+
 MEDIA_AUDIO = "audio"
 MEDIA_VISUAL = "visual"
 MEDIA_BOTH = "both"

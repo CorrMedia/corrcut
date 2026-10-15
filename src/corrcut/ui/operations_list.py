@@ -19,6 +19,8 @@ from corrcut.ui.icons import app_icon
 from corrcut.ui.theme import contrast_text_on, muted_text_on
 from corrcut.ui.timeline.region_item import region_color
 
+_NO_PARENT = QModelIndex()
+
 TYPE_LABELS = {
     OperationType.MUTE: "Mute",
     OperationType.VOLUME: "Volume",
@@ -76,6 +78,7 @@ def _add_type_section(combo: QComboBox, title: str) -> None:
     item.setFont(font)
     item.setForeground(QBrush(QColor("#9a9aa2")))
 
+
 ROW_HEIGHT = 44
 _ACCENT_W = 4
 _CATEGORY_LABELS = {option.id: option.combo_label() for option in CATEGORY_OPTIONS}
@@ -108,9 +111,7 @@ _SUBTITLE_SEP = "  ·  "
 
 
 def category_subtitle_for(op: Operation) -> str:
-    labels = [
-        _CATEGORY_LABELS.get(cat, cat) for cat in resolve_categories(op.categories)
-    ]
+    labels = [_CATEGORY_LABELS.get(cat, cat) for cat in resolve_categories(op.categories)]
     return ", ".join(label for label in labels if label)
 
 
@@ -122,9 +123,7 @@ def subtitle_for(op: Operation) -> str:
     return description or categories
 
 
-def subtitle_slot_widths(
-    metrics, description: str, categories: str, width: int
-) -> tuple[int, int]:
+def subtitle_slot_widths(metrics, description: str, categories: str, width: int) -> tuple[int, int]:
     """Pixel widths for independently elided description then categories."""
     width = max(0, int(width))
     if not description:
@@ -142,9 +141,7 @@ def subtitle_slot_widths(
     return desc_w, budget - desc_w
 
 
-def _draw_subtitle_line(
-    painter: QPainter, rect: QRect, description: str, categories: str
-) -> None:
+def _draw_subtitle_line(painter: QPainter, rect: QRect, description: str, categories: str) -> None:
     metrics = painter.fontMetrics()
     align = int(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
     if not description or not categories:
@@ -196,7 +193,7 @@ class OperationsListModel(QAbstractListModel):
                 return row
         return -1
 
-    def rowCount(self, parent: QModelIndex = QModelIndex()) -> int:  # noqa: N802
+    def rowCount(self, parent: QModelIndex = _NO_PARENT) -> int:  # noqa: N802
         if parent.isValid():
             return 0
         return len(self._ops)
@@ -278,10 +275,14 @@ class OperationsRowDelegate(QStyledItemDelegate):
 
         painter.setFont(type_font)
         painter.setPen(text_color)
-        painter.drawText(top, int(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter), type_text)
+        painter.drawText(
+            top, int(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter), type_text
+        )
         painter.setFont(time_font)
         painter.setPen(muted)
-        painter.drawText(top, int(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter), time_text)
+        painter.drawText(
+            top, int(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter), time_text
+        )
         if description or categories:
             painter.setFont(sub_font)
             painter.setPen(muted)

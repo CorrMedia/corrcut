@@ -121,8 +121,7 @@ def test_profile_settings_round_trip(tmp_path: Path, monkeypatch) -> None:  # no
 
 def test_unknown_saved_ids_are_ignored() -> None:
     raw = (
-        '{"disabled_categories":["not_a_category","word_fuck"],'
-        '"disabled_actions":["nope","skip"]}'
+        '{"disabled_categories":["not_a_category","word_fuck"],"disabled_actions":["nope","skip"]}'
     )
     profile = PlaybackProfile.decode(raw)
     assert profile.disabled_categories == frozenset({"word_fuck"})

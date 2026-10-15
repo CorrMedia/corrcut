@@ -3,9 +3,9 @@
 from fractions import Fraction
 
 from corrcut.domain.ai_suggestion import AiSuggestion, SuggestionStatus
+from corrcut.domain.dialogue_target import DialogueTargetStrategy
 from corrcut.domain.operation import TimeRange
 from corrcut.domain.project import Project, SourceFileRecord, TrackRecord
-from corrcut.domain.dialogue_target import DialogueTargetStrategy
 from corrcut.domain.time_point import TimePoint
 
 

@@ -5,7 +5,7 @@ from __future__ import annotations
 import math
 import uuid
 from dataclasses import dataclass, field, replace
-from enum import Enum
+from enum import StrEnum
 from fractions import Fraction
 from typing import Any
 
@@ -33,7 +33,7 @@ BEEP_PRESETS: list[tuple[str, float]] = [
 ]
 
 
-class OperationType(str, Enum):
+class OperationType(StrEnum):
     MUTE = "mute"
     VOLUME = "volume"
     BEEP = "beep"
@@ -70,9 +70,7 @@ _SPATIAL_TYPES = frozenset(
         OperationType.CROP,
     }
 )
-_BOX_DEFAULT_TYPES = frozenset(
-    {OperationType.COVER, OperationType.BLUR, OperationType.PIXELATE}
-)
+_BOX_DEFAULT_TYPES = frozenset({OperationType.COVER, OperationType.BLUR, OperationType.PIXELATE})
 
 
 def is_audio_operation(op_type: OperationType) -> bool:
@@ -88,10 +86,7 @@ def is_spatial_operation(op_type: OperationType) -> bool:
 
 
 def normalize_operation_type(raw: str | OperationType) -> OperationType:
-    if isinstance(raw, OperationType):
-        value = raw.value
-    else:
-        value = str(raw).strip().lower()
+    value = raw.value if isinstance(raw, OperationType) else str(raw).strip().lower()
     if value in {"duck", "gain"}:
         return OperationType.VOLUME
     if value == "punch":
@@ -121,9 +116,7 @@ SEVERITY_LEVELS: tuple[tuple[str, int], ...] = (
     ("Severe", 4),
     ("Extreme", 5),
 )
-_SEVERITY_BY_TOKEN: dict[str, int] = {
-    label.lower(): number for label, number in SEVERITY_LEVELS
-}
+_SEVERITY_BY_TOKEN: dict[str, int] = {label.lower(): number for label, number in SEVERITY_LEVELS}
 
 
 def parse_severity(raw: Any) -> int | None:

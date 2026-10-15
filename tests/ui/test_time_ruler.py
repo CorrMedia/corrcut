@@ -72,7 +72,5 @@ def test_visible_scene_cuts_includes_overscan_edges() -> None:
 
 def test_visible_scene_cuts_empty_when_none_on_screen() -> None:
     cuts = (0.0, 1.0, 2.0)
-    assert (
-        visible_scene_cuts(cuts, scroll_x=10_000.0, viewport_width=800.0, pps=100.0) == ()
-    )
+    assert visible_scene_cuts(cuts, scroll_x=10_000.0, viewport_width=800.0, pps=100.0) == ()
     assert visible_scene_cuts((), scroll_x=0.0, viewport_width=800.0, pps=100.0) == ()

@@ -83,7 +83,9 @@ def run_detection(
     probe = project.source.probe or {}
     duration = probe.get("duration_seconds")
     subtitle_streams = list(probe.get("subtitle_streams") or [])
-    project_cues = [cue.to_json() for cue in project.subtitle_cues] if project.subtitle_cues else None
+    project_cues = (
+        [cue.to_json() for cue in project.subtitle_cues] if project.subtitle_cues else None
+    )
 
     return detect_from_media(
         source_path,
@@ -120,10 +122,10 @@ def _run_detection_subprocess(
         "track": _track_payload(project),
         "settings": settings.to_json(),
         "cache_dir": str(cache_dir) if cache_dir else None,
-        "duration_seconds": project.source.probe.get("duration_seconds") if project.source else None,
-        "subtitle_streams": list(
-            (project.source.probe or {}).get("subtitle_streams") or []
-        ),
+        "duration_seconds": project.source.probe.get("duration_seconds")
+        if project.source
+        else None,
+        "subtitle_streams": list((project.source.probe or {}).get("subtitle_streams") or []),
         "project_subtitle_cues": (
             [cue.to_json() for cue in project.subtitle_cues] if project.subtitle_cues else None
         ),
@@ -179,9 +181,7 @@ def _run_detection_subprocess(
 
     data = json.loads(result_line[len("RESULT ") :])
     return DetectionResult(
-        suggestions=[
-            AiSuggestion.from_json(item) for item in data.get("suggestions", [])
-        ],
+        suggestions=[AiSuggestion.from_json(item) for item in data.get("suggestions", [])],
         whisper_words=DetectionResult.whisper_words_from_json(
             list(data.get("whisper_words") or [])
         ),

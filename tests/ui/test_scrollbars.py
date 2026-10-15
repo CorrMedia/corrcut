@@ -6,7 +6,7 @@ from PySide6.QtCore import QRect, Qt
 from PySide6.QtGui import QColor, QImage, QPainter, QPalette
 from PySide6.QtWidgets import QApplication, QStyle, QStyleOptionSlider
 
-from corrcut.ui.scrollbars import SCROLLBAR_EXTENT, _DARK_TRACK
+from corrcut.ui.scrollbars import _DARK_TRACK, SCROLLBAR_EXTENT
 from corrcut.ui.square_menus import ResolveMenuStyle
 
 _app = QApplication.instance() or QApplication([])
@@ -75,9 +75,7 @@ def test_idle_scrollbar_thumb_stays_wide() -> None:
     image = QImage(SCROLLBAR_EXTENT, 200, QImage.Format.Format_ARGB32)
     image.fill(QColor("#ff00ff"))
     painter = QPainter(image)
-    style.drawComplexControl(
-        QStyle.ComplexControl.CC_ScrollBar, _vertical_option(), painter, None
-    )
+    style.drawComplexControl(QStyle.ComplexControl.CC_ScrollBar, _vertical_option(), painter, None)
     painter.end()
 
     # A collapsed Windows 11 thumb is a 2px hairline. This one stays wide.

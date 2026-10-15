@@ -1,5 +1,11 @@
 """Unit tests for timeline region time-range edits."""
 
+import pytest
+from PySide6.QtCore import QEvent, QPointF, QRectF, Qt
+from PySide6.QtGui import QMouseEvent
+from PySide6.QtWidgets import QApplication, QGraphicsScene, QGraphicsSceneHoverEvent
+
+from corrcut.domain.operation import OperationType
 from corrcut.ui.timeline.region_geometry import (
     apply_move,
     apply_resize_left,
@@ -12,16 +18,9 @@ from corrcut.ui.timeline.region_geometry import (
     snap_resized_edge_to_targets,
     snap_time,
 )
-from PySide6.QtCore import QEvent, QPointF, QRectF, Qt
-from PySide6.QtGui import QMouseEvent
-from PySide6.QtWidgets import QApplication, QGraphicsScene, QGraphicsSceneHoverEvent
-
-import pytest
+from corrcut.ui.timeline.region_item import RegionItem, region_type_label
 
 _app = QApplication.instance() or QApplication([])
-
-from corrcut.domain.operation import OperationType
-from corrcut.ui.timeline.region_item import RegionItem, region_type_label
 
 
 def _region_item() -> tuple[RegionItem, QGraphicsScene]:
@@ -328,7 +327,9 @@ def test_trim_handles_fade_independently_on_hover() -> None:
     assert item._handle_target_opacity("right") == 1.0
 
     header_h = RegionItem.header_height_for_rect(item.rect())
-    item.hoverMoveEvent(_item_hover(move, QPointF(item.rect().left() + 2.0, item.rect().top() + header_h - 1.0)))
+    item.hoverMoveEvent(
+        _item_hover(move, QPointF(item.rect().left() + 2.0, item.rect().top() + header_h - 1.0))
+    )
     assert item._handle_target_opacity("left") == 0.0
     assert item._handle_target_opacity("right") == 0.0
 

@@ -37,7 +37,9 @@ class CompiledFiltergraph:
     output_audio_label: str = "aout"
 
 
-def _clamp_fade_durations(duration_s: float, fade_in_s: float, fade_out_s: float) -> tuple[float, float]:
+def _clamp_fade_durations(
+    duration_s: float, fade_in_s: float, fade_out_s: float
+) -> tuple[float, float]:
     if duration_s <= 0:
         return 0.0, 0.0
     half = duration_s / 2.0
@@ -57,7 +59,9 @@ class FiltergraphCompiler:
         operations: list[Operation],
         ctx: CompileContext,
     ) -> CompiledFiltergraph:
-        active = [o for o in operations if o.enabled and o.scope.stream_index == ctx.track.stream_index]
+        active = [
+            o for o in operations if o.enabled and o.scope.stream_index == ctx.track.stream_index
+        ]
         active.sort(key=lambda o: (o.order, o.time_range.start.seconds))
 
         if ctx.track.dialogue_target_strategy == DialogueTargetStrategy.CENTER_CHANNEL:
@@ -80,14 +84,19 @@ class FiltergraphCompiler:
         )
         return self.compile(operations, ctx_map)
 
-    def _compile_full_mix(self, operations: list[Operation], ctx: CompileContext) -> CompiledFiltergraph:
+    def _compile_full_mix(
+        self, operations: list[Operation], ctx: CompileContext
+    ) -> CompiledFiltergraph:
         chain = ctx.input_label
         filters: list[str] = []
         for op in operations:
             filters.extend(self._operation_filters(op, ctx.sample_rate, ctx.filter_time_origin_s))
 
         if not filters:
-            return CompiledFiltergraph(filter_complex=f"[{chain}]anull[{ctx.output_label}]", output_audio_label=ctx.output_label)
+            return CompiledFiltergraph(
+                filter_complex=f"[{chain}]anull[{ctx.output_label}]",
+                output_audio_label=ctx.output_label,
+            )
 
         filter_body = ",".join(filters)
         graph = f"[{chain}]{filter_body}[{ctx.output_label}]"
@@ -122,10 +131,7 @@ class FiltergraphCompiler:
                 operations, name, ctx.sample_rate, ctx.filter_time_origin_s
             )
             asp = f"asp_{name}"
-            if name == "FC":
-                mono_label = "fc_src"
-            else:
-                mono_label = f"ms_{name}"
+            mono_label = "fc_src" if name == "FC" else f"ms_{name}"
             extract_steps.append(f"[{asp}]pan=mono|c0={name}[{mono_label}]")
 
             if filters:
@@ -187,7 +193,9 @@ class FiltergraphCompiler:
                 steps.append(f"[mono]{body}[edited]")
                 label = "edited"
             steps.append(f"[{label}]pan=stereo|FL=c0|FR=c0[{ctx.output_label}]")
-            return CompiledFiltergraph(filter_complex=";".join(steps), output_audio_label=ctx.output_label)
+            return CompiledFiltergraph(
+                filter_complex=";".join(steps), output_audio_label=ctx.output_label
+            )
 
         asplit_outs = "".join(f"[asp_{name}]" for name in ordered)
         steps.append(f"[{pts}]asplit={len(ordered)}{asplit_outs}")
@@ -216,7 +224,9 @@ class FiltergraphCompiler:
         steps.append(
             f"{''.join(stereo_labels)}amix=inputs={len(stereo_labels)}:duration=longest[{ctx.output_label}]"
         )
-        return CompiledFiltergraph(filter_complex=";".join(steps), output_audio_label=ctx.output_label)
+        return CompiledFiltergraph(
+            filter_complex=";".join(steps), output_audio_label=ctx.output_label
+        )
 
     def _filters_for_channel(
         self,
@@ -261,9 +271,7 @@ class FiltergraphCompiler:
             return self._mute_filters(start_s, end_s, fi, fo, mute_already_active)
 
         if op.type == OperationType.VOLUME:
-            return self._duck_filters(
-                start_s, end_s, fi, fo, params.gain, mute_already_active
-            )
+            return self._duck_filters(start_s, end_s, fi, fo, params.gain, mute_already_active)
 
         if op.type == OperationType.BEEP:
             return self._beep_filters(
@@ -323,9 +331,7 @@ class FiltergraphCompiler:
         elif fi > 0:
             inner = f"if(lt(t,{s}+{fi}),1-(1-{duck_lin})*(t-{s})/{fi},{duck_lin})"
         else:
-            inner = (
-                f"if(lt(t,{e}-{fo}),{duck_lin},{duck_lin}+(1-{duck_lin})*(t-({e}-{fo}))/{fo}))"
-            )
+            inner = f"if(lt(t,{e}-{fo}),{duck_lin},{duck_lin}+(1-{duck_lin})*(t-({e}-{fo}))/{fo}))"
         vol_expr = f"if(between(t,{s},{e}),{inner},1)"
         return [f"volume=volume='{vol_expr}':eval=frame"]
 
@@ -341,14 +347,10 @@ class FiltergraphCompiler:
         amp: float = 0.3,
     ) -> list[str]:
         """Mute the source during the region, then overlay a sine censor tone."""
-        filters = self._mute_filters(
-            start_s, end_s, fade_in_s, fade_out_s, mute_already_active
-        )
+        filters = self._mute_filters(start_s, end_s, fade_in_s, fade_out_s, mute_already_active)
         s, e = start_s, end_s
         tone_amp = max(0.0, min(1.0, amp))
         freq = max(1.0, beep_freq)
-        beep_expr = (
-            f"val(0)+{tone_amp}*sin(2*PI*{freq}*t)*between(t,{s},{e})"
-        )
+        beep_expr = f"val(0)+{tone_amp}*sin(2*PI*{freq}*t)*between(t,{s},{e})"
         filters.append(f"aeval=exprs='{beep_expr}':c=same")
         return filters

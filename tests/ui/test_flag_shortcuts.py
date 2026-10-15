@@ -102,9 +102,7 @@ def test_fullscreen_does_not_register_duplicate_flag_shortcuts(
     window = _PreviewFullscreenWindow(editor_window._preview_panel)
     target = QKeySequence("Num+1")
     editor_matches = [
-        shortcut
-        for shortcut in editor_window.findChildren(QShortcut)
-        if shortcut.key() == target
+        shortcut for shortcut in editor_window.findChildren(QShortcut) if shortcut.key() == target
     ]
     fullscreen_matches = [
         shortcut for shortcut in window.findChildren(QShortcut) if shortcut.key() == target

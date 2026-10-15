@@ -4,8 +4,8 @@ from __future__ import annotations
 
 from fractions import Fraction
 
-from corrcut.domain.subtitle_cue import SubtitleCue, SubtitleSource
 from corrcut.domain.project import Project
+from corrcut.domain.subtitle_cue import SubtitleCue, SubtitleSource
 from corrcut.domain.time_point import TimePoint
 from corrcut.engine.subtitles.cue_sets import install_cue_set_for_tests
 from corrcut.engine.subtitles.regenerate import regenerate_edited_texts

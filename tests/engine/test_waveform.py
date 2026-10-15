@@ -14,10 +14,10 @@ from corrcut.engine.waveform import (
     PEAK_MAGIC,
     PeakIndex,
     PeakStore,
-    _PcmPeakReducer,
     _audio_filter_for_track,
     _channel_key_for_track,
     _downsample_peaks,
+    _PcmPeakReducer,
     _peak_window_time,
     _reduce_pcm_chunks,
     _samples_per_peak,
@@ -224,7 +224,6 @@ def test_split_peak_segments_covers_full_range() -> None:
         covered += count
     assert covered == 10
     assert _split_peak_segments(3, 8) == [(0, 1), (1, 1), (2, 1)]
-
 
 
 def test_peak_window_time_maps_indices() -> None:

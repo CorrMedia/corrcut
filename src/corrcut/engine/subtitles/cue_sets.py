@@ -109,9 +109,8 @@ def switch_active_source(project: Project, source: SubtitleSource) -> bool:
 
 
 def ensure_active_source(project: Project) -> SubtitleSource | None:
-    if (
-        project.active_subtitle_source is not None
-        and cues_for_source(project, project.active_subtitle_source)
+    if project.active_subtitle_source is not None and cues_for_source(
+        project, project.active_subtitle_source
     ):
         return project.active_subtitle_source
     best = best_available_source(project)

@@ -4,19 +4,19 @@ from __future__ import annotations
 
 import uuid
 from dataclasses import dataclass
-from enum import Enum
+from enum import StrEnum
 from typing import Any
 
 from corrcut.domain.operation import TimeRange
 
 
-class SuggestionStatus(str, Enum):
+class SuggestionStatus(StrEnum):
     PENDING = "pending"
     ACCEPTED = "accepted"
     REJECTED = "rejected"
 
 
-class DetectionSource(str, Enum):
+class DetectionSource(StrEnum):
     WHISPER = "whisper"
     SUBTITLE = "subtitle"
     BOTH = "both"
@@ -144,8 +144,6 @@ class AiSuggestion:
             whisper_probability=float(data["whisper_probability"]),
             alignment_quality=str(data.get("alignment_quality", "good")),
             category=str(data.get("category", "")),
-            detection_source=str(
-                data.get("detection_source", DetectionSource.WHISPER.value)
-            ),
+            detection_source=str(data.get("detection_source", DetectionSource.WHISPER.value)),
             status=SuggestionStatus(str(data.get("status", SuggestionStatus.PENDING.value))),
         )

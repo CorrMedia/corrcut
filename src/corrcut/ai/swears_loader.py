@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import re
 from dataclasses import dataclass
+from pathlib import Path
 
 from corrcut.ai.inflection import inflected_forms
 from corrcut.ai.language import whisper_language_code
@@ -29,20 +30,14 @@ class SwearEntry:
 
 
 def repo_swears_dir() -> Path:
-    from pathlib import Path
-
     return Path(__file__).resolve().parents[3] / "swears"
 
 
 def bundled_swears_dir() -> Path:
-    from pathlib import Path
-
     return Path(__file__).resolve().parents[1] / "resources" / "swears"
 
 
 def resolve_swears_dir() -> Path | None:
-    from pathlib import Path
-
     override = env_value("SWEARS_DIR")
     if override:
         path = Path(override).expanduser()

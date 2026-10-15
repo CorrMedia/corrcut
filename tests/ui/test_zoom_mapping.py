@@ -1,5 +1,4 @@
 from corrcut.ui.timeline.zoom_mapping import (
-    MAX_PIXELS_PER_SECOND,
     MIN_PIXELS_PER_SECOND,
     max_pixels_per_second,
     pixels_per_second_from_slider,

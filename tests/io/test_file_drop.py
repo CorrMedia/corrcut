@@ -12,7 +12,5 @@ def test_classify_open_path_accepts_project_and_media() -> None:
 
 
 def test_first_openable_path_skips_unknown_files() -> None:
-    chosen = first_openable_path(
-        [Path("notes.txt"), Path("movie.mkv"), Path("edit.corrcut")]
-    )
+    chosen = first_openable_path([Path("notes.txt"), Path("movie.mkv"), Path("edit.corrcut")])
     assert chosen == Path("movie.mkv")

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import contextlib
 import json
 from fractions import Fraction
 from pathlib import Path
@@ -187,7 +188,9 @@ def operation_to_corr_edit(
     if op.type == OperationType.VOLUME:
         edit["gain"] = float(params.get("gain", DEFAULT_VOLUME_GAIN))
     if op.type == OperationType.BEEP:
-        edit["frequency"] = float(params.get("beep_freq", params.get("frequency", DEFAULT_BEEP_FREQ)))
+        edit["frequency"] = float(
+            params.get("beep_freq", params.get("frequency", DEFAULT_BEEP_FREQ))
+        )
         edit["gain"] = float(params.get("gain", DEFAULT_BEEP_GAIN))
     if op.type in {OperationType.ZOOM, OperationType.CROP}:
         _emit_zoom_crop(edit, params)
@@ -234,7 +237,9 @@ def operation_from_corr_edit(
     op = Operation.create(
         op_type,
         stream_index,
-        channels if op_type in {OperationType.MUTE, OperationType.VOLUME, OperationType.BEEP} else [],
+        channels
+        if op_type in {OperationType.MUTE, OperationType.VOLUME, OperationType.BEEP}
+        else [],
         TimePoint(Fraction(start).limit_denominator(100_000)),
         TimePoint(Fraction(end).limit_denominator(100_000)),
         params=params,
@@ -349,7 +354,13 @@ def _audio_target_from_corr(
     tracks: list[Any],
 ) -> tuple[int, str | None]:
     action = raw.get("action")
-    if not isinstance(action, str) or action.strip().lower() not in {"mute", "volume", "beep", "duck", "gain"}:
+    if not isinstance(action, str) or action.strip().lower() not in {
+        "mute",
+        "volume",
+        "beep",
+        "duck",
+        "gain",
+    }:
         return default_stream_index, None
     tagged = raw.get("language")
     code = normalize_audio_language(str(tagged)) if isinstance(tagged, str) else None
@@ -425,10 +436,8 @@ def _media_metadata(project: Project) -> dict[str, Any] | None:
     if isinstance(format_info, dict):
         duration = format_info.get("duration")
         if duration is not None:
-            try:
+            with contextlib.suppress(TypeError, ValueError):
                 media["runtime"] = float(duration)
-            except (TypeError, ValueError):
-                pass
     video_streams = probe.get("video_streams") if isinstance(probe, dict) else None
     if isinstance(video_streams, list) and video_streams:
         first = video_streams[0]

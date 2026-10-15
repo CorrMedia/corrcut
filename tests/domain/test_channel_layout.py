@@ -13,8 +13,26 @@ def test_labels_match_ffmpeg_layout_decomposition() -> None:
     assert known_layout_channel_labels("5.1", 6) == ["FL", "FR", "FC", "LFE", "BL", "BR"]
     assert known_layout_channel_labels("5.1(side)", 6) == ["FL", "FR", "FC", "LFE", "SL", "SR"]
     assert known_layout_channel_labels("6.1", 7) == ["FL", "FR", "FC", "LFE", "BC", "SL", "SR"]
-    assert known_layout_channel_labels("7.1", 8) == ["FL", "FR", "FC", "LFE", "BL", "BR", "SL", "SR"]
-    assert known_layout_channel_labels("7.1(wide)", 8) == ["FL", "FR", "FC", "LFE", "BL", "BR", "FLC", "FRC"]
+    assert known_layout_channel_labels("7.1", 8) == [
+        "FL",
+        "FR",
+        "FC",
+        "LFE",
+        "BL",
+        "BR",
+        "SL",
+        "SR",
+    ]
+    assert known_layout_channel_labels("7.1(wide)", 8) == [
+        "FL",
+        "FR",
+        "FC",
+        "LFE",
+        "BL",
+        "BR",
+        "FLC",
+        "FRC",
+    ]
     assert known_layout_channel_labels("7.1(wide-side)", 8) == [
         "FL",
         "FR",

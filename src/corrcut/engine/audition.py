@@ -49,7 +49,9 @@ def _audition_preview_channels(track_channels: int, channel_layout: str | None) 
     return frozenset({"FC"})
 
 
-def audition_job_spec(project: Project, spec: AuditionSpec, ffmpeg: str | None = None) -> JobSpec | None:
+def audition_job_spec(
+    project: Project, spec: AuditionSpec, ffmpeg: str | None = None
+) -> JobSpec | None:
     if project.source is None:
         return None
     track = project.selected_track()

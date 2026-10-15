@@ -34,7 +34,7 @@ def is_whisper_available() -> bool:
 
 
 def whisper_install_hint() -> str:
-    return "Install AI extras: pip install -e \".[ai]\""
+    return 'Install AI extras: pip install -e ".[ai]"'
 
 
 def load_wav_mono_f32(wav_path: Path) -> object:
@@ -58,9 +58,7 @@ def load_wav_mono_f32(wav_path: Path) -> object:
     if sample_width != 2:
         raise ValueError(f"expected 16-bit PCM WAV, got sample_width={sample_width}")
     if frame_rate != WHISPER_SAMPLE_RATE:
-        raise ValueError(
-            f"expected {WHISPER_SAMPLE_RATE} Hz WAV, got frame_rate={frame_rate}"
-        )
+        raise ValueError(f"expected {WHISPER_SAMPLE_RATE} Hz WAV, got frame_rate={frame_rate}")
 
     return np.frombuffer(frames, dtype=np.int16).astype(np.float32) / 32768.0
 

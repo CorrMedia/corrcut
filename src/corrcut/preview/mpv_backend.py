@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import contextlib
 import importlib.util
 import locale
 import logging
@@ -318,16 +319,12 @@ class MpvPlayerBackend(QObject):
             key=lambda t: int(t["id"]),
         )
         if self._selected_vid is None:
-            videos = [
-                t for t in track_list if isinstance(t, dict) and t.get("type") == "video"
-            ]
+            videos = [t for t in track_list if isinstance(t, dict) and t.get("type") == "video"]
             selected = next((t for t in videos if t.get("selected")), None)
             pick = selected or (videos[0] if videos else None)
             if pick is not None:
-                try:
+                with contextlib.suppress(KeyError, TypeError, ValueError):
                     self._selected_vid = int(pick["id"])
-                except (KeyError, TypeError, ValueError):
-                    pass
         if self._audio_tracks_cache and not had_tracks:
             self.tracks_ready.emit()
 
@@ -339,10 +336,7 @@ class MpvPlayerBackend(QObject):
         self._subtitles_visible = visible
         if self._mpv is None:
             return
-        if sid is not None:
-            sid_value = sid
-        else:
-            sid_value = "auto" if visible else "no"
+        sid_value = sid if sid is not None else "auto" if visible else "no"
         try:
             self._mpv.command_async("set", "sub-visibility", "yes" if visible else "no")
             self._mpv.command_async("set", "sid", sid_value)
@@ -551,7 +545,9 @@ class MpvPlayerBackend(QObject):
         except Exception:
             if direction == "backward" and not self._reverse_warned:
                 self._reverse_warned = True
-                logger.warning("mpv play-direction=backward is unavailable; reverse playback disabled")
+                logger.warning(
+                    "mpv play-direction=backward is unavailable; reverse playback disabled"
+                )
             else:
                 logger.debug("mpv play-direction=%s failed", direction, exc_info=True)
             return False
@@ -625,7 +621,7 @@ class MpvPlayerBackend(QObject):
         try:
             self._mpv.pause = True
             self._mpv.lavfi_complex = ""
-            # Never use synchronous command() here — it can deadlock the UI with embedded mpv on Windows.
+            # Never use synchronous command() here — deadlocks embedded mpv on Windows.
             self._mpv.command_async("stop")
         except Exception:
             logger.debug("mpv unload_media failed", exc_info=True)
@@ -742,10 +738,7 @@ class MpvUnavailableWidget(QWidget):
         from corrcut.preview.libmpv_loader import libmpv_status_message
 
         hint = libmpv_status_message(AppPaths.default())
-        label = QLabel(
-            "<b>Video preview unavailable</b><br><br>"
-            f"{hint}"
-        )
+        label = QLabel(f"<b>Video preview unavailable</b><br><br>{hint}")
         label.setWordWrap(True)
         label.setOpenExternalLinks(True)
         label.setAlignment(Qt.AlignmentFlag.AlignCenter)

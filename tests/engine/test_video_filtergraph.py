@@ -8,13 +8,13 @@ from pathlib import Path
 from corrcut.domain.dialogue_target import DialogueTargetStrategy
 from corrcut.domain.operation import ITEM_LEVEL_STREAM_INDEX, Operation, OperationType
 from corrcut.domain.project import Project, SourceFileRecord, TrackRecord
+from corrcut.domain.spatial_keyframes import SpatialKeyframe, set_spatial_keyframes
 from corrcut.domain.time_point import TimePoint
 from corrcut.engine.video_filtergraph import (
     _box_xywh,
     _norm_to_pixel_span,
     compile_preview_video_effects,
 )
-from corrcut.domain.spatial_keyframes import SpatialKeyframe, set_spatial_keyframes
 from corrcut.preview.lavfi_mpv import (
     MPV_AUDIO_IN,
     MPV_AUDIO_OUT,

@@ -170,9 +170,7 @@ def test_moving_the_window_keeps_caption_and_blur_box() -> None:
     )
     panel._project = SimpleNamespace(subtitle_cues=[cue])
     panel.sync_subtitle_overlay(seconds=1.0)
-    panel._video_region_overlay.set_region(
-        {"x": 0.2, "y": 0.2, "width": 0.3, "height": 0.3}
-    )
+    panel._video_region_overlay.set_region({"x": 0.2, "y": 0.2, "width": 0.3, "height": 0.3})
     panel.reposition_video_region_overlay()
     _app.processEvents()
 

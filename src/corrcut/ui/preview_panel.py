@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import contextlib
 import sys
 from pathlib import Path
 
@@ -319,12 +320,17 @@ class _PreviewFullscreenWindow(QWidget):
         super().hideEvent(event)
 
     def eventFilter(self, watched: QObject, event: QEvent) -> bool:  # noqa: N802
-        if self.isVisible() and event.type() == QEvent.Type.KeyPress and isinstance(event, QKeyEvent):
-            if not event.isAutoRepeat() and self._flag_key_is_for_window(watched):
-                slot = flag_slot_for_key(event.key(), event.modifiers(), digits=True)
-                if slot is not None:
-                    self._emit_flag(slot)
-                    return True
+        if (
+            self.isVisible()
+            and event.type() == QEvent.Type.KeyPress
+            and isinstance(event, QKeyEvent)
+            and not event.isAutoRepeat()
+            and self._flag_key_is_for_window(watched)
+        ):
+            slot = flag_slot_for_key(event.key(), event.modifiers(), digits=True)
+            if slot is not None:
+                self._emit_flag(slot)
+                return True
         if (
             self.isVisible()
             and event.type() == QEvent.Type.MouseMove
@@ -723,8 +729,7 @@ class PreviewPanel(QWidget):
         self._controls_bar = _CenteredControlBar(left_host, center_host, right_host)
         self._controls_bar.setObjectName("previewControlsBar")
         self._controls_bar.setStyleSheet(
-            "#previewControlsBar { background-color: #1a1a1a; }"
-            f"{TRANSPORT_BUTTON_STYLE}"
+            f"#previewControlsBar {{ background-color: #1a1a1a; }}{TRANSPORT_BUTTON_STYLE}"
         )
 
         root = QVBoxLayout(self)
@@ -965,10 +970,8 @@ class PreviewPanel(QWidget):
 
     def _detach_overlay_anchor(self, handle: QWindow) -> None:
         for signal in (handle.xChanged, handle.yChanged, handle.windowStateChanged):
-            try:
+            with contextlib.suppress(TypeError, RuntimeError):
                 signal.disconnect(self._reposition_floating_overlays)
-            except (TypeError, RuntimeError):
-                pass
 
     def _reposition_floating_overlays(self, *_args: object) -> None:
         window = self.window()
@@ -1038,9 +1041,7 @@ class PreviewPanel(QWidget):
                 return QRectF(x, y, w, h)
         from corrcut.preview.mpv_backend import aspect_letterbox_rect
 
-        fallback_rect = aspect_letterbox_rect(
-            float(host.width()), float(host.height()), fallback
-        )
+        fallback_rect = aspect_letterbox_rect(float(host.width()), float(host.height()), fallback)
         if fallback_rect is None:
             return None
         x, y, w, h = fallback_rect
@@ -1167,7 +1168,9 @@ class PreviewPanel(QWidget):
             _stack_native_above(self._video_region_overlay)
         if self._subtitle_overlay.isVisible():
             _stack_native_above(self._subtitle_overlay)
-            self._video_region_overlay.set_caption_hit_rect(self._subtitle_overlay.global_hit_rect())
+            self._video_region_overlay.set_caption_hit_rect(
+                self._subtitle_overlay.global_hit_rect()
+            )
         else:
             self._video_region_overlay.set_caption_hit_rect(None)
 
@@ -1244,12 +1247,10 @@ class PreviewPanel(QWidget):
     def _mount_video_widget(self) -> None:
         self.exit_fullscreen()
         if self._overlay_stacking_embed is not None:
-            try:
+            with contextlib.suppress(TypeError, RuntimeError):
                 self._overlay_stacking_embed.native_window_ready.disconnect(
                     self._raise_video_overlay,
                 )
-            except (TypeError, RuntimeError):
-                pass
             self._overlay_stacking_embed = None
         while self._video_layout_slot.count():
             item = self._video_layout_slot.takeAt(0)
@@ -1257,14 +1258,10 @@ class PreviewPanel(QWidget):
                 old = item.widget()
                 # Force deterministic teardown of previous libmpv instance before creating another.
                 if hasattr(old, "backend"):
-                    try:
+                    with contextlib.suppress(Exception):
                         old.backend.shutdown()  # type: ignore[attr-defined]
-                    except Exception:
-                        pass
-                try:
+                with contextlib.suppress(Exception):
                     old.close()
-                except Exception:
-                    pass
                 old.deleteLater()
 
         if is_mpv_available():
@@ -1297,10 +1294,8 @@ class PreviewPanel(QWidget):
             return
         previous = self._overlay_stacking_embed
         if previous is not None:
-            try:
+            with contextlib.suppress(TypeError, RuntimeError):
                 previous.native_window_ready.disconnect(self._raise_video_overlay)
-            except (TypeError, RuntimeError):
-                pass
         self._overlay_stacking_embed = embed
         embed.native_window_ready.connect(self._raise_video_overlay)
         QTimer.singleShot(0, self._raise_video_overlay)
@@ -1498,10 +1493,8 @@ class PreviewPanel(QWidget):
         ):
             if signal is None:
                 continue
-            try:
+            with contextlib.suppress(TypeError, RuntimeError):
                 signal.disconnect(slot)
-            except (TypeError, RuntimeError):
-                pass
 
     def _shutdown_embedded_player(self, *, for_modal: bool) -> None:
         """Stop libmpv and disconnect Qt signals before removing the embed widget."""
@@ -1565,7 +1558,7 @@ class PreviewPanel(QWidget):
         self._fullscreen_btn.setEnabled(enabled)
 
     def prepare_for_modal_dialog(self) -> None:
-        """Hide embedded mpv and release the file before a modal file dialog (Windows deadlock fix)."""
+        """Hide mpv and release the file before a modal dialog (Windows deadlock fix)."""
         self.exit_fullscreen()
         if sys.platform == "win32":
             self.unmount_mpv_embed()
@@ -1637,10 +1630,8 @@ class PreviewPanel(QWidget):
         if self._load_ready_handler is None or self._backend is None:
             self._load_ready_handler = None
             return
-        try:
+        with contextlib.suppress(Exception):
             self._backend.duration_changed.disconnect(self._load_ready_handler)
-        except Exception:
-            pass
         self._load_ready_handler = None
 
     def _disconnect_load_handlers(self) -> None:
@@ -1648,10 +1639,8 @@ class PreviewPanel(QWidget):
         if self._tracks_ready_handler is None or self._backend is None:
             self._tracks_ready_handler = None
             return
-        try:
+        with contextlib.suppress(Exception):
             self._backend.tracks_ready.disconnect(self._tracks_ready_handler)
-        except Exception:
-            pass
         self._tracks_ready_handler = None
 
     def set_project(self, project: Project | None) -> None:
@@ -1807,7 +1796,9 @@ class PreviewPanel(QWidget):
         if not has_cues:
             self._subs_toggle.setToolTip("Load or generate subtitle cues to preview edited lines")
         else:
-            self._subs_toggle.setToolTip("Show or hide edited subtitle overlay on the video preview")
+            self._subs_toggle.setToolTip(
+                "Show or hide edited subtitle overlay on the video preview"
+            )
 
     def _sync_subtitles_toggle(self) -> None:
         self.sync_subtitle_overlay()
@@ -1945,9 +1936,7 @@ class PreviewPanel(QWidget):
             return True
         if self._media_setup_generation != self._sync_generation:
             return True
-        if self._load_settle_generation is not None:
-            return True
-        return False
+        return self._load_settle_generation is not None
 
     def _should_queue_seek(self) -> bool:
         """True while opening/settling — user seeks must not fight the start pin."""
@@ -1957,9 +1946,7 @@ class PreviewPanel(QWidget):
             return True
         if self._media_setup_generation != self._sync_generation:
             return True
-        if self._load_settle_generation is not None:
-            return True
-        return False
+        return self._load_settle_generation is not None
 
     def _has_zoom_operations(self) -> bool:
         if self._project is None:
@@ -2094,22 +2081,24 @@ class PreviewPanel(QWidget):
         track = self._project.selected_track()
         if track is not None:
             ordinal = self._project.audio_ordinal_for_stream(track.stream_index)
-            if not self._backend.set_audio_stream(
-                track.stream_index,
-                audio_ordinal=ordinal,
+            if (
+                not self._backend.set_audio_stream(
+                    track.stream_index,
+                    audio_ordinal=ordinal,
+                )
+                and attempt < 20
             ):
-                if attempt < 20:
-                    self._lavfi_reload_delay_ms = 0
-                    QTimer.singleShot(
-                        100,
-                        lambda: self.sync_track_and_filters(
-                            attempt=attempt + 1,
-                            _generation=gen,
-                            restore_seek=restore_seek,
-                            lavfi_delay_ms=lavfi_delay_ms,
-                        ),
-                    )
-                    return
+                self._lavfi_reload_delay_ms = 0
+                QTimer.singleShot(
+                    100,
+                    lambda: self.sync_track_and_filters(
+                        attempt=attempt + 1,
+                        _generation=gen,
+                        restore_seek=restore_seek,
+                        lavfi_delay_ms=lavfi_delay_ms,
+                    ),
+                )
+                return
         self.reload_lavfi()
         if (
             restore_seek

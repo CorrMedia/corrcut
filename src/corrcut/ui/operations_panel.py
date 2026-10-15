@@ -93,9 +93,7 @@ class OperationsPanel(QWidget):
         title.setAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft)
         self._count_label = QLabel()
         self._count_label.setStyleSheet("color: #888; font-size: 11px;")
-        self._count_label.setAlignment(
-            Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft
-        )
+        self._count_label.setAlignment(Qt.AlignmentFlag.AlignVCenter | Qt.AlignmentFlag.AlignLeft)
         heading.addWidget(title)
         heading.addWidget(self._count_label)
         heading.addStretch(1)
@@ -121,9 +119,7 @@ class OperationsPanel(QWidget):
         self._type_combo = QComboBox()
         populate_operation_type_combo(self._type_combo)
         self._categories = CategoryChipsPicker()
-        self._categories.setSizePolicy(
-            QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Maximum
-        )
+        self._categories.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Maximum)
         self._description_edit = QLineEdit()
         self._description_edit.setPlaceholderText("(Optional)")
         self._severity_combo = QComboBox()
@@ -152,23 +148,19 @@ class OperationsPanel(QWidget):
         )
         self._channels_widget.changed.connect(self._emit_channels_changed)
         self._channel_note = QLabel(
-            'Click a speaker to turn it on or off. '
+            "Click a speaker to turn it on or off. "
             '<a href="toggle-all" style="color:#888;text-decoration:underline;">'
             "Toggle all</a>"
         )
         self._channel_note.setTextFormat(Qt.TextFormat.RichText)
-        self._channel_note.setTextInteractionFlags(
-            Qt.TextInteractionFlag.LinksAccessibleByMouse
-        )
+        self._channel_note.setTextInteractionFlags(Qt.TextInteractionFlag.LinksAccessibleByMouse)
         self._channel_note.setWordWrap(True)
         self._channel_note.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
         self._channel_note.setStyleSheet("color: #888;")
         self._channel_note.setToolTip("Turn every speaker on or off")
         self._channel_note.linkActivated.connect(self._toggle_all_speakers)
         self._channels_block = QWidget()
-        self._channels_block.setSizePolicy(
-            QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Maximum
-        )
+        self._channels_block.setSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Maximum)
         channels_col = QVBoxLayout(self._channels_block)
         channels_col.setContentsMargins(0, 0, 0, 0)
         channels_col.setSpacing(6)
@@ -196,8 +188,7 @@ class OperationsPanel(QWidget):
             Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter
         )
         self._language_label.setToolTip(
-            "Audio tracks in this language share this edit. "
-            "Change it from the timeline audio menu."
+            "Audio tracks in this language share this edit. Change it from the timeline audio menu."
         )
         apply_muted_text(self._language_label, extra_css="font-style: italic;")
         self._form.addRow("Language", self._language_label)
@@ -219,9 +210,7 @@ class OperationsPanel(QWidget):
         editor_layout.addStretch(1)
 
         self._empty_state = QWidget()
-        self._empty_state.setSizePolicy(
-            QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding
-        )
+        self._empty_state.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
 
         self._inspector_stack = QStackedWidget()
         self._inspector_stack.addWidget(self._empty_state)
@@ -302,9 +291,7 @@ class OperationsPanel(QWidget):
         self._channel_layout = channel_layout
         self._channel_count = channels
         self._channel_names = (
-            editable_channel_names(channel_layout, channels)
-            if channel_layout or channels
-            else []
+            editable_channel_names(channel_layout, channels) if channel_layout or channels else []
         )
         self._rebuild_channel_checks(self._channel_names)
 
@@ -458,9 +445,7 @@ class OperationsPanel(QWidget):
         op = self._ops_by_id.get(self._current_id)
         if op is None or not is_audio_operation(op.type):
             return
-        channels = [
-            name for name, box in self._channel_checks.items() if box.isChecked()
-        ]
+        channels = [name for name, box in self._channel_checks.items() if box.isChecked()]
         self.channels_changed.emit(self._current_id, channels)
 
     def _toggle_all_speakers(self, *_args: object) -> None:
@@ -499,7 +484,9 @@ class OperationsPanel(QWidget):
             self._sync_channel_editor(op)
             self._sync_language_label(op)
             self._set_form_row_visible(self._beep_combo, op.type == OperationType.BEEP)
-            self._set_form_row_visible(self._gain_spin, op.type in {OperationType.VOLUME, OperationType.BEEP})
+            self._set_form_row_visible(
+                self._gain_spin, op.type in {OperationType.VOLUME, OperationType.BEEP}
+            )
             self._set_form_row_visible(self._radius_spin, op.type == OperationType.BLUR)
             self._set_form_row_visible(self._size_spin, op.type == OperationType.PIXELATE)
             self._set_form_row_visible(

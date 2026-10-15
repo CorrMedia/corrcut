@@ -260,5 +260,9 @@ def nudge_range(
     if delta_start_s != 0.0 and delta_end_s != 0.0:
         return apply_move(start_s, end_s, delta_start_s, duration_s, min_duration_s=min_duration_s)
     if delta_start_s != 0.0:
-        return apply_resize_left(start_s, end_s, delta_start_s, duration_s, min_duration_s=min_duration_s)
-    return apply_resize_right(start_s, end_s, delta_end_s, duration_s, min_duration_s=min_duration_s)
+        return apply_resize_left(
+            start_s, end_s, delta_start_s, duration_s, min_duration_s=min_duration_s
+        )
+    return apply_resize_right(
+        start_s, end_s, delta_end_s, duration_s, min_duration_s=min_duration_s
+    )

@@ -315,4 +315,3 @@ def test_sync_track_and_filters_skips_while_media_opening() -> None:
     assert backend.set_audio_stream_calls == []
     assert backend.set_lavfi_calls == []
     assert panel._pending_edits_lavfi is True  # type: ignore[attr-defined]
-

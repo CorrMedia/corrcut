@@ -7,7 +7,9 @@ from corrcut.domain.time_point import TimePoint
 from corrcut.ui.editor_window import EditorWindow
 
 
-def test_timeline_audio_menu_labels_language_and_shares_edits(editor_window: EditorWindow, qtbot) -> None:  # type: ignore[no-untyped-def]
+def test_timeline_audio_menu_labels_language_and_shares_edits(
+    editor_window: EditorWindow, qtbot
+) -> None:  # type: ignore[no-untyped-def]
     surround = TrackRecord(
         stream_index=1,
         codec="truehd",
@@ -39,7 +41,9 @@ def test_timeline_audio_menu_labels_language_and_shares_edits(editor_window: Edi
     editor_window._set_project(
         Project(tracks=[surround, stereo], operations=[mute], selected_audio_stream_index=1)
     )
-    qtbot.waitUntil(lambda: editor_window._timeline_panel._audio_track_btn.text().startswith("English"))
+    qtbot.waitUntil(
+        lambda: editor_window._timeline_panel._audio_track_btn.text().startswith("English")
+    )
     button = editor_window._timeline_panel._audio_track_btn
     assert button.text() == "English · 7.1"
     labels = [action.text() for action in button.menu().actions() if action.text()]

@@ -59,7 +59,9 @@ class EditorAiMixin:
         toolchain = check_toolchain()
         ffmpeg_ok = any(t.name == "ffmpeg" and t.ok for t in toolchain.tools)
         if not ffmpeg_ok:
-            QMessageBox.warning(self, "AI", "ffmpeg is required to extract audio for transcription.")
+            QMessageBox.warning(
+                self, "AI", "ffmpeg is required to extract audio for transcription."
+            )
             return
 
         project = self._project
@@ -133,9 +135,7 @@ class EditorAiMixin:
         suggestions = list(result.suggestions)
         slop = self._suggestions_panel.detection_settings().cross_source_merge_slop_ms
         before_suggestions = list(project.ai_suggestions)
-        merge_suggestions_for_track(
-            project, suggestions, track.stream_index, merge_slop_ms=slop
-        )
+        merge_suggestions_for_track(project, suggestions, track.stream_index, merge_slop_ms=slop)
         after_suggestions = list(project.ai_suggestions)
         self._refresh_suggestions_panel()
         self._suggestions_dock.raise_()

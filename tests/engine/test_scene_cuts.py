@@ -5,9 +5,9 @@ from pathlib import Path
 import pytest
 
 from corrcut.engine.scene_cuts import (
+    _parse_duration_s,
     detect_scene_cuts,
     parse_scene_cut_times,
-    _parse_duration_s,
 )
 from corrcut.engine.toolchain import bundled_executable
 

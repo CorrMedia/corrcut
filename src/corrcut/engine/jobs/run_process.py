@@ -62,20 +62,12 @@ def run_process(
                 stdout_done.wait(timeout=5)
                 stderr_done.wait(timeout=5)
                 raise JobCancelled()
-            if (
-                timeout_limit is not None
-                and deadline is not None
-                and time.monotonic() > deadline
-            ):
+            if timeout_limit is not None and deadline is not None and time.monotonic() > deadline:
                 _kill(proc)
                 stdout_done.wait(timeout=5)
                 stderr_done.wait(timeout=5)
                 raise subprocess.TimeoutExpired(cmd, timeout_limit)
-            if (
-                proc.poll() is not None
-                and stdout_done.is_set()
-                and stderr_done.is_set()
-            ):
+            if proc.poll() is not None and stdout_done.is_set() and stderr_done.is_set():
                 break
             time.sleep(0.05)
     except JobCancelled:

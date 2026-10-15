@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from fractions import Fraction
+
 from corrcut.domain.operation import (
     CensorParams,
     Operation,
@@ -10,7 +12,6 @@ from corrcut.domain.operation import (
     normalize_operation_type,
 )
 from corrcut.domain.time_point import TimePoint
-from fractions import Fraction
 
 
 def test_default_params_volume_and_beep() -> None:

@@ -164,9 +164,8 @@ class ResolveMenuStyle(QProxyStyle):
         if element == QStyle.PrimitiveElement.PE_PanelMenu:
             _paint_menu_panel(painter, option.rect)
             return
-        if (
-            element == QStyle.PrimitiveElement.PE_PanelItemViewItem
-            and _paint_recent_project_panel(option, painter, widget)
+        if element == QStyle.PrimitiveElement.PE_PanelItemViewItem and _paint_recent_project_panel(
+            option, painter, widget
         ):
             return
         super().drawPrimitive(element, option, painter, widget)
@@ -186,15 +185,13 @@ class ResolveMenuStyle(QProxyStyle):
         if element == QStyle.ControlElement.CE_PushButton and is_pill_button(widget):
             draw_pill_push_button(self, option, painter, widget)
             return
-        if (
-            element == QStyle.ControlElement.CE_MenuItem
-            and isinstance(option, QStyleOptionMenuItem)
+        if element == QStyle.ControlElement.CE_MenuItem and isinstance(
+            option, QStyleOptionMenuItem
         ):
             _paint_menu_item(self, option, painter, widget)
             return
-        if (
-            element == QStyle.ControlElement.CE_MenuBarItem
-            and isinstance(option, QStyleOptionMenuItem)
+        if element == QStyle.ControlElement.CE_MenuBarItem and isinstance(
+            option, QStyleOptionMenuItem
         ):
             _paint_menu_bar_item(self, option, painter, widget)
             return
@@ -210,12 +207,8 @@ class ResolveMenuStyle(QProxyStyle):
             # Windows 11 paints a bottom tab with the top-tab face, and it draws
             # the whole tab without asking the proxy for the shape separately.
             if element == QStyle.ControlElement.CE_TabBarTab:
-                self.drawControl(
-                    QStyle.ControlElement.CE_TabBarTabShape, option, painter, widget
-                )
-                self.drawControl(
-                    QStyle.ControlElement.CE_TabBarTabLabel, option, painter, widget
-                )
+                self.drawControl(QStyle.ControlElement.CE_TabBarTabShape, option, painter, widget)
+                self.drawControl(QStyle.ControlElement.CE_TabBarTabLabel, option, painter, widget)
                 return
             north = QStyleOptionTab(option)
             north.shape = _BOTTOM_TAB_SHAPES[option.shape]
@@ -273,9 +266,7 @@ class ResolveMenuStyle(QProxyStyle):
         contents_size: QSize,
         widget: QWidget | None = None,
     ) -> QSize:
-        size = super().sizeFromContents(
-            contents_type, option, contents_size, cast(QWidget, widget)
-        )
+        size = super().sizeFromContents(contents_type, option, contents_size, cast(QWidget, widget))
         if is_pill_button(widget) and contents_type in {
             QStyle.ContentsType.CT_PushButton,
             QStyle.ContentsType.CT_ToolButton,
@@ -492,9 +483,7 @@ def _draw_submenu_arrow(painter: QPainter, rect: QRect, color: QColor) -> None:
     x = rect.right() - 10
     painter.setPen(Qt.PenStyle.NoPen)
     painter.setBrush(color)
-    painter.drawPolygon(
-        QPolygon([QPoint(x, cy - 3), QPoint(x + 4, cy), QPoint(x, cy + 3)])
-    )
+    painter.drawPolygon(QPolygon([QPoint(x, cy - 3), QPoint(x + 4, cy), QPoint(x, cy + 3)]))
 
 
 def _dont_round(menu: QMenu) -> None:

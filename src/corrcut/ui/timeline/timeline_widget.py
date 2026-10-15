@@ -881,9 +881,7 @@ class TimelineWidget(QGraphicsView):
 
     def _sync_viewport_items(self, *, repaint: bool = True) -> None:
         vw = self._viewport_width()
-        self._ruler.set_view_state(
-            self._scroll_x, vw, self._pps, self._duration, repaint=repaint
-        )
+        self._ruler.set_view_state(self._scroll_x, vw, self._pps, self._duration, repaint=repaint)
         self._filmstrip.set_view_state(
             self._scroll_x, vw, self._pps, self._duration, repaint=repaint
         )
@@ -1043,9 +1041,11 @@ class TimelineWidget(QGraphicsView):
             return
         if self._empty_drag_start_s is not None:
             self._empty_drag_current_s = t
-            if self._empty_drag_kind == "undecided":
-                if abs(pos.x() - self._empty_press_view_x) >= _EMPTY_DRAW_THRESHOLD_PX:
-                    self._empty_drag_kind = "create"
+            if (
+                self._empty_drag_kind == "undecided"
+                and abs(pos.x() - self._empty_press_view_x) >= _EMPTY_DRAW_THRESHOLD_PX
+            ):
+                self._empty_drag_kind = "create"
             if self._empty_drag_kind == "scrub":
                 self.set_playhead(t, notify=True)
             elif self._empty_drag_kind == "create":
@@ -1239,9 +1239,7 @@ class TimelineWidget(QGraphicsView):
                 item.set_playback_included(self._playback_includes(op))
                 item.set_magnetic_snap_enabled(self._magnetic_snap)
                 item.set_snap_to_scene_cuts_enabled(self._snap_to_scene_cuts)
-                item.set_scene_cut_times(
-                    self._scene_cut_times if self._snap_to_scene_cuts else ()
-                )
+                item.set_scene_cut_times(self._scene_cut_times if self._snap_to_scene_cuts else ())
             else:
                 item = RegionItem(
                     op.id,
@@ -1265,9 +1263,7 @@ class TimelineWidget(QGraphicsView):
                 item.set_playhead_seconds(self._playhead_s)
                 item.set_magnetic_snap_enabled(self._magnetic_snap)
                 item.set_snap_to_scene_cuts_enabled(self._snap_to_scene_cuts)
-                item.set_scene_cut_times(
-                    self._scene_cut_times if self._snap_to_scene_cuts else ()
-                )
+                item.set_scene_cut_times(self._scene_cut_times if self._snap_to_scene_cuts else ())
             if has_spatial_animation(op):
                 item.set_pose_markers([kf.seconds for kf in spatial_keyframes(op)])
             else:
@@ -1412,9 +1408,7 @@ class TimelineWidget(QGraphicsView):
             return
         fill = region_color(op_type, alpha=90)
         self._draw_preview.setBrush(QBrush(fill))
-        self._draw_preview.setPen(
-            QPen(QColor(255, 255, 255, 200), 1, Qt.PenStyle.DashLine)
-        )
+        self._draw_preview.setPen(QPen(QColor(255, 255, 255, 200), 1, Qt.PenStyle.DashLine))
 
     def _draw_drag_bounds(self) -> tuple[float, float, OperationType] | None:
         if self._right_drag_start_s is not None and self._right_drag_current_s is not None:
@@ -1546,7 +1540,7 @@ class TimelineWidget(QGraphicsView):
         delta = event.angleDelta().y()
         if delta != 0:
             bar = self.horizontalScrollBar()
-            step = max(1, bar.singleStep())
+            max(1, bar.singleStep())
             new_val = max(bar.minimum(), min(bar.maximum(), bar.value() - delta // 8))
             if new_val != bar.value():
                 bar.setValue(new_val)
@@ -1704,9 +1698,10 @@ class TimelineWidget(QGraphicsView):
         if not self._edits_enabled:
             event.accept()
             return
-        dragging = bool(
-            event.buttons() & (Qt.MouseButton.LeftButton | Qt.MouseButton.RightButton)
-        ) and self._drag_is_active()
+        dragging = (
+            bool(event.buttons() & (Qt.MouseButton.LeftButton | Qt.MouseButton.RightButton))
+            and self._drag_is_active()
+        )
         if dragging:
             self._drag_autoscroll_view_pos = QPointF(event.position())
             self._tick_drag_autoscroll()
@@ -1725,15 +1720,14 @@ class TimelineWidget(QGraphicsView):
             self._refresh_draw_preview()
             event.accept()
             return
-        if (
-            self._empty_drag_start_s is not None
-            and event.buttons() & Qt.MouseButton.LeftButton
-        ):
+        if self._empty_drag_start_s is not None and event.buttons() & Qt.MouseButton.LeftButton:
             t = self._view_x_to_time(float(event.position().x()))
             self._empty_drag_current_s = t
-            if self._empty_drag_kind == "undecided":
-                if abs(float(event.position().x()) - self._empty_press_view_x) >= _EMPTY_DRAW_THRESHOLD_PX:
-                    self._empty_drag_kind = "create"
+            if self._empty_drag_kind == "undecided" and (
+                abs(float(event.position().x()) - self._empty_press_view_x)
+                >= _EMPTY_DRAW_THRESHOLD_PX
+            ):
+                self._empty_drag_kind = "create"
             if self._empty_drag_kind == "scrub":
                 self.set_playhead(t, notify=True)
             elif self._empty_drag_kind == "create":

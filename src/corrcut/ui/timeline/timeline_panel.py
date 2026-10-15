@@ -283,7 +283,9 @@ class TimelinePanel(QWidget):
         self._zoom_slider = QSlider(Qt.Orientation.Horizontal)
         self._zoom_slider.setObjectName("timelineZoomSlider")
         self._zoom_slider.setRange(0, SLIDER_STEPS)
-        self._zoom_slider.setValue(slider_from_pixels_per_second(self._timeline.pixels_per_second()))
+        self._zoom_slider.setValue(
+            slider_from_pixels_per_second(self._timeline.pixels_per_second())
+        )
         self._zoom_slider.setToolTip("Timeline zoom")
         self._zoom_slider.setMaximumWidth(200)
         self._zoom_slider.setFixedWidth(200)
@@ -397,10 +399,7 @@ class TimelinePanel(QWidget):
         self._tools_rule.setFrameShape(QFrame.Shape.NoFrame)
         self._tools_rule.setAttribute(Qt.WidgetAttribute.WA_StyledBackground, True)
         self._tools_rule.setStyleSheet(
-            "QFrame#timelineToolsRule {"
-            " background-color: #161616;"
-            " border: none;"
-            "}"
+            "QFrame#timelineToolsRule { background-color: #161616; border: none;}"
         )
 
         self._chrome_bar = QWidget()

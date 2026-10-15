@@ -126,8 +126,7 @@ class _Track(QWidget):
 
     def _outside_enable(self, seconds: float) -> bool:
         return (
-            float(seconds) < self._enable_start - 1e-3
-            or float(seconds) > self._enable_end + 1e-3
+            float(seconds) < self._enable_start - 1e-3 or float(seconds) > self._enable_end + 1e-3
         )
 
     def set_active(self, index: int) -> None:
@@ -290,9 +289,7 @@ class _Track(QWidget):
             self._pending_index = None
         if self._drag_index is None and not self._scrubbing:
             hit = self._hit_index(pos) is not None
-            self.setCursor(
-                Qt.CursorShape.SizeHorCursor if hit else Qt.CursorShape.ArrowCursor
-            )
+            self.setCursor(Qt.CursorShape.SizeHorCursor if hit else Qt.CursorShape.ArrowCursor)
             return
         seconds = self._x_to_seconds(pos.x())
         self._playhead = seconds

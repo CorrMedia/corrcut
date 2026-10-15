@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import re
 import shutil
 from fractions import Fraction
 from pathlib import Path

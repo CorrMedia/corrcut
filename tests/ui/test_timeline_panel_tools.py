@@ -265,8 +265,6 @@ def test_zoom_slider_is_compact_neutral_chrome() -> None:
     assert not panel._zoom_icon.pixmap().isNull()  # noqa: SLF001
     assert panel._zoom_icon.toolTip() == "Timeline zoom"  # noqa: SLF001
     plus_minus = [
-        btn
-        for btn in panel.findChildren(QToolButton)
-        if btn.text() in ("+", "−", "-", "–")
+        btn for btn in panel.findChildren(QToolButton) if btn.text() in ("+", "−", "-", "–")
     ]
     assert plus_minus == []

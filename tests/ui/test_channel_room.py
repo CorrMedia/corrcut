@@ -2,8 +2,8 @@ from PySide6.QtCore import QEvent, QPointF, QRect, Qt
 from PySide6.QtGui import QMouseEvent
 
 from corrcut.ui.channel_room import (
-    ChannelRoomWidget,
     _DISABLE_X,
+    ChannelRoomWidget,
     room_geometry,
     speaker_label,
 )

@@ -16,9 +16,7 @@ class EditorVideoMatteMixin:
     def _project_has_zoom_ops(self) -> bool:
         if self._project is None:
             return False
-        return any(
-            op.enabled and op.type == OperationType.ZOOM for op in self._project.operations
-        )
+        return any(op.enabled and op.type == OperationType.ZOOM for op in self._project.operations)
 
     def _frame_size_from_project(self) -> tuple[int, int] | None:
         if self._project is None or self._project.source is None:
@@ -121,7 +119,6 @@ class EditorVideoMatteMixin:
         if getattr(self, "_preview_sync_suppressed", 0) > 0:
             return
         refreshed = self._ensure_video_matte()
-        if refreshed:
+        if refreshed and self._project is not None and self._project.selected_track() is not None:
             # Refresh filters only — do not re-enter ensure scheduling.
-            if self._project is not None and self._project.selected_track() is not None:
-                self._preview_panel.sync_track_and_filters()
+            self._preview_panel.sync_track_and_filters()

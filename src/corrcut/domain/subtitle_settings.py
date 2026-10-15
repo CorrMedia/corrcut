@@ -44,9 +44,7 @@ class SubtitleSettings:
                 int(bitmap_stream_index) if bitmap_stream_index is not None else None
             ),
             append_generated=bool(data.get("append_generated", False)),
-            append_edited=bool(
-                data.get("append_edited", data.get("enabled", True))
-            ),
+            append_edited=bool(data.get("append_edited", data.get("enabled", True))),
             replace_existing_generated_track=bool(
                 data.get("replace_existing_generated_track", True)
             ),

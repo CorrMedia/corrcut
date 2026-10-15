@@ -285,4 +285,3 @@ def test_stale_embedded_extract_does_not_replace_cues(
 
     assert editor_window._project.subtitle_cues == []
     assert editor_window._embedded_extract_active is True
-

@@ -51,8 +51,7 @@ def _srt_cues_to_project(cues, *, source: SubtitleSource) -> list[SubtitleCue]:
 def has_text_subtitle_streams(probe: dict[str, object]) -> bool:
     streams = probe.get("subtitle_streams", [])
     return any(
-        isinstance(s, dict) and is_text_subtitle_codec(str(s.get("codec", "")))
-        for s in streams
+        isinstance(s, dict) and is_text_subtitle_codec(str(s.get("codec", ""))) for s in streams
     )
 
 
@@ -77,9 +76,7 @@ def embedded_text_stream_label(project: Project) -> str | None:
     if project.source is None:
         return None
     probe = project.source.probe or {}
-    subtitle_streams = [
-        s for s in probe.get("subtitle_streams", []) if isinstance(s, dict)
-    ]
+    subtitle_streams = [s for s in probe.get("subtitle_streams", []) if isinstance(s, dict)]
     track = project.selected_track()
     audio_language = track.language if track is not None else None
     stream_index = select_subtitle_stream_index(
@@ -117,12 +114,8 @@ def read_embedded_subtitle_cues(
     if project.source is None:
         return None
     probe = project.source.probe or {}
-    subtitle_streams = [
-        s for s in probe.get("subtitle_streams", []) if isinstance(s, dict)
-    ]
-    text_streams = [
-        s for s in subtitle_streams if is_text_subtitle_codec(str(s.get("codec", "")))
-    ]
+    subtitle_streams = [s for s in probe.get("subtitle_streams", []) if isinstance(s, dict)]
+    text_streams = [s for s in subtitle_streams if is_text_subtitle_codec(str(s.get("codec", "")))]
     if not text_streams:
         return None
 

@@ -37,18 +37,13 @@ class ToggleSwitch(QAbstractButton):
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
         on = self.isChecked()
         # Same Highlight as selected tool-strip buttons and the channel map.
-        track_color = (
-            self.palette().color(QPalette.ColorRole.Highlight) if on else _OFF
-        )
+        track_color = self.palette().color(QPalette.ColorRole.Highlight) if on else _OFF
         track = QRectF(0.5, 0.5, _TRACK_W - 1.0, _TRACK_H - 1.0)
         path = QPainterPath()
         path.addRoundedRect(track, (_TRACK_H - 1.0) / 2.0, (_TRACK_H - 1.0) / 2.0)
         painter.fillPath(path, track_color)
         knob_d = _TRACK_H - 2 * _PAD
-        if on:
-            knob_x = _TRACK_W - _PAD - knob_d
-        else:
-            knob_x = float(_PAD)
+        knob_x = _TRACK_W - _PAD - knob_d if on else float(_PAD)
         knob = QRectF(knob_x, float(_PAD), float(knob_d), float(knob_d))
         painter.setBrush(_KNOB)
         painter.setPen(Qt.PenStyle.NoPen)

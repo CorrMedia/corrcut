@@ -174,10 +174,7 @@ def locked_source_aspect_resize(
     press_h = max(0.02, float(press["height"]))
 
     def _size(proposed_w: float, proposed_h: float, max_w: float, max_h: float) -> float:
-        if abs(proposed_w - press_w) >= abs(proposed_h - press_h):
-            size = proposed_w
-        else:
-            size = proposed_h
+        size = proposed_w if abs(proposed_w - press_w) >= abs(proposed_h - press_h) else proposed_h
         return max(0.02, min(max_w, max_h, size))
 
     if mode == "resize_br":
@@ -298,7 +295,7 @@ class _GhostLayer(QWidget):
         if len(path) >= 2:
             painter.setPen(QPen(QColor(180, 220, 255, 170), 1.25, Qt.PenStyle.SolidLine))
             centers = [_norm_to_rect(self._content, pose).center() for pose in path]
-            for left, right in zip(centers, centers[1:]):
+            for left, right in zip(centers, centers[1:], strict=False):
                 painter.drawLine(left, right)
 
 

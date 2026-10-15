@@ -50,6 +50,7 @@ def _lower_child_priority(proc: subprocess.Popen[str]) -> None:
     except (AttributeError, OSError, PermissionError):
         return
 
+
 _PTS_TIME_RE = re.compile(r"pts_time:([0-9]+(?:\.[0-9]+)?)")
 _OUT_TIME_US_RE = re.compile(r"out_time_us=(\d+)")
 _OUT_TIME_MS_RE = re.compile(r"out_time_ms=(\d+)")
@@ -233,9 +234,7 @@ def detect_scene_cuts(
                     software=True,
                 )
             detail = text.strip().splitlines()[-8:]
-            raise RuntimeError(
-                "\n".join(detail) if detail else "ffmpeg scene-cut detect failed"
-            )
+            raise RuntimeError("\n".join(detail) if detail else "ffmpeg scene-cut detect failed")
         if progress is not None:
             progress(100, "Detecting scene cuts… 100%")
         return parse_scene_cut_times(text)

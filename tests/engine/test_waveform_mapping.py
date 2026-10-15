@@ -10,7 +10,6 @@ from corrcut.ui.timeline.waveform_item import (
     peak_center_x,
     peak_index_range,
     pick_peak_level,
-    visible_peak_span,
 )
 
 

@@ -26,11 +26,7 @@ class PhrasePattern:
 
 
 def tokenize_phrase(text: str) -> tuple[str, ...]:
-    parts = [
-        normalize_token(part)
-        for part in _TOKEN_SPLIT.split(text.strip())
-        if part.strip()
-    ]
+    parts = [normalize_token(part) for part in _TOKEN_SPLIT.split(text.strip()) if part.strip()]
     return tuple(part for part in parts if len(part) >= 1)
 
 

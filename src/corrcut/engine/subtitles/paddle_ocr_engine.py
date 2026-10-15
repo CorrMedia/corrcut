@@ -66,10 +66,53 @@ _MOBILE_DET_MODEL = "PP-OCRv5_mobile_det"
 _EN_REC_MODEL = "en_PP-OCRv5_mobile_rec"
 _LATIN_REC_LANGS = frozenset(
     {
-        "af", "az", "bs", "cs", "cy", "da", "de", "es", "et", "fr", "ga", "hr",
-        "hu", "id", "is", "it", "lt", "lv", "mi", "ms", "mt", "nl", "no", "oc",
-        "pi", "pl", "pt", "ro", "rs_latin", "sk", "sl", "sq", "sv", "sw", "tl",
-        "tr", "uz", "vi", "french", "german", "fi", "eu", "gl", "lb", "rm", "ca", "qu",
+        "af",
+        "az",
+        "bs",
+        "cs",
+        "cy",
+        "da",
+        "de",
+        "es",
+        "et",
+        "fr",
+        "ga",
+        "hr",
+        "hu",
+        "id",
+        "is",
+        "it",
+        "lt",
+        "lv",
+        "mi",
+        "ms",
+        "mt",
+        "nl",
+        "no",
+        "oc",
+        "pi",
+        "pl",
+        "pt",
+        "ro",
+        "rs_latin",
+        "sk",
+        "sl",
+        "sq",
+        "sv",
+        "sw",
+        "tl",
+        "tr",
+        "uz",
+        "vi",
+        "french",
+        "german",
+        "fi",
+        "eu",
+        "gl",
+        "lb",
+        "rm",
+        "ca",
+        "qu",
     }
 )
 _ESLAV_REC_LANGS = frozenset({"ru", "be", "uk"})
@@ -101,7 +144,7 @@ def paddle_install_hint() -> str:
         "Then launch the app with that interpreter (not system python):\n"
         f"  {venv_python} -m corrcut\n\n"
         "Manual install:\n"
-        "  python -m pip install -e \".[ocr]\"\n"
+        '  python -m pip install -e ".[ocr]"\n'
         "  python -m pip install paddlepaddle==3.3.0 "
         "-i https://www.paddlepaddle.org.cn/packages/stable/cpu/"
     )
@@ -527,9 +570,7 @@ def _run_ocr(engine: object, image_array: object) -> str:
         if method is None:
             continue
         try:
-            result = (
-                method(image_array, cls=False) if method_name == "ocr" else method(image_array)
-            )
+            result = method(image_array, cls=False) if method_name == "ocr" else method(image_array)
         except TypeError:
             try:
                 result = method(image_array)

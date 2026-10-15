@@ -176,4 +176,3 @@ def test_set_muted_toggles_mpv_mute(backend: MpvPlayerBackend) -> None:
     assert backend.is_muted() is True
     assert backend.set_muted(False) is True
     assert backend.is_muted() is False
-

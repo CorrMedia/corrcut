@@ -61,9 +61,7 @@ def scrollbar_sub_control_rect(
         page = int(option.pageStep)
         denom = span + page
         slider_len = (page * length) // denom if denom else 0
-        slider_min = style.pixelMetric(
-            QStyle.PixelMetric.PM_ScrollBarSliderMin, option, widget
-        )
+        slider_min = style.pixelMetric(QStyle.PixelMetric.PM_ScrollBarSliderMin, option, widget)
         if slider_len < slider_min or span > 2**30:
             slider_len = slider_min
         slider_len = min(slider_len, length)
@@ -128,9 +126,7 @@ def draw_scrollbar(
     painter.setBrush(track)
     painter.drawRect(option.rect)
 
-    slider = scrollbar_sub_control_rect(
-        style, option, QStyle.SubControl.SC_ScrollBarSlider, widget
-    )
+    slider = scrollbar_sub_control_rect(style, option, QStyle.SubControl.SC_ScrollBarSlider, widget)
     if slider is not None and slider.isValid():
         thumb = _thumb_rect(slider, option.orientation == Qt.Orientation.Horizontal)
         if thumb.isValid():

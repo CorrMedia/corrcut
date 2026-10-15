@@ -111,24 +111,25 @@ def compile_playback_lavfi(
     video_ops = [
         op
         for op in project.timeline_operations()
-        if op.is_item_level
-        and (apply_zoom or op.type != OperationType.ZOOM)
-        and active.matches(op)
+        if op.is_item_level and (apply_zoom or op.type != OperationType.ZOOM) and active.matches(op)
     ]
     matte_box = None
     frame_w = 0
     frame_h = 0
-    if project.preserve_letterbox_on_zoom and project.video_matte is not None:
-        if not project.video_matte.is_trivial():
-            matte_box = project.video_matte.as_box()
-            if project.source is not None and isinstance(project.source.probe, dict):
-                streams = project.source.probe.get("video_streams") or []
-                if isinstance(streams, list) and streams and isinstance(streams[0], dict):
-                    try:
-                        frame_w = int(streams[0].get("width") or 0)
-                        frame_h = int(streams[0].get("height") or 0)
-                    except (TypeError, ValueError):
-                        frame_w, frame_h = 0, 0
+    if (
+        project.preserve_letterbox_on_zoom
+        and project.video_matte is not None
+        and not project.video_matte.is_trivial()
+    ):
+        matte_box = project.video_matte.as_box()
+        if project.source is not None and isinstance(project.source.probe, dict):
+            streams = project.source.probe.get("video_streams") or []
+            if isinstance(streams, list) and streams and isinstance(streams[0], dict):
+                try:
+                    frame_w = int(streams[0].get("width") or 0)
+                    frame_h = int(streams[0].get("height") or 0)
+                except (TypeError, ValueError):
+                    frame_w, frame_h = 0, 0
     time_window: tuple[float, float] | None = None
     if playhead_s is not None:
         radius = max(1.0, float(video_window_radius_s))

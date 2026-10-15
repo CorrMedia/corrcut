@@ -241,7 +241,9 @@ class PeakStore:
     def total_peaks_at_level(self, level: int) -> int:
         return max(1, int(self.index.duration_seconds * self.level_peaks_per_second(level)))
 
-    def read_level_slice(self, level: int, start_peak: int, count: int) -> list[tuple[float, float]]:
+    def read_level_slice(
+        self, level: int, start_peak: int, count: int
+    ) -> list[tuple[float, float]]:
         offset = self._level_byte_offset(level)
         record_size = 8
         out: list[tuple[float, float]] = []
@@ -414,7 +416,9 @@ def build_waveform_cache(
     return preload_peak_memory(built, cancel_event=cancel_event)
 
 
-def _split_peak_segments(total_peaks: int, segments: int = WAVEFORM_PARALLEL_SEGMENTS) -> list[tuple[int, int]]:
+def _split_peak_segments(
+    total_peaks: int, segments: int = WAVEFORM_PARALLEL_SEGMENTS
+) -> list[tuple[int, int]]:
     """Return ``(start_peak, count)`` slices covering ``[0, total_peaks)``."""
     total = max(1, int(total_peaks))
     n = max(1, min(int(segments), total))

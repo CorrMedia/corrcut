@@ -351,9 +351,7 @@ def convert_bitmap_stream_to_cues(
     )
     codec = str(stream.get("codec", "")) if isinstance(stream, dict) else ""
     if not is_ocr_subtitle_codec(codec):
-        raise RuntimeError(
-            f"Subtitle stream #{stream_index} ({codec}) is not supported for OCR."
-        )
+        raise RuntimeError(f"Subtitle stream #{stream_index} ({codec}) is not supported for OCR.")
 
     reason = paddle_unavailable_reason()
     if reason:

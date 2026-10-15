@@ -3,7 +3,7 @@
 from fractions import Fraction
 
 from corrcut.ai.detect import detect_suggestions
-from corrcut.ai.lexicon import DEFAULT_LEXICON, normalize_token, ProfanityLexicon
+from corrcut.ai.lexicon import DEFAULT_LEXICON, normalize_token
 from corrcut.ai.transcript import TranscriptWord
 from corrcut.domain.ai_suggestion import DetectionSettings, SuggestionStatus
 from corrcut.domain.time_point import TimePoint
@@ -73,7 +73,6 @@ def test_detect_builds_padded_window() -> None:
 
 
 def test_detect_adds_extra_padding_when_whisper_confidence_low() -> None:
-    rate = 48000
     words = [
         TranscriptWord(
             text="damn",

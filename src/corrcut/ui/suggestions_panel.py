@@ -405,7 +405,14 @@ class SuggestionsPanel(QWidget):
     def _filtered_suggestions(self) -> list[AiSuggestion]:
         visible: list[AiSuggestion] = []
         for suggestion in self._all_suggestions:
-            if suggestion.status == SuggestionStatus.PENDING and self._filter_pending.isChecked() or suggestion.status == SuggestionStatus.ACCEPTED and self._filter_accepted.isChecked() or suggestion.status == SuggestionStatus.REJECTED and self._filter_rejected.isChecked():
+            if (
+                suggestion.status == SuggestionStatus.PENDING
+                and self._filter_pending.isChecked()
+                or suggestion.status == SuggestionStatus.ACCEPTED
+                and self._filter_accepted.isChecked()
+                or suggestion.status == SuggestionStatus.REJECTED
+                and self._filter_rejected.isChecked()
+            ):
                 visible.append(suggestion)
         return visible
 
@@ -456,13 +463,9 @@ class SuggestionsPanel(QWidget):
         pending = sum(1 for s in self._all_suggestions if s.status == SuggestionStatus.PENDING)
         shown = len(suggestions)
         if shown == total:
-            self._summary.setText(
-                f"{total} suggestion(s) — {pending} pending review"
-            )
+            self._summary.setText(f"{total} suggestion(s) — {pending} pending review")
         else:
-            self._summary.setText(
-                f"{shown} of {total} shown — {pending} pending review"
-            )
+            self._summary.setText(f"{shown} of {total} shown — {pending} pending review")
         self._loading_table = False
         scroll_bar.setValue(min(scroll_pos, scroll_bar.maximum()))
 

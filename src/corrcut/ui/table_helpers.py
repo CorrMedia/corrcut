@@ -55,7 +55,7 @@ def scroll_row_to_center(table: QTableWidget, row: int) -> None:
     table.scrollTo(index, QAbstractItemView.ScrollHint.PositionAtCenter)
 
 
-def timed_item_at_seconds(
+def timed_item_at_seconds[T](
     items: list[T],
     seconds: float,
     *,
@@ -69,7 +69,7 @@ def timed_item_at_seconds(
     return None
 
 
-def timed_item_for_playhead(
+def timed_item_for_playhead[T](
     items: list[T],
     seconds: float,
     *,
@@ -205,10 +205,9 @@ class _PanelTableViewportFilter(QObject):
             delta = event.angleDelta()
             if delta.x() != 0 and abs(delta.x()) >= abs(delta.y()):
                 return True
-        if event.type() == QEvent.Type.MouseMove:
-            if event.buttons() & Qt.MouseButton.LeftButton:
-                return True
-        return False
+        return bool(
+            event.type() == QEvent.Type.MouseMove and event.buttons() & Qt.MouseButton.LeftButton
+        )
 
 
 def configure_panel_table(table: QTableWidget) -> None:

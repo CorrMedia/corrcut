@@ -351,9 +351,7 @@ def set_spatial_keyframes(op: Operation, keyframes: Sequence[SpatialKeyframe]) -
         and abs(kfs[-1].seconds - end_s) <= TIME_EPS
     )
     if not endpoint_pair:
-        params["box_keyframes"] = [
-            {"seconds": kf.seconds, "box": copy_box(kf.box)} for kf in kfs
-        ]
+        params["box_keyframes"] = [{"seconds": kf.seconds, "box": copy_box(kf.box)} for kf in kfs]
 
 
 def add_spatial_keyframe(
@@ -590,12 +588,16 @@ def _drop_identical_edge_holds(
 ) -> list[SpatialKeyframe]:
     """Strip synthesized edge holds after merging exported segments."""
     kfs = _sorted_unique(keyframes)
-    if len(kfs) >= 3 and abs(kfs[-1].seconds - end_s) <= TIME_EPS and boxes_close(
-        kfs[-2].box, kfs[-1].box
+    if (
+        len(kfs) >= 3
+        and abs(kfs[-1].seconds - end_s) <= TIME_EPS
+        and boxes_close(kfs[-2].box, kfs[-1].box)
     ):
         kfs = kfs[:-1]
-    if len(kfs) >= 3 and abs(kfs[0].seconds - start_s) <= TIME_EPS and boxes_close(
-        kfs[0].box, kfs[1].box
+    if (
+        len(kfs) >= 3
+        and abs(kfs[0].seconds - start_s) <= TIME_EPS
+        and boxes_close(kfs[0].box, kfs[1].box)
     ):
         kfs = kfs[1:]
     return kfs

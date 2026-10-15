@@ -115,7 +115,15 @@ def _looks_like_dialogue_split(parts: list[str]) -> bool:
         stripped = part.lstrip()
         if not stripped:
             return False
-        if stripped[0] in (_DIALOGUE_DASH, "\u2013", "\u2014", "\u00ab", "\u00bb", "\u2039", "\u203a"):
+        if stripped[0] in (
+            _DIALOGUE_DASH,
+            "\u2013",
+            "\u2014",
+            "\u00ab",
+            "\u00bb",
+            "\u2039",
+            "\u203a",
+        ):
             continue
         if not stripped[0].isalpha():
             return False

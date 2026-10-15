@@ -43,6 +43,7 @@ from corrcut.engine.toolchain import check_toolchain
 class EditorSubtitlesMixin:
     _subtitle_job_kind: str | None
     _subtitle_job_project: Project | None
+
     def _refresh_subtitle_ui(self) -> None:
         if self._project is None:
             return
@@ -185,10 +186,7 @@ class EditorSubtitlesMixin:
             self._embedded_extract_pending = False
             self._start_embedded_subtitle_extract()
             return
-        if (
-            self._project is None
-            or result.generation != self._subtitle_extract_generation
-        ):
+        if self._project is None or result.generation != self._subtitle_extract_generation:
             self._finish_superseded_extract()
             return
         if result.error:
@@ -365,7 +363,9 @@ class EditorSubtitlesMixin:
             )
             return False
         if self._subtitle_job_runner.is_busy:
-            QMessageBox.information(self, "Subtitles", "Wait for the current subtitle job to finish.")
+            QMessageBox.information(
+                self, "Subtitles", "Wait for the current subtitle job to finish."
+            )
             return False
         if self._ai_job_runner.is_busy:
             QMessageBox.information(self, "Subtitles", "Wait for the current AI job to finish.")
@@ -383,9 +383,7 @@ class EditorSubtitlesMixin:
             QMessageBox.warning(self, "Subtitles", "ffmpeg is required to extract PGS subtitles.")
             return False
         probe = self._project.source.probe or {}
-        subtitle_streams = [
-            s for s in probe.get("subtitle_streams", []) if isinstance(s, dict)
-        ]
+        subtitle_streams = [s for s in probe.get("subtitle_streams", []) if isinstance(s, dict)]
         settings = self._subtitles_panel.subtitle_settings()
         track = self._project.selected_track()
         from corrcut.ai.subtitles import (
@@ -463,8 +461,9 @@ class EditorSubtitlesMixin:
         self._refresh_subtitle_ui()
         self._notify_project_modified()
         self._subtitles_dock.raise_()
+        ocr_label = source_label(SubtitleSource.OCR)
         self._status.showMessage(
-            f"Converted bitmap subtitles ({source_label(SubtitleSource.OCR)}, stream #{stream_index})",
+            f"Converted bitmap subtitles ({ocr_label}, stream #{stream_index})",
             6000,
         )
 
@@ -504,7 +503,9 @@ class EditorSubtitlesMixin:
             QMessageBox.information(self, "Subtitles", "Select an audio track to transcribe.")
             return False
         if self._subtitle_job_runner.is_busy:
-            QMessageBox.information(self, "Subtitles", "Wait for the current subtitle job to finish.")
+            QMessageBox.information(
+                self, "Subtitles", "Wait for the current subtitle job to finish."
+            )
             return False
         if self._ai_job_runner.is_busy:
             QMessageBox.information(self, "Subtitles", "Wait for the current AI job to finish.")
@@ -787,7 +788,9 @@ class EditorSubtitlesMixin:
             return []
         return [cue.to_json() for cue in self._project.subtitle_cues]
 
-    def _restore_subtitle_cues(self, snapshot: list[dict], *, select_cue_id: str | None = None) -> None:
+    def _restore_subtitle_cues(
+        self, snapshot: list[dict], *, select_cue_id: str | None = None
+    ) -> None:
         if self._project is None:
             return
         self._project.subtitle_cues = [SubtitleCue.from_json(row) for row in snapshot]

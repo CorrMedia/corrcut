@@ -4,14 +4,14 @@ from __future__ import annotations
 
 import uuid
 from dataclasses import dataclass
-from enum import Enum
+from enum import StrEnum
 from fractions import Fraction
 from typing import Any
 
 from corrcut.domain.time_point import TimePoint
 
 
-class SubtitleSource(str, Enum):
+class SubtitleSource(StrEnum):
     EMBEDDED = "embedded"
     WHISPER = "whisper"
     OCR = "ocr"

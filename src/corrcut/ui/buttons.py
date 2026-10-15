@@ -150,9 +150,7 @@ def _draw_label(
     painter.drawText(
         inner,
         int(
-            Qt.AlignmentFlag.AlignCenter
-            | Qt.TextFlag.TextShowMnemonic
-            | Qt.TextFlag.TextSingleLine
+            Qt.AlignmentFlag.AlignCenter | Qt.TextFlag.TextShowMnemonic | Qt.TextFlag.TextSingleLine
         ),
         text,
     )

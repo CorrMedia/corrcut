@@ -265,7 +265,9 @@ def _candidate_spans(
     max_phrase_groups = min(len(phrase_groups), max(4, (ocr_token_count + 1) // 2))
     for start_group in range(len(phrase_groups)):
         merged: list[TranscriptWord] = []
-        for group_index in range(start_group, min(len(phrase_groups), start_group + max_phrase_groups)):
+        for group_index in range(
+            start_group, min(len(phrase_groups), start_group + max_phrase_groups)
+        ):
             merged.extend(phrase_groups[group_index])
             add_span(list(merged))
 
@@ -368,9 +370,7 @@ def _ocr_coverage_score(ocr_line: str, span: list[TranscriptWord]) -> float:
 
     matcher = SequenceMatcher(None, ocr_tokens, span_tokens)
     covered = sum(
-        i2 - i1
-        for tag, i1, i2, _j1, _j2 in matcher.get_opcodes()
-        if tag in {"equal", "replace"}
+        i2 - i1 for tag, i1, i2, _j1, _j2 in matcher.get_opcodes() if tag in {"equal", "replace"}
     )
     return covered / len(ocr_tokens)
 
@@ -417,11 +417,11 @@ def _trim_filler_edges(ocr_line: str, span: list[TranscriptWord]) -> list[Transc
     matcher = SequenceMatcher(None, ocr_tokens, span_tokens)
     first = 0
     last = len(span)
-    for tag, _i1, _i2, j1, j2 in matcher.get_opcodes():
+    for tag, _i1, _i2, j1, _j2 in matcher.get_opcodes():
         if tag in {"equal", "replace"}:
             first = j1
             break
-    for tag, _i1, _i2, j1, j2 in reversed(matcher.get_opcodes()):
+    for tag, _i1, _i2, _j1, j2 in reversed(matcher.get_opcodes()):
         if tag in {"equal", "replace"}:
             last = j2
             break
@@ -494,9 +494,7 @@ def _merge_tokens(ocr_line: str, whisper_words: list[TranscriptWord]) -> str:
             for ocr_token, whisper_token, whisper_word in zip(
                 ocr_span, whisper_span, whisper_probs, strict=True
             ):
-                merged.append(
-                    _choose_token(ocr_token, whisper_token, whisper_word.probability)
-                )
+                merged.append(_choose_token(ocr_token, whisper_token, whisper_word.probability))
             continue
 
         if _span_confidence(whisper_probs) >= _MIN_WHISPER_WORD_PROBABILITY:
@@ -521,7 +519,9 @@ def _preserve_ocr_formatting(ocr_line: str, whisper_line: str) -> str:
     result = whisper_line.strip()
     stripped_ocr = ocr_line.strip()
 
-    if stripped_ocr.startswith(f"{_DIALOGUE_DASH} ") and not result.startswith(f"{_DIALOGUE_DASH} "):
+    if stripped_ocr.startswith(f"{_DIALOGUE_DASH} ") and not result.startswith(
+        f"{_DIALOGUE_DASH} "
+    ):
         result = f"{_DIALOGUE_DASH} {result.lstrip()}"
 
     if stripped_ocr.startswith(_MUSIC_NOTE) and not result.startswith(_MUSIC_NOTE):

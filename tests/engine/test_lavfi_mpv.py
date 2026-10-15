@@ -38,7 +38,9 @@ def _project_with_mute() -> Project:
         TimePoint(Fraction(2)),
     )
     return Project(
-        source=SourceFileRecord(path=Path(__file__), fingerprint={}, probe={"duration_seconds": 10.0}),
+        source=SourceFileRecord(
+            path=Path(__file__), fingerprint={}, probe={"duration_seconds": 10.0}
+        ),
         tracks=[track],
         selected_audio_stream_index=1,
         operations=[op],
@@ -174,7 +176,9 @@ def _project_center_channel_fc_mute() -> Project:
         TimePoint(Fraction(2)),
     )
     return Project(
-        source=SourceFileRecord(path=Path(__file__), fingerprint={}, probe={"duration_seconds": 10.0}),
+        source=SourceFileRecord(
+            path=Path(__file__), fingerprint={}, probe={"duration_seconds": 10.0}
+        ),
         tracks=[track],
         selected_audio_stream_index=1,
         operations=[op],

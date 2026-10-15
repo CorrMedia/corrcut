@@ -83,9 +83,7 @@ def _unit(start: float, end: float, from_v: float, to_v: float) -> str:
     span = end - start
     if span <= 0:
         return _f(from_v)
-    return (
-        f"({_f(from_v)}+({_f(to_v - from_v)})*clip((t-{_f(start)})/{_f(span)},0,1))"
-    )
+    return f"({_f(from_v)}+({_f(to_v - from_v)})*clip((t-{_f(start)})/{_f(span)},0,1))"
 
 
 def _norm_to_pixel_span(size_var: str, origin_unit: str, length_unit: str) -> tuple[str, str]:
@@ -225,10 +223,12 @@ def compile_preview_video_effects(
         end = float(op.time_range.end.seconds)
         if end <= start:
             continue
-        if win_start is not None and win_end is not None:
-            if end <= win_start or start >= win_end:
-                continue
-        if op.type in _REGIONAL_TYPES and _animated_box_crop_units(op, start, end, opts=opts) is None:
+        if win_start is not None and win_end is not None and (end <= win_start or start >= win_end):
+            continue
+        if (
+            op.type in _REGIONAL_TYPES
+            and _animated_box_crop_units(op, start, end, opts=opts) is None
+        ):
             continue
         base_pad = f"vx{index}b"
         src_pad = f"vx{index}s"
@@ -381,13 +381,15 @@ def _build_effect_filters(
         # Label pads local to this effect step.
         black_pad = f"{fx_pad}k"
         win_pad = f"{fx_pad}w"
+        overlay_x = _crop_overlay_x(op, start, end, opts=compile_opts)
+        overlay_y = _crop_overlay_y(op, start, end, opts=compile_opts)
         return (
             f"[{src_pad}]split=2[{black_pad}s][{win_pad}s];"
             f"[{black_pad}s]drawbox=0:0:iw:ih:black:t=fill[{black_pad}];"
             f"[{win_pad}s]{crop}[{win_pad}];"
             f"[{black_pad}][{win_pad}]overlay="
-            f"x='min(main_w-overlay_w,max(0,floor(main_w*({_crop_overlay_x(op, start, end, opts=compile_opts)}))))':"
-            f"y='min(main_h-overlay_h,max(0,floor(main_h*({_crop_overlay_y(op, start, end, opts=compile_opts)}))))'"
+            f"x='min(main_w-overlay_w,max(0,floor(main_w*({overlay_x}))))':"
+            f"y='min(main_h-overlay_h,max(0,floor(main_h*({overlay_y}))))'"
             f"[{fx_pad}];"
         )
 

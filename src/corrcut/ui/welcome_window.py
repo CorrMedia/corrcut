@@ -181,8 +181,7 @@ class WelcomeWindow(QMainWindow):
             reply = QMessageBox.warning(
                 self,
                 "Project not found",
-                f"The project file no longer exists:\n{path}\n\n"
-                "Remove it from recent projects?",
+                f"The project file no longer exists:\n{path}\n\nRemove it from recent projects?",
                 QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No,
                 QMessageBox.StandardButton.Yes,
             )

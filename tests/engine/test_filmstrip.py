@@ -99,11 +99,7 @@ def test_aspect_from_probe_uses_display_aspect_for_anamorphic_video() -> None:
 
 
 def test_aspect_from_probe_applies_sample_aspect_and_rotation() -> None:
-    sar_only = {
-        "video_streams": [
-            {"width": 720, "height": 480, "sample_aspect_ratio": "32:27"}
-        ]
-    }
+    sar_only = {"video_streams": [{"width": 720, "height": 480, "sample_aspect_ratio": "32:27"}]}
     assert aspect_from_probe(sar_only) == pytest.approx(16 / 9)
     turned = {
         "video_streams": [

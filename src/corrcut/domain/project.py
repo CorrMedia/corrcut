@@ -102,9 +102,7 @@ class TrackRecord:
             channels=int(data["channels"]),
             sample_rate=int(data["sample_rate"]) if data.get("sample_rate") else None,
             language=data.get("language"),
-            dialogue_target_strategy=DialogueTargetStrategy(
-                str(data["dialogue_target_strategy"])
-            ),
+            dialogue_target_strategy=DialogueTargetStrategy(str(data["dialogue_target_strategy"])),
             title=data.get("title"),
             is_default=bool(data.get("is_default", False)),
         )
@@ -274,11 +272,17 @@ class Project:
         idx = self.selected_audio_stream_index
         rows: list[Operation] = []
         for op in self.operations:
-            if op.scope.stream_index == ITEM_LEVEL_STREAM_INDEX or op.is_item_level or track is not None and self.audio_op_matches_track(op, track) or (
-                track is None
-                and idx is not None
-                and op.scope.stream_index == idx
-                and not op.is_item_level
+            if (
+                op.scope.stream_index == ITEM_LEVEL_STREAM_INDEX
+                or op.is_item_level
+                or track is not None
+                and self.audio_op_matches_track(op, track)
+                or (
+                    track is None
+                    and idx is not None
+                    and op.scope.stream_index == idx
+                    and not op.is_item_level
+                )
             ):
                 rows.append(op)
         return rows
@@ -286,9 +290,7 @@ class Project:
     def select_track_for_audio_edits(self) -> None:
         """When imported audio edits share one language, hear the best matching track."""
         codes = [
-            self.operation_language(op)
-            for op in self.operations
-            if is_audio_operation(op.type)
+            self.operation_language(op) for op in self.operations if is_audio_operation(op.type)
         ]
         if len(set(codes)) != 1:
             return
@@ -380,13 +382,9 @@ class Project:
             "whisper_cache": (
                 self.whisper_cache.to_json() if self.whisper_cache is not None else None
             ),
-            "scene_cuts": (
-                self.scene_cuts.to_json() if self.scene_cuts is not None else None
-            ),
+            "scene_cuts": (self.scene_cuts.to_json() if self.scene_cuts is not None else None),
             "preserve_letterbox_on_zoom": bool(self.preserve_letterbox_on_zoom),
-            "video_matte": (
-                self.video_matte.to_json() if self.video_matte is not None else None
-            ),
+            "video_matte": (self.video_matte.to_json() if self.video_matte is not None else None),
             "selected_audio_stream_index": self.selected_audio_stream_index,
             "audio_language_overrides": dict(self.audio_language_overrides),
         }
@@ -416,15 +414,11 @@ class Project:
                     SubtitleCue.from_json(row) for row in rows if isinstance(row, dict)
                 ]
         legacy_cues = [
-            SubtitleCue.from_json(c)
-            for c in data.get("subtitle_cues", [])
-            if isinstance(c, dict)
+            SubtitleCue.from_json(c) for c in data.get("subtitle_cues", []) if isinstance(c, dict)
         ]
         active_raw = data.get("active_subtitle_source")
         active_subtitle_source = (
-            SubtitleSource(str(active_raw))
-            if active_raw is not None and str(active_raw)
-            else None
+            SubtitleSource(str(active_raw)) if active_raw is not None and str(active_raw) else None
         )
         settings_raw = data.get("subtitle_settings")
         if not isinstance(settings_raw, dict):
@@ -530,9 +524,7 @@ def track_for_edit_language(tracks: list[TrackRecord], language: str) -> TrackRe
     if code is None or not tracks:
         return None
     matches = [
-        track
-        for track in tracks
-        if resolve_track_language(track.language, track.title)[0] == code
+        track for track in tracks if resolve_track_language(track.language, track.title)[0] == code
     ]
     if not matches:
         return None

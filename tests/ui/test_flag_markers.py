@@ -130,7 +130,9 @@ def test_dragging_flag_moves_time() -> None:
     widget.flag_moved.connect(lambda fid, seconds, final: moved.append((fid, seconds, final)))
     press = _item_view_pos(widget, item)
     _mouse(widget, QEvent.Type.MouseButtonPress, press)
-    _mouse(widget, QEvent.Type.MouseMove, QPointF(160.0, press.y()), buttons=Qt.MouseButton.LeftButton)
+    _mouse(
+        widget, QEvent.Type.MouseMove, QPointF(160.0, press.y()), buttons=Qt.MouseButton.LeftButton
+    )
     _mouse(widget, QEvent.Type.MouseButtonRelease, QPointF(160.0, press.y()))
     assert abs(item.seconds() - 8.0) < 0.05
     assert abs(widget.playhead_seconds() - 8.0) < 0.05

@@ -1,10 +1,9 @@
 """Phrase-level and language-aware lexicon detection."""
 
-from fractions import Fraction
-
 from corrcut.ai.detect import detect_suggestions
 from corrcut.ai.lexicon import ProfanityLexicon
 from corrcut.ai.normalize import normalize_token
+from corrcut.ai.swear_lexicon import SwearLexicon
 from corrcut.ai.swears_loader import (
     SwearEntry,
     entry_applies_to_language,
@@ -12,7 +11,6 @@ from corrcut.ai.swears_loader import (
     load_swear_entries,
     repo_swears_dir,
 )
-from corrcut.ai.swear_lexicon import SwearLexicon
 from corrcut.ai.transcript import TranscriptWord
 from corrcut.domain.ai_suggestion import DetectionSettings
 from corrcut.domain.time_point import TimePoint
@@ -36,7 +34,7 @@ def test_you_not_registered_as_fuck_alias() -> None:
 
 def test_exception_uses_token_sequence() -> None:
     lex = ProfanityLexicon.from_swears_dir(repo_swears_dir())
-    norms = [normalize_token(w) for w in "he hit the golf balls".split()]
+    norms = [normalize_token(w) for w in ["he", "hit", "the", "golf", "balls"]]
     idx = norms.index("balls")
     assert lex.match("balls", word_norms=norms, word_index=idx) is None
 
@@ -84,10 +82,7 @@ def test_language_filter_skips_mismatched_entry() -> None:
 
     entries = load_swear_entries(repo_swears_dir())
     english = filter_entries_by_language(entries, "en")
-    assert all(
-        entry_applies_to_language(e, "en") or not e.languages
-        for e in english
-    )
+    assert all(entry_applies_to_language(e, "en") or not e.languages for e in english)
 
 
 def test_plural_inflection_pussies() -> None:

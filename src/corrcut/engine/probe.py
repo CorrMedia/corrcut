@@ -63,7 +63,9 @@ class MediaProbeResult:
         lines = [
             f"File: {self.path}",
             f"Format: {self.format_name}",
-            f"Duration: {self.duration_seconds:.3f}s" if self.duration_seconds else "Duration: unknown",
+            f"Duration: {self.duration_seconds:.3f}s"
+            if self.duration_seconds
+            else "Duration: unknown",
         ]
         for v in self.video_streams:
             res = f"{v.width}x{v.height}" if v.width and v.height else "unknown size"

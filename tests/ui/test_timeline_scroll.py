@@ -113,8 +113,7 @@ def test_resize_keeps_and_redraws_the_waveform() -> None:
     class _PaintFilter(QObject):
         def eventFilter(self, watched: QObject, event: QEvent) -> bool:  # noqa: ARG002
             if (
-                event.type() == QEvent.Type.Paint
-                and not timeline._waveform._fast_resize_preview  # noqa: SLF001
+                event.type() == QEvent.Type.Paint and not timeline._waveform._fast_resize_preview  # noqa: SLF001
             ):
                 redraws_after_preview.append(True)
             return False
@@ -199,7 +198,9 @@ def test_zoom_out_does_not_open_a_gap_before_time_zero() -> None:
             buttons=Qt.MouseButton.NoButton,
         )
     )
-    assert timeline.playhead_seconds() == pytest.approx(12.0 / timeline.pixels_per_second(), abs=0.05)
+    assert timeline.playhead_seconds() == pytest.approx(
+        12.0 / timeline.pixels_per_second(), abs=0.05
+    )
     assert timeline.playhead_viewport_x() == pytest.approx(12.0, abs=1.0)
 
 
@@ -415,9 +416,7 @@ def test_navigator_shift_during_drag_switches_without_jumping() -> None:
     shift = Qt.KeyboardModifier.ShiftModifier
     nav.mousePressEvent(_mouse(QEvent.Type.MouseButtonPress, press))
     fine_pos = QPointF(press.x() + 24.0, press.y())
-    nav.mouseMoveEvent(
-        _mouse(QEvent.Type.MouseMove, fine_pos, buttons=Qt.MouseButton.LeftButton)
-    )
+    nav.mouseMoveEvent(_mouse(QEvent.Type.MouseMove, fine_pos, buttons=Qt.MouseButton.LeftButton))
     fine = bar.value()
     assert fine > 0
 
@@ -445,9 +444,7 @@ def test_navigator_shift_during_drag_switches_without_jumping() -> None:
     assert bar.value() == pytest.approx(fine + direct_step, abs=2)
     assert bar.value() - fine > fine * 5
 
-    nav.mouseMoveEvent(
-        _mouse(QEvent.Type.MouseMove, direct_pos, buttons=Qt.MouseButton.LeftButton)
-    )
+    nav.mouseMoveEvent(_mouse(QEvent.Type.MouseMove, direct_pos, buttons=Qt.MouseButton.LeftButton))
     held = bar.value()
     release_pos = QPointF(press.x() + 72.0, press.y())
     nav.mouseMoveEvent(
@@ -456,4 +453,3 @@ def test_navigator_shift_during_drag_switches_without_jumping() -> None:
     damped_step = 24.0 * float(timeline.viewport().width()) / handle.width()
     assert bar.value() == pytest.approx(held + damped_step, rel=0.25)
     _release(nav, release_pos)
-
